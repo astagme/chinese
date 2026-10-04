@@ -3,25 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>✿ 中文 Studio — Kawaii Learning Hub</title>
+<title>✿ 中文 Studio by astagme ✿</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-gradient: linear-gradient(145deg, #ffeef4 0%, #f0e6ff 45%, #ffdce8 100%);
-    --card-bg: rgba(255, 255, 255, 0.82);
-    --card-border: rgba(255, 255, 255, 0.95);
-    --primary: #ff65a3;
-    --primary-hover: #ff408b;
-    --accent-lavender: #9d84ec;
-    --accent-blue: #78c0e0;
-    --text-main: #5c3a48;
-    --text-sub: #a0788d;
-    --text-light: #c29eb0;
-    --shadow-soft: 0 16px 40px rgba(255, 143, 187, 0.18);
-    --shadow-hover: 0 20px 48px rgba(255, 143, 187, 0.28);
-    --radius-lg: 28px;
-    --radius-md: 20px;
-    --radius-sm: 14px;
+    --bg-gradient: linear-gradient(135deg, #ffe5ec 0%, #f0e6ff 40%, #e8f4ff 70%, #ffd9e8 100%);
+    --card-bg: rgba(255, 255, 255, 0.88);
+    --card-border: #ffffff;
+    --primary: #ff5c97;
+    --primary-soft: #ff85b3;
+    --lavender: #a084ed;
+    --cinna-blue: #71c5ee;
+    --text-dark: #503240;
+    --text-muted: #967083;
+    --shadow-3d: 0 18px 40px -10px rgba(255, 126, 179, 0.35), inset 0 2px 4px #ffffff;
+    --shadow-btn: 0 8px 20px rgba(255, 92, 151, 0.3);
+    --radius-3d: 30px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,659 +31,503 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 32px 16px 60px;
-    color: var(--text-main);
+    padding: 24px 16px 80px;
+    color: var(--text-dark);
     position: relative;
     overflow-x: hidden;
   }
 
-  /* Soft Ambient Blurred Clouds (Static, No Wobbly Animations) */
-  .ambient-glow {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    z-index: 0;
-    pointer-events: none;
+  /* Decorative Ambient Clouds */
+  .bg-glow {
+    position: fixed; border-radius: 50%; filter: blur(70px);
+    z-index: 0; pointer-events: none;
   }
-  .glow-1 { width: 450px; height: 450px; top: -100px; left: -100px; background: rgba(255, 182, 213, 0.45); }
-  .glow-2 { width: 500px; height: 500px; bottom: -120px; right: -100px; background: rgba(203, 186, 255, 0.45); }
+  .glow-pink { width: 400px; height: 400px; top: -80px; left: -80px; background: rgba(255, 182, 213, 0.5); }
+  .glow-purple { width: 450px; height: 450px; bottom: -100px; right: -80px; background: rgba(203, 186, 255, 0.5); }
 
-  .container { position: relative; z-index: 1; width: 100%; max-width: 580px; }
-
-  /* ===== HEADER & HSK SELECTOR ===== */
-  .app-header {
-    text-align: center; margin-bottom: 24px;
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-  }
-  .brand-tag {
-    background: rgba(255, 255, 255, 0.85); border: 1.5px solid #fff;
-    color: var(--accent-lavender); font-weight: 800; font-size: 11px;
-    letter-spacing: 1.8px; text-transform: uppercase; padding: 6px 16px;
-    border-radius: 999px; box-shadow: 0 4px 12px rgba(157, 132, 236, 0.12);
-  }
-  .app-header h1 {
-    font-size: 32px; font-weight: 900; color: var(--primary);
-    letter-spacing: -0.5px;
-  }
-  .app-header p { font-size: 14px; color: var(--text-sub); font-weight: 700; }
-
-  /* HSK Level Switcher Bar */
-  .hsk-bar {
-    display: flex; background: rgba(255, 255, 255, 0.65);
-    padding: 4px; border-radius: 999px; border: 1.5px solid #fff;
-    margin-top: 6px; box-shadow: 0 4px 16px rgba(255, 158, 196, 0.1);
-  }
-  .hsk-tab {
-    border: none; background: transparent; padding: 6px 18px;
-    border-radius: 999px; font-family: inherit; font-size: 12px;
-    font-weight: 800; color: var(--text-sub); cursor: pointer;
-    transition: all 0.25s ease;
-  }
-  .hsk-tab.active {
-    background: #fff; color: var(--primary);
-    box-shadow: 0 4px 12px rgba(255, 101, 163, 0.2);
+  .layout-wrapper {
+    position: relative; z-index: 1; width: 100%; max-width: 960px;
+    display: grid; grid-template-columns: 240px 1fr; gap: 24px;
   }
 
-  /* ===== CARDS & GLASSMORPHISM ===== */
-  .glass-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 2px solid var(--card-border);
-    border-radius: var(--radius-lg);
-    padding: 28px 24px;
-    box-shadow: var(--shadow-soft);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    position: relative; overflow: hidden;
-  }
-  .glass-card:hover {
-    box-shadow: var(--shadow-hover);
+  @media (max-width: 768px) {
+    .layout-wrapper { grid-template-columns: 1fr; }
   }
 
-  /* ===== HOME SCREEN ===== */
-  .daily-grid { display: grid; gap: 16px; margin-bottom: 24px; }
-  .card-badge {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
-    color: var(--primary); font-weight: 800; margin-bottom: 10px;
+  /* ===== SIDEBAR HSK PANELS ===== */
+  .sidebar {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .sidebar-box {
+    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px);
+    border: 2.5px solid #ffffff; border-radius: 26px; padding: 20px;
+    box-shadow: 0 10px 30px rgba(255, 143, 187, 0.18);
+  }
+  .sidebar-title {
+    font-size: 13px; font-weight: 900; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--lavender); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .hsk-chip {
+    background: #ffffff; border: 2px solid #f3e5f5; border-radius: 18px;
+    padding: 10px 14px; font-size: 13px; font-weight: 800; color: var(--text-dark);
+    cursor: pointer; transition: all 0.25s ease; margin-bottom: 8px;
     display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
   }
-  .daily-hanzi { font-size: 42px; font-weight: 900; color: var(--text-main); line-height: 1; }
-  .daily-pinyin { font-size: 18px; color: var(--primary); font-weight: 800; margin-top: 6px; }
-  .daily-meaning { font-size: 15px; color: var(--text-sub); margin-top: 6px; font-weight: 700; }
-  
-  .daily-example {
-    font-size: 14px; color: var(--text-main); margin-top: 14px;
-    padding-top: 12px; border-top: 1.5px dashed rgba(255, 160, 200, 0.4);
-    display: flex; flex-direction: column; gap: 2px;
+  .hsk-chip:hover, .hsk-chip.active {
+    background: var(--primary); color: #ffffff; border-color: var(--primary);
+    transform: translateX(4px); box-shadow: var(--shadow-btn);
   }
-  .daily-example .py { color: var(--primary); font-size: 13px; font-weight: 700; }
-  .daily-example .ru { color: var(--text-sub); font-size: 13px; font-style: italic; }
+  .hsk-badge {
+    background: rgba(0,0,0,0.08); padding: 2px 8px; border-radius: 999px;
+    font-size: 11px; font-weight: 800;
+  }
 
-  /* Navigation Sections */
-  .sections-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .nav-card {
-    background: rgba(255, 255, 255, 0.85); border: 2px solid #fff;
-    border-radius: var(--radius-md); padding: 22px 18px; text-align: left;
-    cursor: pointer; box-shadow: 0 8px 24px rgba(255, 158, 196, 0.12);
-    transition: all 0.25s ease; color: var(--text-main);
+  /* ===== MAIN CONTAINER ===== */
+  .main-content { width: 100%; }
+
+  /* HEADER & BRANDING */
+  .header-card {
+    background: rgba(255, 255, 255, 0.9); border: 3px solid #ffffff;
+    border-radius: var(--radius-3d); padding: 24px; text-align: center;
+    box-shadow: var(--shadow-3d); margin-bottom: 20px; position: relative;
   }
-  .nav-card:hover {
-    transform: translateY(-3px); background: #ffffff;
-    box-shadow: 0 14px 32px rgba(255, 158, 196, 0.25);
+  .creator-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: linear-gradient(135deg, #ffe0ec 0%, #e1d5ff 100%);
+    border: 1.5px solid #ffffff; color: var(--primary);
+    font-size: 12px; font-weight: 900; padding: 6px 16px; border-radius: 999px;
+    margin-bottom: 10px; box-shadow: 0 4px 12px rgba(255, 92, 151, 0.15);
   }
-  .nav-card .icon { font-size: 28px; margin-bottom: 6px; }
-  .nav-card .title { font-size: 16px; font-weight: 800; color: var(--primary); }
-  .nav-card .desc { font-size: 12px; color: var(--text-sub); margin-top: 2px; font-weight: 700; }
-  .nav-card.wide {
+  .header-card h1 {
+    font-size: 32px; font-weight: 900; color: var(--primary);
+    letter-spacing: -0.5px; line-height: 1.1;
+  }
+  .header-card p { font-size: 14px; color: var(--text-muted); font-weight: 700; margin-top: 4px; }
+
+  /* SANRIO CHARACTERS DECORATION */
+  .sanrio-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: #fff; border: 2px solid #ffd1e0; display: inline-flex;
+    align-items: center; justify-content: center; font-size: 28px;
+    box-shadow: 0 6px 16px rgba(255, 126, 179, 0.2);
+  }
+
+  /* 3D CARDS */
+  .card-3d {
+    background: var(--card-bg); border: 3px solid var(--card-border);
+    border-radius: var(--radius-3d); padding: 28px;
+    box-shadow: var(--shadow-3d); margin-bottom: 20px;
+    position: relative; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .card-3d:hover { transform: translateY(-4px); }
+
+  /* NAVIGATION GRID */
+  .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .nav-btn {
+    background: rgba(255, 255, 255, 0.92); border: 2.5px solid #ffffff;
+    border-radius: 22px; padding: 20px; text-align: left; cursor: pointer;
+    box-shadow: 0 10px 25px rgba(255, 158, 196, 0.15); transition: all 0.25s ease;
+  }
+  .nav-btn:hover {
+    transform: translateY(-3px) scale(1.02); background: #ffffff;
+    box-shadow: 0 16px 32px rgba(255, 126, 179, 0.3);
+  }
+  .nav-btn .icon { font-size: 32px; margin-bottom: 6px; }
+  .nav-btn .title { font-size: 16px; font-weight: 900; color: var(--primary); }
+  .nav-btn .desc { font-size: 12px; color: var(--text-muted); font-weight: 700; margin-top: 2px; }
+  .nav-btn.wide {
     grid-column: 1 / -1;
-    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,238,245,0.95) 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #fff0f6 100%);
   }
 
-  /* ===== BUTTONS & INPUTS ===== */
+  /* COMMON BUTTONS */
+  .btn-kawaii {
+    background: linear-gradient(135deg, #ff7eb3 0%, #ff5c97 100%);
+    color: #ffffff; border: none; font-family: inherit; font-weight: 900;
+    font-size: 15px; padding: 12px 28px; border-radius: 999px;
+    cursor: pointer; box-shadow: var(--shadow-btn); transition: all 0.2s;
+  }
+  .btn-kawaii:hover { transform: translateY(-2px) scale(1.03); background: #ff408b; }
+  
+  .btn-soft {
+    background: #ffffff; color: var(--text-muted); border: 2px solid #ffe0ec;
+    font-family: inherit; font-weight: 800; font-size: 14px;
+    padding: 10px 22px; border-radius: 999px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-soft:hover { background: #fff5f8; color: var(--primary); border-color: var(--primary); }
+
   .back-btn {
-    background: rgba(255, 255, 255, 0.9); border: 1.5px solid #fff; color: var(--text-sub);
+    background: #ffffff; border: 2px solid #fff; color: var(--text-muted);
     font-family: inherit; font-weight: 800; font-size: 13px;
-    padding: 10px 22px; border-radius: 999px; cursor: pointer;
-    margin-bottom: 20px; transition: all 0.2s;
-    box-shadow: 0 4px 12px rgba(255, 158, 196, 0.12);
+    padding: 8px 20px; border-radius: 999px; cursor: pointer;
+    margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   }
-  .back-btn:hover { background: #fff; color: var(--primary); transform: translateX(-3px); }
-
-  .btn-primary {
-    background: var(--primary); color: #fff; border: none; font-family: inherit;
-    font-weight: 800; font-size: 15px; padding: 12px 28px; border-radius: 999px;
-    cursor: pointer; transition: all 0.2s; box-shadow: 0 6px 18px rgba(255, 101, 163, 0.3);
-  }
-  .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
-  .btn-ghost {
-    background: rgba(255, 255, 255, 0.85); color: var(--text-sub); border: 1.5px solid #fff;
-    font-family: inherit; font-weight: 800; font-size: 14px; padding: 12px 24px;
-    border-radius: 999px; cursor: pointer; transition: all 0.2s;
-  }
-  .btn-ghost:hover { background: #fff; color: var(--primary); }
+  .back-btn:hover { color: var(--primary); transform: translateX(-3px); }
 
   .hidden { display: none !important; }
 
-  /* ===== FLASHCARDS SCREEN ===== */
-  .mode-bar, .filter-bar {
-    display: flex; gap: 8px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap;
+  /* ===== AI ASSISTANT CHAT ===== */
+  .chat-box {
+    display: flex; flex-direction: column; gap: 12px; max-height: 320px;
+    overflow-y: auto; padding: 12px; background: rgba(255, 255, 255, 0.6);
+    border-radius: 20px; border: 2px solid #fff; margin-bottom: 14px;
   }
-  .pill-btn {
-    background: rgba(255, 255, 255, 0.75); border: 1.5px solid #fff;
-    color: var(--text-sub); font-family: inherit; font-weight: 800;
-    font-size: 12px; padding: 7px 16px; border-radius: 999px; cursor: pointer; transition: all 0.2s;
+  .chat-msg {
+    max-width: 82%; padding: 10px 16px; border-radius: 18px; font-size: 14px;
+    font-weight: 700; line-height: 1.4;
   }
-  .pill-btn.active {
-    background: var(--primary); color: #fff; border-color: var(--primary);
-    box-shadow: 0 4px 14px rgba(255, 101, 163, 0.3);
+  .chat-msg.ai {
+    background: #ffffff; color: var(--text-dark); align-self: flex-start;
+    border-bottom-left-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   }
-  .pill-btn.filter.active {
-    background: var(--accent-lavender); border-color: var(--accent-lavender);
+  .chat-msg.user {
+    background: var(--primary); color: #ffffff; align-self: flex-end;
+    border-bottom-right-radius: 4px; box-shadow: 0 4px 12px rgba(255, 92, 151, 0.25);
   }
 
-  .flashcard {
-    min-height: 380px; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center;
-    cursor: pointer;
+  .chat-input-bar { display: flex; gap: 8px; }
+  .chat-input {
+    width: 100%; border: 2px solid #ffd1e0; border-radius: 999px;
+    padding: 12px 20px; font-family: inherit; font-size: 14px; font-weight: 700;
+    outline: none; background: #ffffff; color: var(--text-dark);
   }
-  .hanzi-main { font-size: 96px; line-height: 1; color: var(--text-main); font-weight: 900; }
-  .hanzi-main.small { font-size: 54px; }
-  .audio-trigger {
-    background: rgba(157, 132, 236, 0.12); color: var(--accent-lavender);
-    border: none; border-radius: 999px; padding: 6px 14px; font-weight: 800;
-    font-size: 13px; cursor: pointer; margin-top: 10px; transition: all 0.2s;
+
+  /* ===== FLASHCARDS ===== */
+  .card-prompt-label {
+    font-size: 12px; font-weight: 900; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--lavender); margin-bottom: 12px;
+  }
+  .hanzi-display { font-size: 90px; font-weight: 900; color: var(--text-dark); line-height: 1; }
+  .pinyin-display { font-size: 26px; font-weight: 800; color: var(--primary); margin-top: 10px; }
+  .meaning-display { font-size: 18px; font-weight: 700; color: var(--text-muted); margin-top: 6px; }
+
+  .audio-btn {
+    background: rgba(160, 132, 237, 0.12); color: var(--lavender);
+    border: none; padding: 8px 18px; border-radius: 999px; font-weight: 800;
+    font-size: 13px; cursor: pointer; transition: all 0.2s; margin-top: 10px;
     display: inline-flex; align-items: center; gap: 6px;
   }
-  .audio-trigger:hover { background: var(--accent-lavender); color: #fff; }
+  .audio-btn:hover { background: var(--lavender); color: #ffffff; }
 
-  /* Answer Input Field */
-  .answer-input-box {
-    margin-top: 20px; width: 100%; max-width: 380px;
-    display: flex; gap: 8px; position: relative;
+  .answer-box {
+    margin-top: 20px; display: flex; gap: 8px; justify-content: center;
   }
   .answer-input {
-    width: 100%; border: 2px solid rgba(255, 160, 200, 0.4); border-radius: 999px;
+    width: 100%; max-width: 320px; border: 2.5px solid #ffd1e0; border-radius: 999px;
     padding: 12px 20px; font-family: inherit; font-size: 15px; font-weight: 700;
-    outline: none; transition: all 0.2s; text-align: center; background: rgba(255, 255, 255, 0.95);
-    color: var(--text-main);
+    text-align: center; outline: none; background: #ffffff;
   }
-  .answer-input:focus { border-color: var(--primary); box-shadow: 0 0 14px rgba(255, 101, 163, 0.25); }
+  .answer-input:focus { border-color: var(--primary); }
 
-  /* Breakdown & Etymology Box */
-  .breakdown-box {
-    width: 100%; margin-top: 18px; padding: 14px 18px;
-    background: rgba(255, 255, 255, 0.65); border-radius: var(--radius-md);
-    border: 1.5px solid rgba(255, 255, 255, 0.9); text-align: left;
-    font-size: 13px; color: var(--text-main);
+  .feedback-text {
+    font-size: 14px; font-weight: 800; text-align: center; margin-top: 12px; min-height: 22px;
   }
-  .breakdown-title { font-weight: 800; color: var(--accent-lavender); margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
-  .radicals-list { display: flex; gap: 10px; margin-bottom: 6px; font-weight: 700; }
-  .radical-tag { background: #fff; padding: 2px 8px; border-radius: 6px; border: 1px solid #ffe0ec; color: var(--primary); }
-
-  /* ===== ADVANCED SENTENCES SCREEN ===== */
-  .sentence-card { text-align: left; }
-  .sentence-prompt { font-size: 17px; font-weight: 800; color: var(--text-main); margin-bottom: 6px; }
-  .sentence-hint { font-size: 13px; color: var(--text-sub); font-style: italic; margin-bottom: 16px; }
-  .sentence-textarea {
-    width: 100%; border: 2px solid rgba(255, 160, 200, 0.4); border-radius: var(--radius-md);
-    padding: 14px; font-family: inherit; font-size: 16px; font-weight: 700;
-    outline: none; background: rgba(255, 255, 255, 0.9); color: var(--text-main);
-    resize: none; min-height: 90px; margin-bottom: 12px;
-  }
-  .sentence-textarea:focus { border-color: var(--primary); }
-
-  /* Feedback Message */
-  .feedback-msg { text-align: center; font-size: 14px; font-weight: 800; margin-top: 12px; min-height: 22px; }
-  .feedback-msg.ok { color: #2e8b57; }
-  .feedback-msg.no { color: #d93856; }
-
-  /* ===== TEXTS SCREEN ===== */
-  .reading-item { margin-bottom: 16px; }
-  .reading-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .reading-title { font-size: 17px; font-weight: 800; color: var(--primary); }
-  .reading-cn { font-size: 20px; line-height: 1.7; color: var(--text-main); font-weight: 800; margin-bottom: 8px; }
-  .reading-py { font-size: 14px; color: var(--primary); font-weight: 700; margin-bottom: 6px; }
-  .reading-ru { font-size: 13px; color: var(--text-sub); font-style: italic; }
-
-  /* ===== SEARCH BOX ===== */
-  .search-input {
-    width: 100%; border: 2px solid #fff; border-radius: 999px;
-    padding: 12px 22px; font-family: inherit; font-size: 14px; font-weight: 700;
-    outline: none; margin-bottom: 18px; background: rgba(255, 255, 255, 0.85);
-    color: var(--text-main); box-shadow: 0 4px 16px rgba(255, 158, 196, 0.12);
-  }
+  .feedback-text.ok { color: #2e8b57; }
+  .feedback-text.no { color: #d93856; }
 </style>
 </head>
 <body>
 
-<div class="ambient-glow glow-1"></div>
-<div class="ambient-glow glow-2"></div>
+<div class="bg-glow glow-pink"></div>
+<div class="bg-glow glow-purple"></div>
 
-<div class="container">
+<div class="layout-wrapper">
 
-  <!-- ============ HEADER & HSK SWITCHER ============ -->
-  <header class="app-header">
-    <div class="brand-tag">✿ Sanrio Kawaii Studio</div>
-    <h1>中文 Learning Hub</h1>
-    <p>Target: HSK 4-5 Mastery</p>
-    
-    <div class="hsk-bar">
-      <button class="hsk-tab active" onclick="setHSKLevel(1)">HSK 1</button>
-      <button class="hsk-tab" onclick="setHSKLevel(2)">HSK 2</button>
-      <button class="hsk-tab" onclick="setHSKLevel(3)">HSK 3+</button>
+  <!-- ============ SIDEBAR HSK PANELS ============ -->
+  <aside class="sidebar">
+    <div class="sidebar-box">
+      <div class="sidebar-title">🌸 HSK Levels</div>
+      <div class="hsk-chip active" onclick="filterHSK(1)"><span>HSK Level 1</span> <span class="hsk-badge">150</span></div>
+      <div class="hsk-chip" onclick="filterHSK(2)"><span>HSK Level 2</span> <span class="hsk-badge">300</span></div>
+      <div class="hsk-chip" onclick="filterHSK(3)"><span>HSK Level 3</span> <span class="hsk-badge">600</span></div>
+      <div class="hsk-chip" onclick="filterHSK(4)"><span>HSK Level 4</span> <span class="hsk-badge">1200</span></div>
+      <div class="hsk-chip" onclick="filterHSK(5)"><span>HSK Level 5</span> <span class="hsk-badge">2500</span></div>
+      <div class="hsk-chip" onclick="filterHSK('slang')"><span>Slang & Idioms</span> <span class="hsk-badge">Hot 🔥</span></div>
     </div>
-  </header>
 
-  <!-- ============ HOME SCREEN ============ -->
-  <div id="home">
-    <div class="daily-grid">
-      <div class="glass-card">
-        <div class="card-badge">
-          <span>✿ Word of the Day</span>
-          <button class="audio-trigger" onclick="speakNative('加油')">🔊 Listen</button>
+    <div class="sidebar-box" style="text-align:center;">
+      <div class="sanrio-avatar">🎀</div>
+      <div style="font-weight:900; font-size:15px; color:var(--primary); margin-top:8px;">Sanrio Study Companion</div>
+      <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">Hello Kitty & Cinnamoroll are cheering for you! ✨</div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN CONTENT AREA ============ -->
+  <main class="main-content">
+
+    <!-- HEADER -->
+    <header class="header-card">
+      <div class="creator-badge">🎀 by astagme</div>
+      <h1>中文 Learning Hub</h1>
+      <p id="greet-text">Good day! Welcome to your study sanctuary 🌸</p>
+    </header>
+
+    <!-- ============ HOME SCREEN ============ -->
+    <div id="home-view">
+      <div class="card-3d">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:12px; font-weight:900; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">✿ Word of the Day</span>
+          <button class="audio-btn" onclick="speakFast('加油')">⚡ Fast Speak</button>
         </div>
-        <div class="daily-hanzi" id="wotd-hanzi">加油</div>
-        <div class="daily-pinyin" id="wotd-pinyin">jiāyóu</div>
-        <div class="daily-meaning" id="wotd-meaning">go for it! don't give up! (давай! не сдавайся!)</div>
-        <div class="daily-example">
-          <div id="wotd-ex">加油！你可以的！</div>
-          <div class="py" id="wotd-ex-py">jiāyóu! nǐ kěyǐ de!</div>
-          <div class="ru" id="wotd-ex-ru">Go for it! You can do it! (Давай! Ты сможешь!)</div>
+        <div style="font-size:42px; font-weight:900; color:var(--text-dark); margin-top:8px;" id="wotd-hanzi">加油</div>
+        <div style="font-size:18px; font-weight:800; color:var(--primary);" id="wotd-pinyin">jiāyóu</div>
+        <div style="font-size:15px; font-weight:700; color:var(--text-muted); margin-top:4px;" id="wotd-meaning">go for it! don't give up! (давай! не сдавайся!)</div>
+      </div>
+
+      <div class="nav-grid">
+        <div class="nav-btn" onclick="openSection('cards')">
+          <div class="icon">🃏</div>
+          <div class="title">Flashcards</div>
+          <div class="desc"><span id="total-words-count">71</span> items • Active SRS</div>
+        </div>
+        <div class="nav-btn" onclick="openSection('ai')">
+          <div class="icon">🤖</div>
+          <div class="title">AI Study Buddy</div>
+          <div class="desc">Ask grammar & stories</div>
+        </div>
+        <div class="nav-btn" onclick="openSection('sentences')">
+          <div class="icon">✍️</div>
+          <div class="title">Sentences</div>
+          <div class="desc">Translation mastery</div>
+        </div>
+        <div class="nav-btn" onclick="openSection('texts')">
+          <div class="icon">📖</div>
+          <div class="title">Reading Texts</div>
+          <div class="desc">Comprehension & audio</div>
+        </div>
+        <div class="nav-btn wide" onclick="openSection('daily')">
+          <div class="icon">✨</div>
+          <div class="title">Phrase & Slang Archive</div>
+          <div class="desc">Full searchable collection</div>
         </div>
       </div>
+    </div>
 
-      <div class="glass-card">
-        <div class="card-badge">
-          <span>✿ Slang of the Day</span>
-          <button class="audio-trigger" onclick="speakNative('绝了')">🔊 Listen</button>
+    <!-- ============ FLASHCARDS VIEW ============ -->
+    <div id="cards-view" class="hidden">
+      <button class="back-btn" onclick="goHome()">← Back Home</button>
+      <div class="card-3d" style="text-align:center;">
+        <div class="card-prompt-label" id="card-prompt">Character Flashcard</div>
+        <div class="hanzi-display" id="card-hanzi">我</div>
+        <button class="audio-btn" onclick="speakFastCurrent()">⚡ Listen Audio</button>
+
+        <div class="pinyin-display" id="card-pinyin-reveal" style="display:none;">wǒ</div>
+        <div class="meaning-display" id="card-meaning-reveal" style="display:none;">I, me (я)</div>
+
+        <div class="answer-box">
+          <input type="text" class="answer-input" id="card-input" placeholder="" onkeydown="if(event.key==='Enter') checkCardAnswer()">
+          <button class="btn-kawaii" onclick="checkCardAnswer()">Check</button>
         </div>
-        <div class="daily-hanzi" id="sotd-hanzi">绝了</div>
-        <div class="daily-pinyin" id="sotd-pinyin">jué le</div>
-        <div class="daily-meaning" id="sotd-meaning">insane, unreal (отпад, нереально)</div>
-        <div class="daily-example">
-          <div id="sotd-ex">这个太好吃了，绝了！</div>
-          <div class="py" id="sotd-ex-py">zhège tài hǎochī le, jué le!</div>
-          <div class="ru" id="sotd-ex-ru">This is so tasty, insane! (Это так вкусно, просто отпад!)</div>
+        <div class="feedback-text" id="card-feedback"></div>
+      </div>
+
+      <div style="display:flex; gap:12px; justify-content:center;">
+        <button class="btn-soft" onclick="prevCard()">← Prev</button>
+        <button class="btn-kawaii" onclick="nextCard()">Next →</button>
+      </div>
+    </div>
+
+    <!-- ============ AI ASSISTANT VIEW ============ -->
+    <div id="ai-view" class="hidden">
+      <button class="back-btn" onclick="goHome()">← Back Home</button>
+      <div class="card-3d">
+        <div class="card-prompt-label">🤖 Sanrio AI Study Buddy by astagme</div>
+        <div class="chat-box" id="chat-box">
+          <div class="chat-msg ai">Hello! I'm your AI Chinese Tutor! Ask me anything about grammar, radical breakdowns, or HSK preparation 🌸</div>
+        </div>
+        <div class="chat-input-bar">
+          <input type="text" class="chat-input" id="chat-input" placeholder="Ask e.g. How to use 吗 vs 吧?..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+          <button class="btn-kawaii" onclick="sendChatMessage()">Send 🎀</button>
         </div>
       </div>
     </div>
 
-    <div class="sections-grid">
-      <div class="nav-card" onclick="openSection('cards')">
-        <div class="icon">🃏</div>
-        <div class="title">flashcards</div>
-        <div class="desc"><span id="word-count">71</span> items • SRS ready</div>
-      </div>
-      <div class="nav-card" onclick="openSection('sentences')">
-        <div class="icon">✍️</div>
-        <div class="title">sentences</div>
-        <div class="desc">advanced translation</div>
-      </div>
-      <div class="nav-card" onclick="openSection('texts')">
-        <div class="icon">📖</div>
-        <div class="title">texts</div>
-        <div class="desc">reading & listening</div>
-      </div>
-      <div class="nav-card" onclick="openSection('tasks')">
-        <div class="icon">🎯</div>
-        <div class="title">tasks</div>
-        <div class="desc">native audio quizzes</div>
-      </div>
-      <div class="nav-card wide" onclick="openSection('daily')">
-        <div class="icon">✨</div>
-        <div class="title">word & slang archive</div>
-        <div class="desc">searchable phrasebook collection</div>
+    <!-- ============ SENTENCES VIEW ============ -->
+    <div id="sentences-view" class="hidden">
+      <button class="back-btn" onclick="goHome()">← Back Home</button>
+      <div class="card-3d">
+        <div class="card-prompt-label">✍️ Advanced Sentence Translation</div>
+        <div style="font-size:18px; font-weight:800; color:var(--text-dark);" id="sent-prompt">I love my mom very much.</div>
+        <div style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">Hint: Subject + 很 + Verb + Object</div>
+        <input type="text" class="answer-input" id="sent-input" style="max-width:100%; width:100%; text-align:left; margin-bottom:12px;" placeholder="Type Chinese or pinyin...">
+        <button class="btn-kawaii" onclick="checkSentence()">Check Answer 🌸</button>
+        <div class="feedback-text" id="sent-feedback"></div>
       </div>
     </div>
-  </div>
 
-  <!-- ============ FLASHCARDS SCREEN ============ -->
-  <div id="cards-view" class="hidden">
-    <button class="back-btn" onclick="goHome()">← Back Home</button>
-
-    <div class="mode-bar">
-      <button class="pill-btn active" data-mode="hanzi2meaning">汉 → Meaning/Pinyin</button>
-      <button class="pill-btn" data-mode="meaning2hanzi">Meaning → 汉</button>
-      <button class="pill-btn" data-mode="choice">Multiple Choice</button>
-    </div>
-
-    <div class="filter-bar">
-      <button class="pill-btn filter active" data-cat="all">All</button>
-      <button class="pill-btn filter" data-cat="代词">Pronouns</button>
-      <button class="pill-btn filter" data-cat="число">Numbers</button>
-      <button class="pill-btn filter" data-cat="глагол">Verbs</button>
-      <button class="pill-btn filter" data-cat="сущ">Nouns</button>
-      <button class="pill-btn filter" data-cat="выражение">Phrases</button>
-    </div>
-
-    <div class="glass-card flashcard" id="flashcard-body"></div>
-    <div class="feedback-msg" id="feedback"></div>
-
-    <div style="display:flex; gap:12px; justify-content:center; margin-top:20px;">
-      <button class="btn-ghost" onclick="prevCard()">← Prev</button>
-      <button class="btn-primary" onclick="nextCard()">Next →</button>
-    </div>
-
-    <div style="text-align:center; font-size:13px; color:var(--text-sub); margin-top:16px; font-weight:800;" id="progress"></div>
-  </div>
-
-  <!-- ============ ADVANCED SENTENCES SCREEN ============ -->
-  <div id="sentences-view" class="hidden">
-    <button class="back-btn" onclick="goHome()">← Back Home</button>
-    <div class="glass-card sentence-card">
-      <div class="card-badge">✿ Sentence Translation Practice</div>
-      <div class="sentence-prompt" id="sent-target">I love my mom very much.</div>
-      <div class="sentence-hint" id="sent-hint">Grammar structure: Subject + Adv (很) + Verb (爱) + Object</div>
-      
-      <textarea class="sentence-textarea" id="sent-user-input" placeholder="Type Chinese characters or pinyin..."></textarea>
-      
-      <div style="display:flex; gap:10px;">
-        <button class="btn-primary" onclick="checkAdvancedSentence()">Check Translation 🌸</button>
-        <button class="btn-ghost" onclick="nextSentence()">Next →</button>
+    <!-- ============ TEXTS VIEW ============ -->
+    <div id="texts-view" class="hidden">
+      <button class="back-btn" onclick="goHome()">← Back Home</button>
+      <div class="card-3d">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:18px; font-weight:900; color:var(--primary);">1. Self Introduction & HSK Study</span>
+          <button class="audio-btn" onclick="speakFast('你好！我是学生。我每天学习中文。')">⚡ Listen All</button>
+        </div>
+        <div style="font-size:20px; font-weight:800; margin-top:12px; line-height:1.6;">你好！我是学生。我每天学习中文。我的老师很好。</div>
+        <div style="font-size:14px; color:var(--primary); font-weight:700; margin-top:6px;">Nǐ hǎo! Wǒ shì xuéshēng. Wǒ měitiān xuéxí zhōngwén. Wǒ de lǎoshī hěn hǎo.</div>
+        <div style="font-size:13px; color:var(--text-muted); font-style:italic; margin-top:4px;">Привет! Я студент. Я каждый день учу китайский. Мой учитель очень хороший.</div>
       </div>
-      <div class="feedback-msg" id="sent-feedback"></div>
     </div>
-  </div>
 
-  <!-- ============ TEXTS SCREEN ============ -->
-  <div id="texts-view" class="hidden">
-    <button class="back-btn" onclick="goHome()">← Back Home</button>
-    <div id="texts-list"></div>
-  </div>
-
-  <!-- ============ TASKS / AUDIO SCREEN ============ -->
-  <div id="tasks-view" class="hidden">
-    <button class="back-btn" onclick="goHome()">← Back Home</button>
-    <div class="glass-card" style="text-align:center;">
-      <div class="card-badge">✿ Native Audio Comprehension</div>
-      <p style="font-size:14px; color:var(--text-sub); margin-bottom:16px; font-weight:700;">Listen to the native pronunciation and pick the correct meaning:</p>
-      
-      <button class="btn-primary" style="margin-bottom:20px;" onclick="playQuizAudio()">🔊 Listen Native Voice</button>
-      
-      <div id="quiz-options-box" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;"></div>
-      <div class="feedback-msg" id="quiz-feedback"></div>
-      
-      <button class="btn-ghost" style="margin-top:20px;" onclick="initQuizTask()">Next Question →</button>
+    <!-- ============ DAILY ARCHIVE VIEW ============ -->
+    <div id="daily-view" class="hidden">
+      <button class="back-btn" onclick="goHome()">← Back Home</button>
+      <input type="text" class="chat-input" style="margin-bottom:16px;" placeholder="Search phrase or meaning..." oninput="filterArchive(this.value)">
+      <div id="archive-list"></div>
     </div>
-  </div>
 
-  <!-- ============ ARCHIVE SCREEN ============ -->
-  <div id="daily-view" class="hidden">
-    <button class="back-btn" onclick="goHome()">← Back Home</button>
-    <input type="text" class="search-input" id="daily-search" placeholder="Search phrase, pinyin or meaning..." oninput="renderArchive()">
-    <div id="daily-archive-list"></div>
-  </div>
-
+  </main>
 </div>
 
 <script>
-/* ============ VOCABULARY DATABASE WITH RADICALS & STORIES ============ */
+/* ============ DATABASE ============ */
 const allWords = [
-  // Pronouns
-  { hanzi: "我", pinyin: "wǒ", meaning: "I, me (я)", cat: "代词", radicals: "手 (hand) + 戈 (weapon)", story: "A hand holding a spear to defend 'myself'." },
-  { hanzi: "你", pinyin: "nǐ", meaning: "you (ты)", cat: "代词", radicals: "亻(person) + 尔 (small)", story: "A person standing next to you." },
-  { hanzi: "他", pinyin: "tā", meaning: "he, him (он)", cat: "代词", radicals: "亻(person) + 也 (also)", story: "Another person (male)." },
-  { hanzi: "她", pinyin: "tā", meaning: "she, her (она)", cat: "代词", radicals: "女 (woman) + 也 (also)", story: "A woman person." },
-
-  // Verbs
-  { hanzi: "是", pinyin: "shì", meaning: "to be (быть)", cat: "глагол", radicals: "日 (sun) + 疋 (upright)", story: "The sun shines straight, representing truth/being." },
-  { hanzi: "有", pinyin: "yǒu", meaning: "to have (иметь)", cat: "глагол", radicals: "𠂇 (hand) + 月 (meat)", story: "Holding meat in hand means having food." },
-  { hanzi: "看", pinyin: "kàn", meaning: "to look, watch (смотреть)", cat: "глагол", radicals: "手 (hand) + 目 (eye)", story: "A hand over the eye looking into the distance." },
-  { hanzi: "听", pinyin: "tīng", meaning: "to listen (слушать)", cat: "глагол", radicals: "口 (mouth) + 斤 (axe)", story: "Listening to sounds made nearby." },
-
-  // Nouns
-  { hanzi: "妈妈", pinyin: "māma", meaning: "mom (мама)", cat: "сущ", radicals: "女 (woman) + 马 (horse)", story: "The woman who works hard as a horse for the family." },
-  { hanzi: "中国", pinyin: "Zhōngguó", meaning: "China (Китай)", cat: "выражение", radicals: "中 (middle) + 国 (country)", story: "The kingdom in the middle of the world." }
+  { hanzi: "我", pinyin: "wǒ", meaning: "I, me (я)", cat: "代词", hsk: 1 },
+  { hanzi: "你", pinyin: "nǐ", meaning: "you (ты)", cat: "代词", hsk: 1 },
+  { hanzi: "他", pinyin: "tā", meaning: "he, him (он)", cat: "代词", hsk: 1 },
+  { hanzi: "是", pinyin: "shì", meaning: "to be (быть)", cat: "глагол", hsk: 1 },
+  { hanzi: "有", pinyin: "yǒu", meaning: "to have (иметь)", cat: "глагол", hsk: 1 },
+  { hanzi: "看", pinyin: "kàn", meaning: "to look, watch (смотреть)", cat: "глагол", hsk: 1 },
+  { hanzi: "妈妈", pinyin: "māma", meaning: "mom (мама)", cat: "сущ", hsk: 1 },
+  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад)", cat: "slang", hsk: "slang" }
 ];
 
-document.getElementById("word-count").textContent = allWords.length;
+document.getElementById("total-words-count").textContent = allWords.length;
 
-/* ============ NATIVE SPEECH SYNTHESIS ENGINE ============ */
-function speakNative(text) {
-  if (!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel(); // Stop current speech
+/* ============ INSTANT SPEECH SYNTHESIS ENGINE ============ */
+let synth = window.speechSynthesis;
+let cachedUtterance = null;
+
+function speakFast(text) {
+  if (!synth) return;
+  synth.cancel(); // Cancel immediately to prevent queue delay
   
   const msg = new SpeechSynthesisUtterance(text);
   msg.lang = 'zh-CN';
-  msg.rate = 0.85; // Slightly slower for crisp clarity
-  msg.pitch = 1.0;
-
-  // Search for high-quality native Chinese voice
-  const voices = window.speechSynthesis.getVoices();
-  const nativeVoice = voices.find(v => v.lang.includes('zh') && (v.name.includes('Tingting') || v.name.includes('Xiaoxiao') || v.name.includes('Google') || v.name.includes('Natural')));
-  if (nativeVoice) msg.voice = nativeVoice;
-
-  window.speechSynthesis.speak(msg);
-}
-if ('speechSynthesis' in window) {
-  window.speechSynthesis.onvoiceschanged = () => {};
+  msg.rate = 1.0; // Fast responsive playback
+  synth.speak(msg);
 }
 
-/* ============ STATE & UTILS ============ */
-let currentHSK = 1;
-let mode = "hanzi2meaning";
-let category = "all";
-let index = 0;
-
-function setHSKLevel(lvl) {
-  currentHSK = lvl;
-  document.querySelectorAll(".hsk-tab").forEach((tab, i) => {
-    tab.classList.toggle("active", i + 1 === lvl);
-  });
+function speakFastCurrent() {
+  const current = allWords[cardIdx];
+  if (current) speakFast(current.hanzi);
 }
 
-function normalize(str) {
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/[\s\-_]/g, "");
-}
+/* ============ NAVIGATION & SECTIONS ============ */
+let currentHSKFilter = 1;
+let cardIdx = 0;
 
-/* ============ RENDER FLASHCARD ============ */
-function renderCard() {
-  const feedbackEl = document.getElementById("feedback");
-  feedbackEl.textContent = "";
-  
-  const words = category === "all" ? allWords : allWords.filter(w => w.cat === category);
-  const cardBox = document.getElementById("flashcard-body");
-  const progressEl = document.getElementById("progress");
-
-  if (!words.length) {
-    cardBox.innerHTML = `<div>No cards in this category</div>`;
-    progressEl.textContent = "0 / 0";
-    return;
-  }
-  if (index >= words.length) index = 0;
-  const w = words[index];
-  progressEl.textContent = `${index + 1} / ${words.length}`;
-
-  if (mode === "hanzi2meaning") {
-    cardBox.innerHTML = `
-      <div class="card-badge">✿ HSK ${currentHSK} • Character Card</div>
-      <div class="hanzi-main ${w.hanzi.length > 2 ? 'small' : ''}">${w.hanzi}</div>
-      <button class="audio-trigger" onclick="event.stopPropagation(); speakNative('${w.hanzi}')">🔊 Speak Native</button>
-
-      <div class="answer-input-box" onclick="event.stopPropagation()">
-        <input type="text" class="answer-input" id="user-card-input" placeholder="" onkeydown="if(event.key==='Enter') checkCardAnswer()">
-        <button class="btn-primary" style="padding:10px 20px;" onclick="checkCardAnswer()">Check</button>
-      </div>
-
-      <div class="breakdown-box" id="breakdown-box" style="display:none;">
-        <div class="breakdown-title">Character Breakdown & Memory Story</div>
-        <div class="radicals-list">
-          Radicals: <span class="radical-tag">${w.radicals || 'Standard'}</span>
-        </div>
-        <div>${w.story || 'Practice writing and repeating the tones.'}</div>
-        <div style="margin-top:8px; font-weight:800; color:var(--primary);">Pinyin: ${w.pinyin} | ${w.meaning}</div>
-      </div>
-    `;
-  } else if (mode === "meaning2hanzi") {
-    cardBox.innerHTML = `
-      <div class="card-badge">✿ Meaning Prompt</div>
-      <div style="font-size:24px; font-weight:800; color:var(--text-main); margin:20px 0;">${w.meaning}</div>
-      <div class="answer-input-box" onclick="event.stopPropagation()">
-        <input type="text" class="answer-input" id="user-card-input" placeholder="" onkeydown="if(event.key==='Enter') checkCardAnswer()">
-        <button class="btn-primary" style="padding:10px 20px;" onclick="checkCardAnswer()">Check</button>
-      </div>
-      <div class="breakdown-box" id="breakdown-box" style="display:none;">
-        <div style="font-size:36px; font-weight:900; color:var(--text-main);">${w.hanzi}</div>
-        <div style="font-weight:800; color:var(--primary);">${w.pinyin}</div>
-      </div>
-    `;
-  }
-}
-
-function checkCardAnswer() {
-  const input = document.getElementById("user-card-input");
-  const bd = document.getElementById("breakdown-box");
-  const fb = document.getElementById("feedback");
-  if (!input) return;
-
-  const words = category === "all" ? allWords : allWords.filter(w => w.cat === category);
-  const w = words[index];
-  const val = normalize(input.value);
-
-  const isPinyinMatch = val === normalize(w.pinyin);
-  const isMeaningMatch = w.meaning.toLowerCase().includes(val) && val.length > 1;
-
-  if (isPinyinMatch || isMeaningMatch) {
-    fb.textContent = "✅ Correct! Excellent memory! 🌸";
-    fb.className = "feedback-msg ok";
-  } else {
-    fb.textContent = `❌ Practice needed! Answer: ${w.pinyin} (${w.meaning})`;
-    fb.className = "feedback-msg no";
-  }
-  if (bd) bd.style.display = "block";
-  speakNative(w.hanzi);
-}
-
-function nextCard() { index = (index + 1) % allWords.length; renderCard(); }
-function prevCard() { index = (index - 1 + allWords.length) % allWords.length; renderCard(); }
-
-/* ============ ADVANCED SENTENCES ============ */
-const advancedSentences = [
-  { target: "I love my mom very much.", hint: "Structure: Subject (我) + Adv (很) + Verb (爱) + Object (妈妈)", correct: ["我很爱妈妈", "wo hen ai mama", "wǒ hěn ài māma"] },
-  { target: "Is he a Chinese teacher?", hint: "Structure: Statement + 吗 question particle", correct: ["他是中国老师吗", "ta shi zhongguo laoshi ma"] }
-];
-let sentIdx = 0;
-
-function checkAdvancedSentence() {
-  const val = normalize(document.getElementById("sent-user-input").value);
-  const current = advancedSentences[sentIdx];
-  const fb = document.getElementById("sent-feedback");
-
-  const isCorrect = current.correct.some(c => normalize(c) === val || val.includes(normalize(c)));
-  if (isCorrect) {
-    fb.textContent = "✅ Perfect Chinese syntax! 🌸";
-    fb.className = "feedback-msg ok";
-  } else {
-    fb.textContent = `❌ Close! Expected: ${current.correct[0]}`;
-    fb.className = "feedback-msg no";
-  }
-}
-function nextSentence() {
-  sentIdx = (sentIdx + 1) % advancedSentences.length;
-  document.getElementById("sent-target").textContent = advancedSentences[sentIdx].target;
-  document.getElementById("sent-hint").textContent = advancedSentences[sentIdx].hint;
-  document.getElementById("sent-user-input").value = "";
-  document.getElementById("sent-feedback").textContent = "";
-}
-
-/* ============ TEXTS & AUDIO QUIZ ============ */
-const readingTexts = [
-  { title: "1. Self Introduction & Daily Life", cn: "你好！我是学生。我每天学习中文。我的老师很好。", py: "Nǐ hǎo! Wǒ shì xuéshēng. Wǒ měitiān xuéxí zhōngwén. Wǒ de lǎoshī hěn hǎo.", ru: "Привет! Я студент. Я каждый день учу китайский. Мой учитель очень хороший." }
-];
-
-function renderTexts() {
-  const container = document.getElementById("texts-list");
-  container.innerHTML = readingTexts.map(t => `
-    <div class="glass-card reading-item">
-      <div class="reading-head">
-        <span class="reading-title">${t.title}</span>
-        <button class="audio-trigger" onclick="speakNative('${t.cn}')">🔊 Listen All</button>
-      </div>
-      <div class="reading-cn">${t.cn}</div>
-      <div class="reading-py">${t.py}</div>
-      <div class="reading-ru">${t.ru}</div>
-    </div>
-  `).join("");
-}
-
-let quizWord = null;
-function initQuizTask() {
-  quizWord = allWords[Math.floor(Math.random() * allWords.length)];
-  const others = allWords.filter(x => x.hanzi !== quizWord.hanzi).sort(() => Math.random() - 0.5).slice(0, 3);
-  const options = [quizWord, ...others].sort(() => Math.random() - 0.5);
-
-  const container = document.getElementById("quiz-options-box");
-  container.innerHTML = options.map(o => `
-    <button class="btn-ghost" style="padding:14px; text-align:center;" onclick="checkQuiz('${o.hanzi}')">${o.meaning}</button>
-  `).join("");
-  document.getElementById("quiz-feedback").textContent = "";
-  playQuizAudio();
-}
-
-function playQuizAudio() { if (quizWord) speakNative(quizWord.hanzi); }
-
-function checkQuiz(chosenHanzi) {
-  const fb = document.getElementById("quiz-feedback");
-  if (chosenHanzi === quizWord.hanzi) {
-    fb.textContent = `✅ Correct! ${quizWord.hanzi} (${quizWord.pinyin})`;
-    fb.className = "feedback-msg ok";
-  } else {
-    fb.textContent = `❌ Correct answer: ${quizWord.hanzi} (${quizWord.pinyin})`;
-    fb.className = "feedback-msg no";
-  }
-}
-
-/* ============ ARCHIVE & NAVIGATION ============ */
-function renderArchive(query = "") {
-  const container = document.getElementById("daily-archive-list");
-  const filtered = allWords.filter(w => w.hanzi.includes(query) || w.pinyin.toLowerCase().includes(query.toLowerCase()) || w.meaning.toLowerCase().includes(query.toLowerCase()));
-  container.innerHTML = filtered.map(w => `
-    <div class="glass-card" style="margin-bottom:12px; padding:18px;">
-      <div style="display:flex; justify-size:space-between; align-items:center;">
-        <span style="font-size:28px; font-weight:900;">${w.hanzi}</span>
-        <button class="audio-trigger" onclick="speakNative('${w.hanzi}')">🔊 Speak</button>
-      </div>
-      <div style="color:var(--primary); font-weight:800; margin-top:4px;">${w.pinyin}</div>
-      <div style="color:var(--text-sub); font-size:14px;">${w.meaning}</div>
-    </div>
-  `).join("");
+function filterHSK(level) {
+  currentHSKFilter = level;
+  document.querySelectorAll(".hsk-chip").forEach(chip => chip.classList.remove("active"));
+  event.currentTarget.classList.add("active");
+  openSection("cards");
 }
 
 function openSection(sec) {
-  ["home", "cards-view", "sentences-view", "texts-view", "tasks-view", "daily-view"].forEach(id => {
+  ["home-view", "cards-view", "ai-view", "sentences-view", "texts-view", "daily-view"].forEach(id => {
     document.getElementById(id).classList.add("hidden");
   });
   if (sec === 'cards') { document.getElementById("cards-view").classList.remove("hidden"); renderCard(); }
+  else if (sec === 'ai') { document.getElementById("ai-view").classList.remove("hidden"); }
   else if (sec === 'sentences') { document.getElementById("sentences-view").classList.remove("hidden"); }
-  else if (sec === 'texts') { document.getElementById("texts-view").classList.remove("hidden"); renderTexts(); }
-  else if (sec === 'tasks') { document.getElementById("tasks-view").classList.remove("hidden"); initQuizTask(); }
+  else if (sec === 'texts') { document.getElementById("texts-view").classList.remove("hidden"); }
   else if (sec === 'daily') { document.getElementById("daily-view").classList.remove("hidden"); renderArchive(); }
 }
 
 function goHome() {
-  ["cards-view", "sentences-view", "texts-view", "tasks-view", "daily-view"].forEach(id => {
+  ["cards-view", "ai-view", "sentences-view", "texts-view", "daily-view"].forEach(id => {
     document.getElementById(id).classList.add("hidden");
   });
-  document.getElementById("home").classList.remove("hidden");
+  document.getElementById("home-view").classList.remove("hidden");
 }
 
-/* Mode / Filter Listeners */
-document.querySelectorAll(".mode-bar .pill-btn").forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll(".mode-bar .pill-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    mode = btn.dataset.mode;
-    renderCard();
-  };
-});
-document.querySelectorAll(".filter-bar .pill-btn").forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll(".filter-bar .pill-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    category = btn.dataset.cat;
-    renderCard();
-  };
-});
+/* ============ FLASHCARDS ============ */
+function renderCard() {
+  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter || currentHSKFilter === 1);
+  if (!words.length) return;
+  
+  if (cardIdx >= words.length) cardIdx = 0;
+  const w = words[cardIdx];
+
+  document.getElementById("card-hanzi").textContent = w.hanzi;
+  document.getElementById("card-pinyin-reveal").textContent = w.pinyin;
+  document.getElementById("card-meaning-reveal").textContent = w.meaning;
+  document.getElementById("card-pinyin-reveal").style.display = "none";
+  document.getElementById("card-meaning-reveal").style.display = "none";
+  document.getElementById("card-feedback").textContent = "";
+  document.getElementById("card-input").value = "";
+  speakFast(w.hanzi);
+}
+
+function checkCardAnswer() {
+  const val = document.getElementById("card-input").value.toLowerCase().trim();
+  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter || currentHSKFilter === 1);
+  const w = words[cardIdx];
+
+  document.getElementById("card-pinyin-reveal").style.display = "block";
+  document.getElementById("card-meaning-reveal").style.display = "block";
+
+  if (val === w.pinyin.toLowerCase() || w.meaning.toLowerCase().includes(val)) {
+    document.getElementById("card-feedback").textContent = "✅ Correct! 🌸";
+    document.getElementById("card-feedback").className = "feedback-text ok";
+  } else {
+    document.getElementById("card-feedback").textContent = `❌ Answer: ${w.pinyin} (${w.meaning})`;
+    document.getElementById("card-feedback").className = "feedback-text no";
+  }
+}
+
+function nextCard() { cardIdx++; renderCard(); }
+function prevCard() { cardIdx = (cardIdx - 1 + allWords.length) % allWords.length; renderCard(); }
+
+/* ============ AI ASSISTANT CHAT ============ */
+function sendChatMessage() {
+  const input = document.getElementById("chat-input");
+  const text = input.value.trim();
+  if (!text) return;
+
+  const box = document.getElementById("chat-box");
+  box.innerHTML += `<div class="chat-msg user">${text}</div>`;
+  input.value = "";
+
+  setTimeout(() => {
+    let reply = "That's a great question! In HSK study, practicing word order (Subject + Time + Location + Verb) is key to mastering this fast! 🌸";
+    if (text.toLowerCase().includes("hsk")) reply = "For HSK 4-5, focus on learning 10 new words daily and practicing reading short stories!";
+    box.innerHTML += `<div class="chat-msg ai">${reply}</div>`;
+    box.scrollTop = box.scrollHeight;
+  }, 600);
+}
+
+/* ============ ARCHIVE ============ */
+function renderArchive(filter = "") {
+  const box = document.getElementById("archive-list");
+  const items = allWords.filter(w => w.hanzi.includes(filter) || w.pinyin.includes(filter) || w.meaning.toLowerCase().includes(filter.toLowerCase()));
+  box.innerHTML = items.map(w => `
+    <div class="card-3d" style="padding:16px; margin-bottom:10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:26px; font-weight:900;">${w.hanzi}</span>
+        <button class="audio-btn" onclick="speakFast('${w.hanzi}')">⚡ Speak</button>
+      </div>
+      <div style="color:var(--primary); font-weight:800;">${w.pinyin}</div>
+      <div style="color:var(--text-muted); font-size:14px;">${w.meaning}</div>
+    </div>
+  `).join("");
+}
+
+/* ============ GREETING ============ */
+function setGreeting() {
+  const h = new Date().getHours();
+  let text = "Good day! Welcome to your study sanctuary 🌸";
+  if (h < 6) text = "Still awake late? Take a gentle study break 🌙";
+  else if (h < 12) text = "Good morning! Ready for fresh HSK practice? ☀️";
+  else if (h < 18) text = "Good afternoon! Keep up the great energy! 🌸";
+  else text = "Good evening! Cozy Chinese review time ✨";
+  document.getElementById("greet-text").textContent = text;
+}
+setGreeting();
 </script>
 </body>
 </html>
