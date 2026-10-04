@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>✿ 中文 ✿</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(160deg, #ffe4ec 0%, #ffd1e0 50%, #ffc9de 100%);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+    color: #7a4a5c;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before, body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    filter: blur(30px);
+    z-index: 0;
+  }
+  body::before { width: 300px; height: 300px; top: -80px; left: -80px; }
+  body::after  { width: 400px; height: 400px; bottom: -150px; right: -120px; }
+
+  .container { position: relative; z-index: 1; width: 100%; max-width: 520px; }
+
+  /* ===== HOME ===== */
+  .greeting { text-align: center; margin-bottom: 20px; }
+  .greeting h1 {
+    font-size: 28px; font-weight: 800;
+    color: #ff7eb3; margin: 0 0 4px;
+  }
+  .greeting p { font-size: 14px; color: #b3809a; margin: 0; }
+
+  .daily { display: grid; gap: 12px; margin-bottom: 24px; }
+  .daily-card {
+    background: #fff; border-radius: 24px; padding: 20px 22px;
+    box-shadow: 0 10px 30px rgba(255,158,196,0.3);
+    position: relative; overflow: hidden;
+  }
+  .daily-card::before {
+    content: '✿'; position: absolute; top: 12px; right: 16px;
+    color: #ffc9de; font-size: 18px;
+  }
+  .daily-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: #d8a5bc; font-weight: 700; margin-bottom: 10px;
+  }
+  .daily-hanzi { font-size: 42px; font-weight: 700; color: #7a4a5c; line-height: 1.1; }
+  .daily-pinyin { font-size: 18px; color: #ff7eb3; font-weight: 700; margin-top: 4px; }
+  .daily-meaning { font-size: 15px; color: #b3809a; margin-top: 6px; }
+  .daily-example {
+    font-size: 14px; color: #7a4a5c; margin-top: 10px;
+    padding-top: 10px; border-top: 1px dashed #ffd1e0;
+  }
+  .daily-example .py { color: #ff7eb3; font-size: 13px; }
+  .daily-example .ru { color: #b3809a; font-size: 13px; font-style: italic; }
+
+  .sections { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .section {
+    background: #fff; border: none; border-radius: 22px;
+    padding: 22px 16px; font-family: inherit; text-align: left;
+    cursor: pointer; box-shadow: 0 8px 24px rgba(255,158,196,0.25);
+    transition: transform 0.2s, box-shadow 0.2s; color: #7a4a5c;
+  }
+  .section:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,158,196,0.4); }
+  .section .icon { font-size: 26px; }
+  .section .title { font-size: 15px; font-weight: 800; margin-top: 8px; color: #ff7eb3; }
+  .section .desc { font-size: 12px; color: #b3809a; margin-top: 2px; }
+  .section.wide { grid-column: 1 / -1; }
+
+  /* ===== SECTION ===== */
+  .back-btn {
+    background: rgba(255,255,255,0.8); border: none; color: #b3809a;
+    font-family: inherit; font-weight: 700; font-size: 14px;
+    padding: 10px 18px; border-radius: 999px; cursor: pointer;
+    margin-bottom: 16px;
+  }
+  .back-btn:hover { background: #fff; }
+
+  .hidden { display: none; }
+
+  /* ===== FLASHCARDS ===== */
+  .modes {
+    display: flex; gap: 8px; justify-content: center;
+    margin-bottom: 14px; flex-wrap: wrap;
+  }
+  .mode-btn {
+    background: rgba(255,255,255,0.7); border: 2px solid transparent;
+    color: #b3809a; font-family: inherit; font-weight: 700;
+    font-size: 13px; padding: 8px 14px; border-radius: 999px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .mode-btn:hover { background: #fff; }
+  .mode-btn.active {
+    background: #ff9ec4; color: #fff;
+    box-shadow: 0 4px 14px rgba(255,158,196,0.5);
+  }
+
+  .filters {
+    display: flex; gap: 6px; justify-content: center;
+    margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: rgba(255,255,255,0.5); border: none;
+    color: #b3809a; font-family: inherit; font-weight: 700;
+    font-size: 12px; padding: 6px 12px; border-radius: 999px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn.active { background: #ffd1e0; color: #ff7eb3; }
+
+  .card {
+    background: #fff; border-radius: 28px; padding: 40px 28px;
+    min-height: 340px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    box-shadow: 0 12px 40px rgba(255,158,196,0.3);
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(255,158,196,0.4); }
+  .card::before {
+    content: '✿'; position: absolute; top: 14px; right: 18px;
+    font-size: 18px; color: #ffc9de;
+  }
+
+  .prompt-label {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: #d8a5bc; margin-bottom: 20px; font-weight: 700;
+  }
+  .hanzi { font-size: 110px; line-height: 1; color: #7a4a5c; font-weight: 700; }
+  .hanzi.small { font-size: 64px; }
+  .pinyin { font-size: 34px; color: #ff7eb3; font-weight: 700; margin-top: 16px; }
+  .meaning { font-size: 22px; color: #7a4a5c; margin-top: 10px; font-weight: 600; }
+  .meaning .ru-part { color: #b3809a; font-size: 16px; font-style: italic; font-weight: 600; }
+  .hint-flip { font-size: 13px; color: #d8a5bc; margin-top: 24px; }
+
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 20px; }
+  .option {
+    background: #fff5f8; border: 2px solid #ffd1e0; border-radius: 16px;
+    padding: 14px; font-family: inherit; font-size: 15px; font-weight: 700;
+    color: #7a4a5c; cursor: pointer; transition: all 0.2s;
+  }
+  .option:hover { background: #ffe4ec; border-color: #ff9ec4; }
+  .option.correct { background: #d4f5dd; border-color: #7ed99a; color: #2e7d4a; }
+  .option.wrong   { background: #ffd6d6; border-color: #ff9a9a; color: #a33; }
+
+  .controls { display: flex; gap: 10px; margin-top: 20px; justify-content: center; }
+  .btn {
+    background: #ff9ec4; color: #fff; border: none; font-family: inherit;
+    font-weight: 700; font-size: 15px; padding: 12px 24px; border-radius: 999px;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(255,158,196,0.4);
+  }
+  .btn:hover { background: #ff7eb3; transform: translateY(-1px); }
+  .btn.ghost { background: rgba(255,255,255,0.8); color: #b3809a; box-shadow: none; }
+  .btn.ghost:hover { background: #fff; }
+
+  .progress { text-align: center; font-size: 13px; color: #b3809a; margin-top: 16px; font-weight: 700; }
+  .feedback { text-align: center; font-size: 15px; font-weight: 700; margin-top: 12px; min-height: 22px; }
+  .feedback.ok { color: #2e7d4a; }
+  .feedback.no { color: #d94a4a; }
+
+  .placeholder {
+    background: #fff; border-radius: 24px; padding: 60px 24px;
+    text-align: center; box-shadow: 0 10px 30px rgba(255,158,196,0.3);
+  }
+  .placeholder .big { font-size: 48px; }
+  .placeholder h2 { color: #ff7eb3; margin: 12px 0 6px; }
+  .placeholder p { color: #b3809a; margin: 0; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ============ HOME ============ -->
+  <div id="home">
+    <div class="greeting">
+      <h1 id="greet-cn">你好！</h1>
+      <p id="greet-en">hello!</p>
+    </div>
+
+    <div class="daily">
+      <div class="daily-card">
+        <div class="daily-label">✿ word of the day</div>
+        <div class="daily-hanzi" id="wotd-hanzi">加油</div>
+        <div class="daily-pinyin" id="wotd-pinyin">jiāyóu</div>
+        <div class="daily-meaning" id="wotd-meaning">go for it! don't give up! (давай! не сдавайся!)</div>
+        <div class="daily-example">
+          <div id="wotd-ex">加油！你可以的！</div>
+          <div class="py" id="wotd-ex-py">jiāyóu! nǐ kěyǐ de!</div>
+          <div class="ru" id="wotd-ex-ru">Go for it! You can do it! (Давай! Ты сможешь!)</div>
+        </div>
+      </div>
+
+      <div class="daily-card">
+        <div class="daily-label">✿ slang of the day</div>
+        <div class="daily-hanzi" id="sotd-hanzi">绝了</div>
+        <div class="daily-pinyin" id="sotd-pinyin">jué le</div>
+        <div class="daily-meaning" id="sotd-meaning">insane, unreal (отпад, нереально)</div>
+        <div class="daily-example">
+          <div id="sotd-ex">这个太好吃了，绝了！</div>
+          <div class="py" id="sotd-ex-py">zhège tài hǎochī le, jué le!</div>
+          <div class="ru" id="sotd-ex-ru">This is so tasty, insane! (Это так вкусно, просто отпад!)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sections">
+      <button class="section" onclick="openSection('cards')">
+        <div class="icon">🃏</div>
+        <div class="title">flashcards</div>
+        <div class="desc"><span id="word-count">71</span> characters</div>
+      </button>
+      <button class="section" onclick="openSection('sentences')">
+        <div class="icon">✏️</div>
+        <div class="title">sentences</div>
+        <div class="desc">build & translate</div>
+      </button>
+      <button class="section" onclick="openSection('texts')">
+        <div class="icon">📖</div>
+        <div class="title">texts</div>
+        <div class="desc">reading</div>
+      </button>
+      <button class="section" onclick="openSection('tasks')">
+        <div class="icon">🎯</div>
+        <div class="title">tasks</div>
+        <div class="desc">mini quizzes</div>
+      </button>
+      <button class="section wide" onclick="openSection('daily')">
+        <div class="icon">✨</div>
+        <div class="title">word & slang of the day</div>
+        <div class="desc">phrase collection</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ FLASHCARDS ============ -->
+  <div id="cards-view" class="hidden">
+    <button class="back-btn" onclick="goHome()">← back</button>
+
+    <div class="modes" id="modes">
+      <button class="mode-btn active" data-mode="hanzi2meaning">汉 → meaning</button>
+      <button class="mode-btn" data-mode="meaning2hanzi">meaning → 汉</button>
+      <button class="mode-btn" data-mode="choice">choice</button>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-cat="all">all</button>
+      <button class="filter-btn" data-cat="代词">pronouns</button>
+      <button class="filter-btn" data-cat="число">numbers</button>
+      <button class="filter-btn" data-cat="глагол">verbs</button>
+      <button class="filter-btn" data-cat="сущ">nouns</button>
+      <button class="filter-btn" data-cat="частица">particles</button>
+      <button class="filter-btn" data-cat="выражение">phrases</button>
+    </div>
+
+    <div class="card" id="card"></div>
+    <div class="feedback" id="feedback"></div>
+
+    <div class="controls">
+      <button class="btn ghost" onclick="prev()">← prev</button>
+      <button class="btn" onclick="next()">next →</button>
+    </div>
+
+    <div class="progress" id="progress"></div>
+  </div>
+
+  <!-- ============ PLACEHOLDER ============ -->
+  <div id="section-view" class="hidden">
+    <button class="back-btn" onclick="goHome()">← back</button>
+    <div class="placeholder">
+      <div class="big" id="ph-icon">📖</div>
+      <h2 id="ph-title">texts</h2>
+      <p id="ph-desc">coming soon 🌸</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ============ VOCABULARY ============ */
+/* meaning: "english (русский)" — русский в скобках, где помогает */
+const allWords = [
+  // pronouns
+  { hanzi: "我", pinyin: "wǒ", meaning: "I, me (я)", cat: "代词" },
+  { hanzi: "你", pinyin: "nǐ", meaning: "you (ты)", cat: "代词" },
+  { hanzi: "他", pinyin: "tā", meaning: "he, him (он)", cat: "代词" },
+  { hanzi: "她", pinyin: "tā", meaning: "she, her (она)", cat: "代词" },
+  { hanzi: "它", pinyin: "tā", meaning: "it (оно)", cat: "代词" },
+  { hanzi: "们", pinyin: "men", meaning: "plural marker (мн. число)", cat: "代词" },
+  { hanzi: "什么", pinyin: "shénme", meaning: "what (что)", cat: "代词" },
+
+  // verbs
+  { hanzi: "是", pinyin: "shì", meaning: "to be (быть)", cat: "глагол" },
+  { hanzi: "有", pinyin: "yǒu", meaning: "to have (иметь)", cat: "глагол" },
+  { hanzi: "没", pinyin: "méi", meaning: "not have (не иметь)", cat: "глагол" },
+  { hanzi: "去", pinyin: "qù", meaning: "to go (идти)", cat: "глагол" },
+  { hanzi: "来", pinyin: "lái", meaning: "to come (приходить)", cat: "глагол" },
+  { hanzi: "回", pinyin: "huí", meaning: "to return (возвращаться)", cat: "глагол" },
+  { hanzi: "看", pinyin: "kàn", meaning: "to look, watch (смотреть)", cat: "глагол" },
+  { hanzi: "听", pinyin: "tīng", meaning: "to listen (слушать)", cat: "глагол" },
+  { hanzi: "说", pinyin: "shuō", meaning: "to speak (говорить)", cat: "глагол" },
+  { hanzi: "读", pinyin: "dú", meaning: "to read (читать)", cat: "глагол" },
+  { hanzi: "写", pinyin: "xiě", meaning: "to write (писать)", cat: "глагол" },
+  { hanzi: "买", pinyin: "mǎi", meaning: "to buy (покупать)", cat: "глагол" },
+  { hanzi: "开", pinyin: "kāi", meaning: "to open (открывать)", cat: "глагол" },
+  { hanzi: "爱", pinyin: "ài", meaning: "to love (любить)", cat: "глагол" },
+  { hanzi: "骂", pinyin: "mà", meaning: "to scold (ругать)", cat: "глагол" },
+  { hanzi: "叫", pinyin: "jiào", meaning: "to be called (зваться)", cat: "глагол" },
+  { hanzi: "会", pinyin: "huì", meaning: "can, know how (уметь)", cat: "глагол" },
+  { hanzi: "能", pinyin: "néng", meaning: "can, be able (мочь)", cat: "глагол" },
+
+  // numbers
+  { hanzi: "一", pinyin: "yī", meaning: "one (один)", cat: "число" },
+  { hanzi: "二", pinyin: "èr", meaning: "two (два)", cat: "число" },
+  { hanzi: "三", pinyin: "sān", meaning: "three (три)", cat: "число" },
+  { hanzi: "四", pinyin: "sì", meaning: "four (четыре)", cat: "число" },
+  { hanzi: "五", pinyin: "wǔ", meaning: "five (пять)", cat: "число" },
+  { hanzi: "六", pinyin: "liù", meaning: "six (шесть)", cat: "число" },
+  { hanzi: "七", pinyin: "qī", meaning: "seven (семь)", cat: "число" },
+  { hanzi: "八", pinyin: "bā", meaning: "eight (восемь)", cat: "число" },
+  { hanzi: "九", pinyin: "jiǔ", meaning: "nine (девять)", cat: "число" },
+  { hanzi: "十", pinyin: "shí", meaning: "ten (десять)", cat: "число" },
+
+  // nouns
+  { hanzi: "人", pinyin: "rén", meaning: "person (человек)", cat: "сущ" },
+  { hanzi: "妈", pinyin: "mā", meaning: "mom (мама)", cat: "сущ" },
+  { hanzi: "马", pinyin: "mǎ", meaning: "horse (лошадь)", cat: "сущ" },
+  { hanzi: "女", pinyin: "nǚ", meaning: "woman (женщина)", cat: "сущ" },
+  { hanzi: "口", pinyin: "kǒu", meaning: "mouth (рот)", cat: "сущ" },
+  { hanzi: "家", pinyin: "jiā", meaning: "home (дом)", cat: "сущ" },
+  { hanzi: "日", pinyin: "rì", meaning: "day, sun (день, солнце)", cat: "сущ" },
+  { hanzi: "月", pinyin: "yuè", meaning: "month, moon (месяц, луна)", cat: "сущ" },
+  { hanzi: "子", pinyin: "zǐ", meaning: "child (ребёнок)", cat: "сущ" },
+  { hanzi: "米", pinyin: "mǐ", meaning: "rice (рис)", cat: "сущ" },
+  { hanzi: "玉", pinyin: "yù", meaning: "jade (нефрит)", cat: "сущ" },
+  { hanzi: "钱", pinyin: "qián", meaning: "money (деньги)", cat: "сущ" },
+  { hanzi: "名字", pinyin: "míngzi", meaning: "name (имя)", cat: "сущ" },
+  { hanzi: "国", pinyin: "guó", meaning: "country (страна)", cat: "сущ" },
+  { hanzi: "中", pinyin: "zhōng", meaning: "middle (середина)", cat: "сущ" },
+
+  // adjectives & adverbs
+  { hanzi: "好", pinyin: "hǎo", meaning: "good (хороший)", cat: "прил" },
+  { hanzi: "老", pinyin: "lǎo", meaning: "old (старый)", cat: "прил" },
+  { hanzi: "大", pinyin: "dà", meaning: "big (большой)", cat: "прил" },
+  { hanzi: "小", pinyin: "xiǎo", meaning: "small (маленький)", cat: "прил" },
+  { hanzi: "很", pinyin: "hěn", meaning: "very (очень)", cat: "нареч" },
+  { hanzi: "也", pinyin: "yě", meaning: "also (тоже)", cat: "нареч" },
+  { hanzi: "都", pinyin: "dōu", meaning: "all (все)", cat: "нареч" },
+  { hanzi: "还", pinyin: "hái", meaning: "still, yet (ещё)", cat: "нареч" },
+
+  // particles
+  { hanzi: "不", pinyin: "bù", meaning: "not (не)", cat: "частица" },
+  { hanzi: "吗", pinyin: "ma", meaning: "question particle (вопр. частица)", cat: "частица" },
+  { hanzi: "的", pinyin: "de", meaning: "possessive particle (притяж. частица)", cat: "частица" },
+  { hanzi: "个", pinyin: "gè", meaning: "measure word (счётное слово)", cat: "частица" },
+  { hanzi: "和", pinyin: "hé", meaning: "and (и)", cat: "частица" },
+
+  // phrases
+  { hanzi: "老师", pinyin: "lǎoshī", meaning: "teacher (учитель)", cat: "выражение" },
+  { hanzi: "谢谢", pinyin: "xièxie", meaning: "thank you (спасибо)", cat: "выражение" },
+  { hanzi: "妈妈", pinyin: "māma", meaning: "mom (мама)", cat: "выражение" },
+  { hanzi: "中国", pinyin: "Zhōngguó", meaning: "China (Китай)", cat: "выражение" },
+  { hanzi: "中国人", pinyin: "Zhōngguó rén", meaning: "Chinese person (китаец)", cat: "выражение" },
+];
+
+document.getElementById("word-count").textContent = allWords.length;
+
+/* ============ STATE ============ */
+let mode = "hanzi2meaning";
+let category = "all";
+let index = 0;
+let flipped = false;
+let answered = false;
+
+const cardEl = document.getElementById("card");
+const feedbackEl = document.getElementById("feedback");
+const progressEl = document.getElementById("progress");
+
+/* ============ FILTER ============ */
+function currentWords() {
+  if (category === "all") return allWords;
+  return allWords.filter(w => w.cat === category);
+}
+
+/* ============ RENDER ============ */
+function render() {
+  flipped = false;
+  answered = false;
+  feedbackEl.textContent = "";
+  feedbackEl.className = "feedback";
+
+  const words = currentWords();
+  if (!words.length) {
+    cardEl.innerHTML = `<div class="prompt-label">empty</div><div class="meaning">no words in this category</div>`;
+    progressEl.textContent = "0 / 0";
+    return;
+  }
+  if (index >= words.length) index = 0;
+
+  const w = words[index];
+  progressEl.textContent = `${index + 1} / ${words.length}`;
+
+  const showBack = () => `
+    <div class="prompt-label">answer</div>
+    <div class="hanzi ${w.hanzi.length > 2 ? "small" : ""}">${w.hanzi}</div>
+    <div class="pinyin">${w.pinyin}</div>
+    <div class="meaning">${w.meaning}</div>
+  `;
+
+  if (mode === "hanzi2meaning") {
+    cardEl.innerHTML = `
+      <div class="prompt-label">what does it mean?</div>
+      <div class="hanzi ${w.hanzi.length > 2 ? "small" : ""}">${w.hanzi}</div>
+      <div class="hint-flip">click to reveal</div>
+    `;
+    cardEl.onclick = () => {
+      if (!flipped) { flipped = true; cardEl.innerHTML = showBack(); }
+    };
+  }
+
+  if (mode === "meaning2hanzi") {
+    cardEl.innerHTML = `
+      <div class="prompt-label">which character?</div>
+      <div class="meaning" style="font-size:26px;">${w.meaning}</div>
+      <div class="hint-flip">click to reveal</div>
+    `;
+    cardEl.onclick = () => {
+      if (!flipped) { flipped = true; cardEl.innerHTML = showBack(); }
+    };
+  }
+
+  if (mode === "choice") {
+    const others = words.filter(x => x.hanzi !== w.hanzi)
+                        .sort(() => Math.random() - 0.5)
+                        .slice(0, 3);
+    const options = [w, ...others].sort(() => Math.random() - 0.5);
+
+    cardEl.innerHTML = `
+      <div class="prompt-label">pick the meaning</div>
+      <div class="hanzi ${w.hanzi.length > 2 ? "small" : ""}">${w.hanzi}</div>
+      <div class="options" id="options">
+        ${options.map(o => `<button class="option" data-hanzi="${o.hanzi}">${o.meaning}</button>`).join("")}
+      </div>
+    `;
+    cardEl.onclick = null;
+
+    document.querySelectorAll(".option").forEach(btn => {
+      btn.onclick = () => {
+        if (answered) return;
+        answered = true;
+        const chosen = btn.dataset.hanzi;
+        if (chosen === w.hanzi) {
+          btn.classList.add("correct");
+          feedbackEl.textContent = "✅ correct!";
+          feedbackEl.className = "feedback ok";
+        } else {
+          btn.classList.add("wrong");
+          document.querySelectorAll(".option").forEach(b => {
+            if (b.dataset.hanzi === w.hanzi) b.classList.add("correct");
+          });
+          feedbackEl.textContent = `❌ correct: ${w.pinyin} — ${w.meaning}`;
+          feedbackEl.className = "feedback no";
+        }
+      };
+    });
+  }
+}
+
+/* ============ NAVIGATION ============ */
+function next() {
+  const words = currentWords();
+  index = (index + 1) % words.length;
+  render();
+}
+function prev() {
+  const words = currentWords();
+  index = (index - 1 + words.length) % words.length;
+  render();
+}
+
+/* ============ MODES ============ */
+document.querySelectorAll(".mode-btn").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    mode = btn.dataset.mode;
+    index = 0;
+    render();
+  };
+});
+
+/* ============ FILTERS ============ */
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    category = btn.dataset.cat;
+    index = 0;
+    render();
+  };
+});
+
+/* ============ KEYBOARD ============ */
+document.addEventListener("keydown", (e) => {
+  if (document.getElementById("cards-view").classList.contains("hidden")) return;
+  if (e.key === "ArrowRight") next();
+  if (e.key === "ArrowLeft") prev();
+  if (e.key === " ") { e.preventDefault(); cardEl.click(); }
+});
+
+/* ============ SCREENS ============ */
+function openSection(key) {
+  document.getElementById("home").classList.add("hidden");
+  if (key === "cards") {
+    document.getElementById("cards-view").classList.remove("hidden");
+    index = 0;
+    render();
+  } else {
+    const meta = {
+      sentences: { icon: "✏️", title: "sentences", desc: "build & translate — coming soon 🌸" },
+      texts:     { icon: "📖", title: "texts",     desc: "reading — coming soon 🌸" },
+      tasks:     { icon: "🎯", title: "tasks",     desc: "mini quizzes — coming soon 🌸" },
+      daily:     { icon: "✨", title: "word of the day", desc: "phrase collection — coming soon 🌸" },
+    }[key];
+    document.getElementById("ph-icon").textContent = meta.icon;
+    document.getElementById("ph-title").textContent = meta.title;
+    document.getElementById("ph-desc").textContent = meta.desc;
+    document.getElementById("section-view").classList.remove("hidden");
+  }
+}
+
+function goHome() {
+  document.getElementById("cards-view").classList.add("hidden");
+  document.getElementById("section-view").classList.add("hidden");
+  document.getElementById("home").classList.remove("hidden");
+}
+
+/* ============ DAILY DATA ============ */
+const wordsOfDay = [
+  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! don't give up! (давай! не сдавайся!)",
+    ex: "加油！你可以的！", exPy: "jiāyóu! nǐ kěyǐ de!",
+    exRu: "Go for it! You can do it! (Давай! Ты сможешь!)" },
+  { hanzi: "辛苦", pinyin: "xīnkǔ", meaning: "tiring, hard work (устал, тяжело)",
+    ex: "你辛苦了。", exPy: "nǐ xīnkǔ le.",
+    exRu: "You've worked hard. (Ты устал, спасибо за труд.)" },
+  { hanzi: "慢慢来", pinyin: "mànman lái", meaning: "take it slow (не спеши, потихоньку)",
+    ex: "慢慢来，别着急。", exPy: "mànman lái, bié zháojí.",
+    exRu: "Take it slow, don't rush. (Не спеши, не волнуйся.)" },
+  { hanzi: "太好了", pinyin: "tài hǎo le", meaning: "that's great! (как здорово!)",
+    ex: "太好了！我们去吧！", exPy: "tài hǎo le! wǒmen qù ba!",
+    exRu: "Great! Let's go! (Отлично! Пойдём!)" },
+  { hanzi: "真的吗", pinyin: "zhēn de ma", meaning: "really? (правда? серьёзно?)",
+    ex: "真的吗？太厉害了！", exPy: "zhēn de ma? tài lìhai le!",
+    exRu: "Really? That's awesome! (Правда? Вот это круто!)" },
+];
+
+const slangOfDay = [
+  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад, нереально)",
+    ex: "这个太好吃了，绝了！", exPy: "zhège tài hǎochī le, jué le!",
+    exRu: "This is so tasty, insane! (Это так вкусно, просто отпад!)" },
+  { hanzi: "yyds", pinyin: "yǒngyuǎn de shén", meaning: "the eternal GOAT (навсегда бог)",
+    ex: "周杰伦 yyds！", exPy: "Zhōu Jiélún yyds!",
+    exRu: "Jay Chou is the eternal GOAT! (Джей Чоу — навсегда бог!)" },
+  { hanzi: "破防", pinyin: "pò fáng", meaning: "emotionally overwhelmed (пробило на эмоции)",
+    ex: "这首歌让我破防了。", exPy: "zhè shǒu gē ràng wǒ pò fáng le.",
+    exRu: "This song broke me emotionally. (Эта песня пробила меня на эмоции.)" },
+  { hanzi: "栓Q", pinyin: "shuān Q", meaning: "thank you (jokey, distorted) (спасибо, шутл.)",
+    ex: "栓Q你了！", exPy: "shuān Q nǐ le!",
+    exRu: "Thank you! (jokey) (Спасибо тебе, шутл.)" },
+  { hanzi: "emo了", pinyin: "emo le", meaning: "got emo, sad (загрустил)",
+    ex: "今天有点 emo 了。", exPy: "jīntiān yǒudiǎn emo le.",
+    exRu: "Feeling a bit emo today. (Сегодня что-то загрустил.)" },
+];
+
+function dayIndex(len) {
+  const day = Math.floor(Date.now() / 86400000);
+  return day % len;
+}
+
+function setGreeting() {
+  const h = new Date().getHours();
+  let cn, en;
+  if (h < 6)       { cn = "还没睡吗？"; en = "still awake?"; }
+  else if (h < 12) { cn = "早上好！";   en = "good morning!"; }
+  else if (h < 18) { cn = "下午好！";   en = "good afternoon!"; }
+  else             { cn = "晚上好！";   en = "good evening!"; }
+  document.getElementById("greet-cn").textContent = cn;
+  document.getElementById("greet-en").textContent = en;
+}
+
+function fillDaily() {
+  const w = wordsOfDay[dayIndex(wordsOfDay.length)];
+  document.getElementById("wotd-hanzi").textContent = w.hanzi;
+  document.getElementById("wotd-pinyin").textContent = w.pinyin;
+  document.getElementById("wotd-meaning").textContent = w.meaning;
+  document.getElementById("wotd-ex").textContent = w.ex;
+  document.getElementById("wotd-ex-py").textContent = w.exPy;
+  document.getElementById("wotd-ex-ru").textContent = w.exRu;
+
+  const s = slangOfDay[dayIndex(slangOfDay.length)];
+  document.getElementById("sotd-hanzi").textContent = s.hanzi;
+  document.getElementById("sotd-pinyin").textContent = s.pinyin;
+  document.getElementById("sotd-meaning").textContent = s.meaning;
+  document.getElementById("sotd-ex").textContent = s.ex;
+  document.getElementById("sotd-ex-py").textContent = s.exPy;
+  document.getElementById("sotd-ex-ru").textContent = s.exRu;
+}
+
+/* ============ INIT ============ */
+setGreeting();
+fillDaily();
+</script>
+
+</body>
+</html>
