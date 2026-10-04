@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>✿ 中文 Studio by astagme ✿ Miffy Edition</title>
+<title>✿ 中文 Studio by astagme ✿</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -38,7 +38,7 @@
     overflow-x: hidden;
   }
 
-  /* Soft Ambient Miffy Clouds Background */
+  /* Soft Ambient Clouds Background */
   .cloud-bg {
     position: fixed; border-radius: 50%;
     background: rgba(255, 255, 255, 0.7);
@@ -117,12 +117,12 @@
   /* ===== QUIZLET-STYLE FLIP CARD ===== */
   .flip-container {
     perspective: 1000px;
-    width: 100%; height: 340px; cursor: pointer; margin-bottom: 20px;
+    width: 100%; min-height: 380px; cursor: pointer; margin-bottom: 20px;
   }
   .flipper {
     transition: 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
     transform-style: preserve-3d;
-    position: relative; width: 100%; height: 100%;
+    position: relative; width: 100%; min-height: 380px;
   }
   .flip-container.flipped .flipper {
     transform: rotateY(180deg);
@@ -137,15 +137,23 @@
   .card-back {
     transform: rotateY(180deg);
     background: #f8fcff; border-color: #e1effa;
+    overflow-y: auto;
   }
 
   .hanzi-main { font-size: 88px; font-weight: 900; color: var(--text-dark); line-height: 1; }
-  .pinyin-back { font-size: 32px; font-weight: 900; color: var(--primary); margin-bottom: 10px; }
-  .meaning-back { font-size: 20px; font-weight: 800; color: var(--text-dark); }
+  .pinyin-back { font-size: 28px; font-weight: 900; color: var(--primary); margin-bottom: 6px; }
+  .meaning-back { font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px; }
   .cat-badge {
     background: #e3f2fd; color: var(--primary); font-size: 11px;
-    font-weight: 800; padding: 4px 12px; border-radius: 999px; margin-top: 14px;
+    font-weight: 800; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px;
+    display: inline-block;
   }
+  .radical-box {
+    background: #ffffff; border: 1.5px solid #d0e8f9; border-radius: 14px;
+    padding: 10px 14px; text-align: left; font-size: 12px; width: 100%; max-width: 380px;
+  }
+  .radical-title { font-weight: 900; color: var(--primary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
   .flip-hint {
     font-size: 12px; color: var(--text-light); font-weight: 700; position: absolute; bottom: 16px;
   }
@@ -180,6 +188,17 @@
     outline: none; background: #ffffff; color: var(--text-dark); margin-bottom: 16px;
   }
   .search-input:focus { border-color: var(--primary); }
+
+  /* HSK QUIZ OPTIONS */
+  .quiz-option {
+    background: #ffffff; border: 2px solid var(--border-color); border-radius: 16px;
+    padding: 12px 18px; font-family: inherit; font-size: 14px; font-weight: 800;
+    color: var(--text-dark); cursor: pointer; transition: all 0.2s; text-align: left;
+    margin-bottom: 10px; width: 100%; display: block;
+  }
+  .quiz-option:hover { border-color: var(--primary-soft); background: #f0f7ff; }
+  .quiz-option.correct { background: #e8f5e9; border-color: #81c784; color: #2e7d32; }
+  .quiz-option.wrong { background: #ffebee; border-color: #e57373; color: #c62828; }
 </style>
 </head>
 <body>
@@ -201,8 +220,8 @@
 
     <div class="sidebar-card" style="text-align:center;">
       <div style="font-size:32px; margin-bottom:4px;">🐰☁️</div>
-      <div style="font-weight:900; font-size:14px; color:var(--primary);">Miffy Study Corner</div>
-      <div style="font-size:12px; color:var(--text-sub); margin-top:2px;">Simple & Soft Learning</div>
+      <div style="font-weight:900; font-size:14px; color:var(--primary);">Study Corner</div>
+      <div style="font-size:12px; color:var(--text-sub); margin-top:2px;">Soft & Gentle Learning</div>
     </div>
   </aside>
 
@@ -220,13 +239,18 @@
       <div class="nav-grid">
         <div class="nav-card" onclick="openSection('cards')">
           <div class="icon">🃏</div>
-          <div class="title">Flashcards</div>
-          <div class="desc"><span id="total-words-count">0</span> items • Quizlet Flip Mode</div>
+          <div class="title">Flashcards & Radicals</div>
+          <div class="desc"><span id="total-words-count">0</span> items • Keys & Stories</div>
+        </div>
+        <div class="nav-card" onclick="openSection('quiz')">
+          <div class="icon">🎯</div>
+          <div class="title">HSK Practice Tests</div>
+          <div class="desc">Grammar & vocabulary quizzes</div>
         </div>
         <div class="nav-card" onclick="openSection('sentences')">
           <div class="icon">✍️</div>
           <div class="title">Sentences</div>
-          <div class="desc">Translate & practice</div>
+          <div class="desc">Build & translate</div>
         </div>
         <div class="nav-card" onclick="openSection('texts')">
           <div class="icon">📖</div>
@@ -241,7 +265,7 @@
       </div>
     </div>
 
-    <!-- ============ FLASHCARDS VIEW (QUIZLET FLIP) ============ -->
+    <!-- ============ FLASHCARDS VIEW (QUIZLET FLIP + RADICALS) ============ -->
     <div id="cards-view" class="hidden">
       <button class="back-btn" onclick="goHome()">← Back</button>
 
@@ -256,6 +280,13 @@
             <div class="pinyin-back" id="card-pinyin">wǒ</div>
             <div class="meaning-back" id="card-meaning">I, me (я)</div>
             <div class="cat-badge" id="card-cat">Pronoun</div>
+            
+            <div class="radical-box">
+              <div class="radical-title">🔑 Radicals & Memory Story</div>
+              <div style="font-weight:800; color:var(--text-dark);" id="card-radicals">Key: 手 (hand) + 戈 (spear)</div>
+              <div style="color:var(--text-sub); margin-top:4px;" id="card-story">A hand holding a spear to protect "myself".</div>
+            </div>
+
             <div class="flip-hint">Click card to flip back ☁️</div>
           </div>
         </div>
@@ -265,6 +296,20 @@
         <button class="btn-soft" onclick="prevCard()">← Prev</button>
         <span id="card-progress" style="font-size:13px; font-weight:800; color:var(--text-sub);">1 / 10</span>
         <button class="btn-primary" onclick="nextCard()">Next →</button>
+      </div>
+    </div>
+
+    <!-- ============ HSK PRACTICE QUIZ ============ -->
+    <div id="quiz-view" class="hidden">
+      <button class="back-btn" onclick="goHome()">← Back</button>
+      <div style="background:#fff; border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow-soft);">
+        <div style="font-size:12px; font-weight:900; color:var(--primary); text-transform:uppercase; margin-bottom:8px;">HSK Quiz Practice</div>
+        <div style="font-size:18px; font-weight:800; color:var(--text-dark); margin-bottom:16px;" id="quiz-question">Question loading...</div>
+        
+        <div id="quiz-options-container"></div>
+        
+        <div id="quiz-feedback" style="margin-top:14px; font-weight:800; font-size:14px;"></div>
+        <button class="btn-primary" style="margin-top:16px;" onclick="nextQuizQuestion()">Next Question →</button>
       </div>
     </div>
 
@@ -284,18 +329,13 @@
     <!-- ============ TEXTS VIEW ============ -->
     <div id="texts-view" class="hidden">
       <button class="back-btn" onclick="goHome()">← Back</button>
-      <div style="background:#fff; border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow-soft);">
-        <div style="font-size:18px; font-weight:900; color:var(--primary);">1. Self Introduction & HSK Study</div>
-        <div style="font-size:20px; font-weight:800; margin-top:12px; line-height:1.6; color:var(--text-dark);">你好！我是学生。我每天学习中文。我的老师很好。</div>
-        <div style="font-size:14px; color:var(--primary); font-weight:700; margin-top:6px;">Nǐ hǎo! Wǒ shì xuéshēng. Wǒ měitiān xuéxí zhōngwén. Wǒ de lǎoshī hěn hǎo.</div>
-        <div style="font-size:13px; color:var(--text-sub); font-style:italic; margin-top:4px;">Привет! Я студент. Я каждый день учу китайский. Мой учитель очень хороший.</div>
-      </div>
+      <div id="texts-container"></div>
     </div>
 
     <!-- ============ DICTIONARY / ARCHIVE VIEW ============ -->
     <div id="daily-view" class="hidden">
       <button class="back-btn" onclick="goHome()">← Back</button>
-      <input type="text" class="search-input" placeholder="Search phrase or meaning..." oninput="filterArchive(this.value)">
+      <input type="text" class="search-input" placeholder="Search phrase, radical or meaning..." oninput="filterArchive(this.value)">
       <div id="archive-list"></div>
     </div>
 
@@ -303,44 +343,70 @@
 </div>
 
 <script>
-/* ============ DATABASE ============ */
+/* ============ EXTENDED VOCABULARY DATABASE WITH RADICALS & STORIES ============ */
 const allWords = [
-  // Pronouns
-  { hanzi: "我", pinyin: "wǒ", meaning: "I, me (я)", cat: "Pronoun", hsk: 1 },
-  { hanzi: "你", pinyin: "nǐ", meaning: "you (ты)", cat: "Pronoun", hsk: 1 },
-  { hanzi: "他", pinyin: "tā", meaning: "he, him (он)", cat: "Pronoun", hsk: 1 },
-  { hanzi: "她", pinyin: "tā", meaning: "she, her (она)", cat: "Pronoun", hsk: 1 },
-  { hanzi: "它", pinyin: "tā", meaning: "it (оно)", cat: "Pronoun", hsk: 1 },
-  { hanzi: "我们", pinyin: "wǒmen", meaning: "we, us (мы)", cat: "Pronoun", hsk: 1 },
-  { hanzi: "你们", pinyin: "nǐmen", meaning: "you plural (вы)", cat: "Pronoun", hsk: 1 },
+  // HSK 1
+  { hanzi: "我", pinyin: "wǒ", meaning: "I, me (я)", cat: "Pronoun", hsk: 1, radicals: "手 (hand) + 戈 (weapon)", story: "A hand holding a weapon to protect myself." },
+  { hanzi: "你", pinyin: "nǐ", meaning: "you (ты)", cat: "Pronoun", hsk: 1, radicals: "亻(person) + 尔 (small)", story: "A person standing right in front of you." },
+  { hanzi: "他", pinyin: "tā", meaning: "he, him (он)", cat: "Pronoun", hsk: 1, radicals: "亻(person) + 也 (also)", story: "Another person standing over there." },
+  { hanzi: "她", pinyin: "tā", meaning: "she, her (она)", cat: "Pronoun", hsk: 1, radicals: "女 (woman) + 也 (also)", story: "A female person." },
+  { hanzi: "好", pinyin: "hǎo", meaning: "good, fine (хороший)", cat: "Adjective", hsk: 1, radicals: "女 (woman) + 子 (child)", story: "A woman with a child represents goodness and harmony." },
+  { hanzi: "看", pinyin: "kàn", meaning: "to watch, look (смотреть)", cat: "Verb", hsk: 1, radicals: "手 (hand) + 目 (eye)", story: "Putting a hand over the eye to look far away." },
+  { hanzi: "听", pinyin: "tīng", meaning: "to listen (слушать)", cat: "Verb", hsk: 1, radicals: "口 (mouth) + 斤 (axe)", story: "Listening carefully to nearby sounds." },
+  { hanzi: "妈妈", pinyin: "māma", meaning: "mom (мама)", cat: "Noun", hsk: 1, radicals: "女 (woman) + 马 (horse)", story: "The woman who works hard as a horse for her family." },
+  { hanzi: "猫", pinyin: "māo", meaning: "cat (кошка)", cat: "Noun", hsk: 1, radicals: "犭(beast) + 苗 (sprout)", story: "A small animal in the grass field catching mice." },
+  { hanzi: "爱", pinyin: "ài", meaning: "to love (любить)", cat: "Verb", hsk: 1, radicals: "爫 (claw) + 友 (friend)", story: "Reaching out with affection to embrace a friend." },
 
-  // Verbs
-  { hanzi: "是", pinyin: "shì", meaning: "to be (быть)", cat: "Verb", hsk: 1 },
-  { hanzi: "有", pinyin: "yǒu", meaning: "to have (иметь)", cat: "Verb", hsk: 1 },
-  { hanzi: "看", pinyin: "kàn", meaning: "to watch, look (смотреть)", cat: "Verb", hsk: 1 },
-  { hanzi: "听", pinyin: "tīng", meaning: "to listen (слушать)", cat: "Verb", hsk: 1 },
-  { hanzi: "读", pinyin: "dú", meaning: "to read (читать)", cat: "Verb", hsk: 1 },
-  { hanzi: "写", pinyin: "xiě", meaning: "to write (писать)", cat: "Verb", hsk: 1 },
-  { hanzi: "吃", pinyin: "chī", meaning: "to eat (есть)", cat: "Verb", hsk: 1 },
-  { hanzi: "喝", pinyin: "hē", meaning: "to drink (пить)", cat: "Verb", hsk: 1 },
-  { hanzi: "爱", pinyin: "ài", meaning: "to love (любить)", cat: "Verb", hsk: 1 },
-  { hanzi: "喜欢", pinyin: "xǐhuan", meaning: "to like (нравиться)", cat: "Verb", hsk: 1 },
-
-  // Nouns
-  { hanzi: "妈妈", pinyin: "māma", meaning: "mom (мама)", cat: "Noun", hsk: 1 },
-  { hanzi: "爸爸", pinyin: "bàba", meaning: "dad (папа)", cat: "Noun", hsk: 1 },
-  { hanzi: "老师", pinyin: "lǎoshī", meaning: "teacher (учитель)", cat: "Noun", hsk: 1 },
-  { hanzi: "学生", pinyin: "xuésheng", meaning: "student (ученик)", cat: "Noun", hsk: 1 },
-  { hanzi: "中国", pinyin: "Zhōngguó", meaning: "China (Китай)", cat: "Noun", hsk: 1 },
-  { hanzi: "猫", pinyin: "māo", meaning: "cat (кошка)", cat: "Noun", hsk: 1 },
-  { hanzi: "狗", pinyin: "gǒu", meaning: "dog (собака)", cat: "Noun", hsk: 1 },
+  // HSK 2
+  { hanzi: "准备", pinyin: "zhǔnbèi", meaning: "to prepare (готовить)", cat: "Verb", hsk: 2, radicals: "冫(ice) + 👤", story: "Getting everything ready beforehand." },
+  { hanzi: "帮助", pinyin: "bāngzhù", meaning: "to help (помогать)", cat: "Verb", hsk: 2, radicals: "巾 (towel) + 力 (strength)", story: "Offering strength to assist someone in need." },
+  { hanzi: "简单", pinyin: "jiǎndān", meaning: "simple, easy (простой)", cat: "Adjective", hsk: 2, radicals: "竹 (bamboo) + 𠮤", story: "Uncomplicated like plain bamboo sticks." },
 
   // Slang
-  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад)", cat: "Slang", hsk: "slang" },
-  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! (давай!)", cat: "Slang", hsk: "slang" }
+  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад)", cat: "Slang", hsk: "slang", radicals: "纟(silk) + 色 (color)", story: "So amazing that nothing can top it!" },
+  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! (давай!)", cat: "Slang", hsk: "slang", radicals: "加 (add) + 油 (oil)", story: "Adding oil to the engine for more power!" }
 ];
 
 document.getElementById("total-words-count").textContent = allWords.length;
+
+/* ============ HSK PRACTICE QUIZZES ============ */
+const quizQuestions = [
+  {
+    q: "Select the correct particle for question: 'Are you a student?' (你是学生___？)",
+    options: ["A. 的 (de)", "B. 吗 (ma)", "C. 很 (hěn)", "D. 都 (dōu)"],
+    correct: 1,
+    explain: "吗 (ma) is the standard question particle added at the end of a statement."
+  },
+  {
+    q: "What is the meaning of the character 看 (kàn)?",
+    options: ["A. To listen", "B. To eat", "C. To watch / read", "D. To speak"],
+    correct: 2,
+    explain: "看 (kàn) consists of 手 (hand) over 目 (eye) meaning to look or watch."
+  },
+  {
+    q: "How do you say 'My mom' in Chinese?",
+    options: ["A. 我妈妈 (wǒ māma)", "B. 你妈妈 (nǐ māma)", "C. 他老师 (tā lǎoshī)", "D. 很好 (hěn hǎo)"],
+    correct: 0,
+    explain: "我 (wǒ) means I/my, so 我妈妈 is my mom."
+  }
+];
+let currentQuizIdx = 0;
+
+/* ============ READING TEXTS ============ */
+const readingTexts = [
+  {
+    title: "1. Self Introduction (Знакомство)",
+    cn: "你好！我是学生。我爱学习中文。我的老师很好。",
+    py: "Nǐ hǎo! Wǒ shì xuéshēng. Wǒ ài xuéxí zhōngwén. Wǒ de lǎoshī hěn hǎo.",
+    ru: "Привет! Я студент. Я люблю учить китайский. Мой учитель очень хороший."
+  },
+  {
+    title: "2. Daily Routine (Мой день)",
+    cn: "今天我去看书。妈妈去买米。我们都很高兴。",
+    py: "Jīntiān wǒ qù kàn shū. Māma qù mǎi mǐ. Wǒmen dōu hěn gāoxìng.",
+    ru: "Сегодня я иду читать книгу. Мама идет покупать рис. Мы все очень счастливы."
+  }
+];
 
 /* ============ STATE & NAVIGATION ============ */
 let currentHSK = 1;
@@ -355,23 +421,24 @@ function filterHSK(level) {
 }
 
 function openSection(sec) {
-  ["home-view", "cards-view", "sentences-view", "texts-view", "daily-view"].forEach(id => {
+  ["home-view", "cards-view", "quiz-view", "sentences-view", "texts-view", "daily-view"].forEach(id => {
     document.getElementById(id).classList.add("hidden");
   });
   if (sec === 'cards') { document.getElementById("cards-view").classList.remove("hidden"); renderCard(); }
+  else if (sec === 'quiz') { document.getElementById("quiz-view").classList.remove("hidden"); renderQuizQuestion(); }
   else if (sec === 'sentences') { document.getElementById("sentences-view").classList.remove("hidden"); }
-  else if (sec === 'texts') { document.getElementById("texts-view").classList.remove("hidden"); }
+  else if (sec === 'texts') { document.getElementById("texts-view").classList.remove("hidden"); renderTexts(); }
   else if (sec === 'daily') { document.getElementById("daily-view").classList.remove("hidden"); renderArchive(); }
 }
 
 function goHome() {
-  ["cards-view", "sentences-view", "texts-view", "daily-view"].forEach(id => {
+  ["cards-view", "quiz-view", "sentences-view", "texts-view", "daily-view"].forEach(id => {
     document.getElementById(id).classList.add("hidden");
   });
   document.getElementById("home-view").classList.remove("hidden");
 }
 
-/* ============ FLIP CARDS ============ */
+/* ============ FLIP CARDS WITH RADICALS ============ */
 function getFilteredWords() {
   return allWords.filter(w => currentHSK === 'slang' ? w.hsk === 'slang' : w.hsk === currentHSK);
 }
@@ -386,6 +453,8 @@ function renderCard() {
     document.getElementById("card-pinyin").textContent = "Coming Soon";
     document.getElementById("card-meaning").textContent = "No words found in this section";
     document.getElementById("card-cat").textContent = "Info";
+    document.getElementById("card-radicals").textContent = "-";
+    document.getElementById("card-story").textContent = "-";
     document.getElementById("card-progress").textContent = "0 / 0";
     return;
   }
@@ -397,6 +466,8 @@ function renderCard() {
   document.getElementById("card-pinyin").textContent = w.pinyin;
   document.getElementById("card-meaning").textContent = w.meaning;
   document.getElementById("card-cat").textContent = w.cat;
+  document.getElementById("card-radicals").textContent = w.radicals || "Standard components";
+  document.getElementById("card-story").textContent = w.story || "Practice writing and repeating.";
   document.getElementById("card-progress").textContent = `${cardIdx + 1} / ${words.length}`;
 }
 
@@ -414,7 +485,44 @@ function prevCard() {
   if (words.length) { cardIdx = (cardIdx - 1 + words.length) % words.length; renderCard(); }
 }
 
-/* ============ SENTENCES ============ */
+/* ============ HSK PRACTICE QUIZ ENGINE ============ */
+function renderQuizQuestion() {
+  const q = quizQuestions[currentQuizIdx];
+  document.getElementById("quiz-question").textContent = q.q;
+  document.getElementById("quiz-feedback").textContent = "";
+
+  const container = document.getElementById("quiz-options-container");
+  container.innerHTML = q.options.map((opt, idx) => `
+    <button class="quiz-option" onclick="checkQuizAnswer(${idx})">${opt}</button>
+  `).join("");
+}
+
+function checkQuizAnswer(chosenIdx) {
+  const q = quizQuestions[currentQuizIdx];
+  const fb = document.getElementById("quiz-feedback");
+  const options = document.querySelectorAll(".quiz-option");
+
+  options.forEach((btn, idx) => {
+    btn.disabled = true;
+    if (idx === q.correct) btn.classList.add("correct");
+    else if (idx === chosenIdx) btn.classList.add("wrong");
+  });
+
+  if (chosenIdx === q.correct) {
+    fb.textContent = `✅ Correct! ${q.explain}`;
+    fb.style.color = "#2e7d32";
+  } else {
+    fb.textContent = `❌ Incorrect. ${q.explain}`;
+    fb.style.color = "#c62828";
+  }
+}
+
+function nextQuizQuestion() {
+  currentQuizIdx = (currentQuizIdx + 1) % quizQuestions.length;
+  renderQuizQuestion();
+}
+
+/* ============ SENTENCES & TEXTS ============ */
 function checkSentence() {
   const input = document.getElementById("sent-input").value.trim().toLowerCase();
   const fb = document.getElementById("sent-feedback");
@@ -427,13 +535,26 @@ function checkSentence() {
   }
 }
 
+function renderTexts() {
+  const container = document.getElementById("texts-container");
+  container.innerHTML = readingTexts.map(t => `
+    <div style="background:#fff; border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow-soft); margin-bottom:14px;">
+      <div style="font-size:18px; font-weight:900; color:var(--primary);">${t.title}</div>
+      <div style="font-size:20px; font-weight:800; margin-top:12px; line-height:1.6; color:var(--text-dark);">${t.cn}</div>
+      <div style="font-size:14px; color:var(--primary); font-weight:700; margin-top:6px;">${t.py}</div>
+      <div style="font-size:13px; color:var(--text-sub); font-style:italic; margin-top:4px;">${t.ru}</div>
+    </div>
+  `).join("");
+}
+
 /* ============ DICTIONARY ARCHIVE ============ */
 function renderArchive(query = "") {
   const list = document.getElementById("archive-list");
   const filtered = allWords.filter(w => 
     w.hanzi.includes(query) || 
     w.pinyin.toLowerCase().includes(query.toLowerCase()) || 
-    w.meaning.toLowerCase().includes(query.toLowerCase())
+    w.meaning.toLowerCase().includes(query.toLowerCase()) ||
+    (w.radicals && w.radicals.toLowerCase().includes(query.toLowerCase()))
   );
 
   list.innerHTML = filtered.map(w => `
@@ -442,6 +563,7 @@ function renderArchive(query = "") {
         <div style="font-size:24px; font-weight:900; color:var(--text-dark);">${w.hanzi}</div>
         <div style="font-size:14px; font-weight:800; color:var(--primary);">${w.pinyin}</div>
         <div style="font-size:13px; color:var(--text-sub);">${w.meaning}</div>
+        ${w.radicals ? `<div style="font-size:11px; color:var(--text-light); margin-top:2px;">🔑 ${w.radicals}</div>` : ''}
       </div>
       <span style="background:#e3f2fd; color:var(--primary); font-size:11px; font-weight:800; padding:4px 10px; border-radius:999px;">${w.cat}</span>
     </div>
@@ -453,7 +575,7 @@ function setGreeting() {
   const h = new Date().getHours();
   let text = "Cozy pastel Chinese learning space 🌸";
   if (h < 6) text = "Late night study session? Take it easy 🌙";
-  else if (h < 12) text = "Good morning! Ready to learn with Miffy? ☀️";
+  else if (h < 12) text = "Good morning! Ready to learn Chinese? ☀️";
   else if (h < 18) text = "Good afternoon! Happy Chinese review time ☁️";
   else text = "Good evening! Cozy study sanctuary ✨";
   document.getElementById("greet-text").textContent = text;
