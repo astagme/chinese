@@ -8,6 +8,18 @@
 <style>
   * { box-sizing: border-box; }
 
+  @keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+  }
+
+  @keyframes pulseGlow {
+    0% { box-shadow: 0 10px 30px rgba(255,158,196,0.3); }
+    50% { box-shadow: 0 15px 40px rgba(255,158,196,0.5); }
+    100% { box-shadow: 0 10px 30px rgba(255,158,196,0.3); }
+  }
+
   body {
     font-family: 'Nunito', sans-serif;
     background: linear-gradient(160deg, #ffe4ec 0%, #ffd1e0 50%, #ffc9de 100%);
@@ -27,31 +39,35 @@
     position: fixed;
     border-radius: 50%;
     background: rgba(255,255,255,0.5);
-    filter: blur(30px);
+    filter: blur(35px);
     z-index: 0;
+    pointer-events: none;
   }
-  body::before { width: 300px; height: 300px; top: -80px; left: -80px; }
-  body::after  { width: 400px; height: 400px; bottom: -150px; right: -120px; }
+  body::before { width: 320px; height: 320px; top: -80px; left: -80px; }
+  body::after  { width: 420px; height: 420px; bottom: -150px; right: -120px; }
 
   .container { position: relative; z-index: 1; width: 100%; max-width: 520px; }
 
   /* ===== HOME ===== */
-  .greeting { text-align: center; margin-bottom: 20px; }
+  .greeting { text-align: center; margin-bottom: 20px; animation: float 6s ease-in-out infinite; }
   .greeting h1 {
     font-size: 28px; font-weight: 800;
     color: #ff7eb3; margin: 0 0 4px;
+    text-shadow: 0 2px 10px rgba(255,126,179,0.2);
   }
   .greeting p { font-size: 14px; color: #b3809a; margin: 0; }
 
-  .daily { display: grid; gap: 12px; margin-bottom: 24px; }
+  .daily { display: grid; gap: 14px; margin-bottom: 24px; }
   .daily-card {
-    background: #fff; border-radius: 24px; padding: 20px 22px;
+    background: #fff; border-radius: 26px; padding: 20px 22px;
     box-shadow: 0 10px 30px rgba(255,158,196,0.3);
     position: relative; overflow: hidden;
+    transition: transform 0.3s;
+    animation: pulseGlow 4s infinite ease-in-out;
   }
   .daily-card::before {
     content: '✿'; position: absolute; top: 12px; right: 16px;
-    color: #ffc9de; font-size: 18px;
+    color: #ffc9de; font-size: 20px;
   }
   .daily-label {
     font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
@@ -69,27 +85,28 @@
 
   .sections { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .section {
-    background: #fff; border: none; border-radius: 22px;
+    background: #fff; border: none; border-radius: 24px;
     padding: 22px 16px; font-family: inherit; text-align: left;
     cursor: pointer; box-shadow: 0 8px 24px rgba(255,158,196,0.25);
-    transition: transform 0.2s, box-shadow 0.2s; color: #7a4a5c;
+    transition: all 0.25s ease; color: #7a4a5c;
   }
-  .section:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,158,196,0.4); }
-  .section .icon { font-size: 26px; }
+  .section:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(255,158,196,0.4); }
+  .section .icon { font-size: 28px; }
   .section .title { font-size: 15px; font-weight: 800; margin-top: 8px; color: #ff7eb3; }
   .section .desc { font-size: 12px; color: #b3809a; margin-top: 2px; }
   .section.wide { grid-column: 1 / -1; }
 
-  /* ===== SECTION ===== */
+  /* ===== COMMON INTERFACE ===== */
   .back-btn {
-    background: rgba(255,255,255,0.8); border: none; color: #b3809a;
+    background: rgba(255,255,255,0.85); border: none; color: #b3809a;
     font-family: inherit; font-weight: 700; font-size: 14px;
     padding: 10px 18px; border-radius: 999px; cursor: pointer;
-    margin-bottom: 16px;
+    margin-bottom: 16px; transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(255,158,196,0.15);
   }
-  .back-btn:hover { background: #fff; }
+  .back-btn:hover { background: #fff; transform: translateX(-2px); }
 
-  .hidden { display: none; }
+  .hidden { display: none !important; }
 
   /* ===== FLASHCARDS ===== */
   .modes {
@@ -121,14 +138,13 @@
   .filter-btn.active { background: #ffd1e0; color: #ff7eb3; }
 
   .card {
-    background: #fff; border-radius: 28px; padding: 40px 28px;
-    min-height: 340px; display: flex; flex-direction: column;
+    background: #fff; border-radius: 28px; padding: 32px 24px;
+    min-height: 320px; display: flex; flex-direction: column;
     align-items: center; justify-content: center; text-align: center;
     box-shadow: 0 12px 40px rgba(255,158,196,0.3);
-    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
     position: relative; overflow: hidden;
   }
-  .card:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(255,158,196,0.4); }
   .card::before {
     content: '✿'; position: absolute; top: 14px; right: 18px;
     font-size: 18px; color: #ffc9de;
@@ -136,19 +152,37 @@
 
   .prompt-label {
     font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px;
-    color: #d8a5bc; margin-bottom: 20px; font-weight: 700;
+    color: #d8a5bc; margin-bottom: 16px; font-weight: 700;
   }
-  .hanzi { font-size: 110px; line-height: 1; color: #7a4a5c; font-weight: 700; }
-  .hanzi.small { font-size: 64px; }
-  .pinyin { font-size: 34px; color: #ff7eb3; font-weight: 700; margin-top: 16px; }
-  .meaning { font-size: 22px; color: #7a4a5c; margin-top: 10px; font-weight: 600; }
-  .meaning .ru-part { color: #b3809a; font-size: 16px; font-style: italic; font-weight: 600; }
-  .hint-flip { font-size: 13px; color: #d8a5bc; margin-top: 24px; }
+  .hanzi { font-size: 100px; line-height: 1; color: #7a4a5c; font-weight: 700; }
+  .hanzi.small { font-size: 58px; }
+  .pinyin { font-size: 30px; color: #ff7eb3; font-weight: 700; margin-top: 12px; }
+  .meaning { font-size: 20px; color: #7a4a5c; margin-top: 10px; font-weight: 600; }
+  .hint-flip { font-size: 13px; color: #d8a5bc; margin-top: 20px; }
+
+  .audio-btn {
+    background: #fff5f8; border: 1px solid #ffd1e0; color: #ff7eb3;
+    border-radius: 50%; width: 38px; height: 38px; cursor: pointer;
+    margin-top: 10px; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 16px; transition: all 0.2s;
+  }
+  .audio-btn:hover { background: #ff7eb3; color: #fff; }
+
+  /* Input area under card */
+  .card-input-box {
+    width: 100%; margin-top: 20px; display: flex; gap: 8px; justify-content: center;
+  }
+  .card-input {
+    width: 70%; padding: 12px 18px; border-radius: 999px; border: 2px solid #ffd1e0;
+    outline: none; font-family: inherit; font-weight: 700; color: #7a4a5c;
+    background: #fff5f8; text-align: center; font-size: 15px; transition: border-color 0.2s;
+  }
+  .card-input:focus { border-color: #ff7eb3; background: #fff; }
 
   .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 20px; }
   .option {
-    background: #fff5f8; border: 2px solid #ffd1e0; border-radius: 16px;
-    padding: 14px; font-family: inherit; font-size: 15px; font-weight: 700;
+    background: #fff5f8; border: 2px solid #ffd1e0; border-radius: 18px;
+    padding: 14px; font-family: inherit; font-size: 14px; font-weight: 700;
     color: #7a4a5c; cursor: pointer; transition: all 0.2s;
   }
   .option:hover { background: #ffe4ec; border-color: #ff9ec4; }
@@ -171,13 +205,37 @@
   .feedback.ok { color: #2e7d4a; }
   .feedback.no { color: #d94a4a; }
 
-  .placeholder {
-    background: #fff; border-radius: 24px; padding: 60px 24px;
-    text-align: center; box-shadow: 0 10px 30px rgba(255,158,196,0.3);
+  /* ===== SECTION VIEWS ===== */
+  .section-card {
+    background: #fff; border-radius: 28px; padding: 24px;
+    box-shadow: 0 10px 30px rgba(255,158,196,0.3); margin-bottom: 16px;
   }
-  .placeholder .big { font-size: 48px; }
-  .placeholder h2 { color: #ff7eb3; margin: 12px 0 6px; }
-  .placeholder p { color: #b3809a; margin: 0; font-size: 14px; }
+  .section-title { font-size: 18px; font-weight: 800; color: #ff7eb3; margin-bottom: 12px; }
+
+  /* Sentences builder */
+  .sentence-target { font-size: 16px; color: #7a4a5c; margin-bottom: 16px; font-weight: 700; text-align: center; }
+  .word-slots {
+    min-height: 50px; border: 2px dashed #ffd1e0; border-radius: 18px;
+    padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; justify-content: center;
+  }
+  .word-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .chip {
+    background: #fff5f8; border: 1.5px solid #ffd1e0; color: #7a4a5c;
+    padding: 8px 14px; border-radius: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+  }
+  .chip:hover { background: #ff9ec4; color: #fff; border-color: #ff9ec4; }
+
+  /* Texts reading */
+  .text-story { line-height: 1.8; font-size: 18px; color: #7a4a5c; }
+  .text-story span { cursor: pointer; padding: 2px 4px; border-radius: 6px; }
+  .text-story span:hover { background: #ffe4ec; color: #ff7eb3; }
+
+  /* Search bar */
+  .search-input {
+    width: 100%; padding: 12px 18px; border-radius: 999px; border: 2px solid #ffd1e0;
+    outline: none; font-family: inherit; font-weight: 700; color: #7a4a5c;
+    background: #fff; margin-bottom: 16px;
+  }
 </style>
 </head>
 <body>
@@ -231,7 +289,7 @@
       <button class="section" onclick="openSection('texts')">
         <div class="icon">📖</div>
         <div class="title">texts</div>
-        <div class="desc">reading</div>
+        <div class="desc">reading practice</div>
       </button>
       <button class="section" onclick="openSection('tasks')">
         <div class="icon">🎯</div>
@@ -277,21 +335,53 @@
     <div class="progress" id="progress"></div>
   </div>
 
-  <!-- ============ PLACEHOLDER ============ -->
-  <div id="section-view" class="hidden">
+  <!-- ============ SENTENCES ============ -->
+  <div id="sentences-view" class="hidden">
     <button class="back-btn" onclick="goHome()">← back</button>
-    <div class="placeholder">
-      <div class="big" id="ph-icon">📖</div>
-      <h2 id="ph-title">texts</h2>
-      <p id="ph-desc">coming soon 🌸</p>
+    <div class="section-card">
+      <div class="section-title">✏️ Sentence Constructor</div>
+      <div class="sentence-target" id="sent-target">Build: "I love mom"</div>
+      <div class="word-slots" id="word-slots"></div>
+      <div class="word-bank" id="word-bank"></div>
+      <div class="feedback" id="sent-feedback"></div>
+      <div style="text-align:center; margin-top:16px;">
+        <button class="btn" onclick="checkSentence()">check ✨</button>
+      </div>
     </div>
+  </div>
+
+  <!-- ============ TEXTS ============ -->
+  <div id="texts-view" class="hidden">
+    <button class="back-btn" onclick="goHome()">← back</button>
+    <div class="section-card">
+      <div class="section-title">📖 Mini Reading Story</div>
+      <div class="text-story" id="text-story-content">
+        你好！我是老师。我喜欢看书，也喜欢喝茶。你呢？
+      </div>
+      <p style="font-size:13px; color:#b3809a; margin-top:12px; italic">Tip: Click on characters for quick hint!</p>
+    </div>
+  </div>
+
+  <!-- ============ TASKS ============ -->
+  <div id="tasks-view" class="hidden">
+    <button class="back-btn" onclick="goHome()">← back</button>
+    <div class="section-card">
+      <div class="section-title">🎯 Quick Quiz</div>
+      <div id="quiz-box"></div>
+    </div>
+  </div>
+
+  <!-- ============ DAILY COLLECTION ============ -->
+  <div id="daily-view" class="hidden">
+    <button class="back-btn" onclick="goHome()">← back</button>
+    <input type="text" class="search-input" id="daily-search" placeholder="Search phrases..." oninput="filterDailyCollection()">
+    <div id="daily-list"></div>
   </div>
 
 </div>
 
 <script>
 /* ============ VOCABULARY ============ */
-/* meaning: "english (русский)" — русский в скобках, где помогает */
 const allWords = [
   // pronouns
   { hanzi: "我", pinyin: "wǒ", meaning: "I, me (я)", cat: "代词" },
@@ -389,13 +479,27 @@ const cardEl = document.getElementById("card");
 const feedbackEl = document.getElementById("feedback");
 const progressEl = document.getElementById("progress");
 
+/* Helper: normalize pinyin (removes tone marks for flexible user input) */
+function removeTones(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+}
+
+/* Audio synth */
+function speak(text) {
+  if ('speechSynthesis' in window) {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'zh-CN';
+    window.speechSynthesis.speak(u);
+  }
+}
+
 /* ============ FILTER ============ */
 function currentWords() {
   if (category === "all") return allWords;
   return allWords.filter(w => w.cat === category);
 }
 
-/* ============ RENDER ============ */
+/* ============ RENDER FLASHCARDS ============ */
 function render() {
   flipped = false;
   answered = false;
@@ -416,6 +520,7 @@ function render() {
   const showBack = () => `
     <div class="prompt-label">answer</div>
     <div class="hanzi ${w.hanzi.length > 2 ? "small" : ""}">${w.hanzi}</div>
+    <button class="audio-btn" onclick="speak('${w.hanzi}')">🔊</button>
     <div class="pinyin">${w.pinyin}</div>
     <div class="meaning">${w.meaning}</div>
   `;
@@ -424,7 +529,11 @@ function render() {
     cardEl.innerHTML = `
       <div class="prompt-label">what does it mean?</div>
       <div class="hanzi ${w.hanzi.length > 2 ? "small" : ""}">${w.hanzi}</div>
-      <div class="hint-flip">click to reveal</div>
+      <button class="audio-btn" onclick="event.stopPropagation(); speak('${w.hanzi}')">🔊</button>
+      <div class="hint-flip">click to reveal answer</div>
+      <div class="card-input-box" onclick="event.stopPropagation()">
+        <input type="text" class="card-input" id="pinyin-input" placeholder="Type pinyin..." onkeydown="handleCardInput(event, '${w.pinyin}')">
+      </div>
     `;
     cardEl.onclick = () => {
       if (!flipped) { flipped = true; cardEl.innerHTML = showBack(); }
@@ -451,6 +560,7 @@ function render() {
     cardEl.innerHTML = `
       <div class="prompt-label">pick the meaning</div>
       <div class="hanzi ${w.hanzi.length > 2 ? "small" : ""}">${w.hanzi}</div>
+      <button class="audio-btn" onclick="speak('${w.hanzi}')">🔊</button>
       <div class="options" id="options">
         ${options.map(o => `<button class="option" data-hanzi="${o.hanzi}">${o.meaning}</button>`).join("")}
       </div>
@@ -479,6 +589,20 @@ function render() {
   }
 }
 
+function handleCardInput(e, correctPinyin) {
+  if (e.key === "Enter") {
+    const inputVal = e.target.value.trim();
+    if (!inputVal) return;
+    if (removeTones(inputVal) === removeTones(correctPinyin)) {
+      feedbackEl.textContent = "✅ Correct Pinyin!";
+      feedbackEl.className = "feedback ok";
+    } else {
+      feedbackEl.textContent = `❌ Incorrect! Answer: ${correctPinyin}`;
+      feedbackEl.className = "feedback no";
+    }
+  }
+}
+
 /* ============ NAVIGATION ============ */
 function next() {
   const words = currentWords();
@@ -491,7 +615,7 @@ function prev() {
   render();
 }
 
-/* ============ MODES ============ */
+/* ============ MODES & FILTERS ============ */
 document.querySelectorAll(".mode-btn").forEach(btn => {
   btn.onclick = () => {
     document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
@@ -502,7 +626,6 @@ document.querySelectorAll(".mode-btn").forEach(btn => {
   };
 });
 
-/* ============ FILTERS ============ */
 document.querySelectorAll(".filter-btn").forEach(btn => {
   btn.onclick = () => {
     document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
@@ -516,6 +639,7 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
 /* ============ KEYBOARD ============ */
 document.addEventListener("keydown", (e) => {
   if (document.getElementById("cards-view").classList.contains("hidden")) return;
+  if (e.target.tagName === 'INPUT') return; // Ignore when typing in input
   if (e.key === "ArrowRight") next();
   if (e.key === "ArrowLeft") prev();
   if (e.key === " ") { e.preventDefault(); cardEl.click(); }
@@ -524,79 +648,142 @@ document.addEventListener("keydown", (e) => {
 /* ============ SCREENS ============ */
 function openSection(key) {
   document.getElementById("home").classList.add("hidden");
+  document.getElementById("cards-view").classList.add("hidden");
+  document.getElementById("sentences-view").classList.add("hidden");
+  document.getElementById("texts-view").classList.add("hidden");
+  document.getElementById("tasks-view").classList.add("hidden");
+  document.getElementById("daily-view").classList.add("hidden");
+
   if (key === "cards") {
     document.getElementById("cards-view").classList.remove("hidden");
     index = 0;
     render();
-  } else {
-    const meta = {
-      sentences: { icon: "✏️", title: "sentences", desc: "build & translate — coming soon 🌸" },
-      texts:     { icon: "📖", title: "texts",     desc: "reading — coming soon 🌸" },
-      tasks:     { icon: "🎯", title: "tasks",     desc: "mini quizzes — coming soon 🌸" },
-      daily:     { icon: "✨", title: "word of the day", desc: "phrase collection — coming soon 🌸" },
-    }[key];
-    document.getElementById("ph-icon").textContent = meta.icon;
-    document.getElementById("ph-title").textContent = meta.title;
-    document.getElementById("ph-desc").textContent = meta.desc;
-    document.getElementById("section-view").classList.remove("hidden");
+  } else if (key === "sentences") {
+    document.getElementById("sentences-view").classList.remove("hidden");
+    initSentences();
+  } else if (key === "texts") {
+    document.getElementById("texts-view").classList.remove("hidden");
+  } else if (key === "tasks") {
+    document.getElementById("tasks-view").classList.remove("hidden");
+    initQuiz();
+  } else if (key === "daily") {
+    document.getElementById("daily-view").classList.remove("hidden");
+    renderDailyCollection();
   }
 }
 
 function goHome() {
   document.getElementById("cards-view").classList.add("hidden");
-  document.getElementById("section-view").classList.add("hidden");
+  document.getElementById("sentences-view").classList.add("hidden");
+  document.getElementById("texts-view").classList.add("hidden");
+  document.getElementById("tasks-view").classList.add("hidden");
+  document.getElementById("daily-view").classList.add("hidden");
   document.getElementById("home").classList.remove("hidden");
+}
+
+/* ============ SENTENCES SECTION ============ */
+const sentenceData = [
+  { target: "I love mom", targetRu: "Я люблю маму", correct: ["我", "爱", "妈妈"], pool: ["我", "爱", "妈妈", "看", "不", "好"] }
+];
+let currentSentSlots = [];
+
+function initSentences() {
+  const data = sentenceData[0];
+  document.getElementById("sent-target").textContent = `Build: "${data.target}" (${data.targetRu})`;
+  currentSentSlots = [];
+  renderSentSlots();
+  
+  const bankEl = document.getElementById("word-bank");
+  bankEl.innerHTML = data.pool.map(w => `<div class="chip" onclick="addSentWord('${w}')">${w}</div>`).join("");
+}
+
+function renderSentSlots() {
+  const slotsEl = document.getElementById("word-slots");
+  slotsEl.innerHTML = currentSentSlots.map((w, i) => `<div class="chip" onclick="removeSentWord(${i})">${w}</div>`).join("");
+}
+
+function addSentWord(w) {
+  currentSentSlots.push(w);
+  renderSentSlots();
+}
+
+function removeSentWord(i) {
+  currentSentSlots.splice(i, 1);
+  renderSentSlots();
+}
+
+function checkSentence() {
+  const correctStr = sentenceData[0].correct.join("");
+  const currentStr = currentSentSlots.join("");
+  const f = document.getElementById("sent-feedback");
+  if (currentStr === correctStr) {
+    f.textContent = "✨ Great job! Perfect sentence!";
+    f.className = "feedback ok";
+  } else {
+    f.textContent = "❌ Try again!";
+    f.className = "feedback no";
+  }
+}
+
+/* ============ TASKS / QUIZ SECTION ============ */
+function initQuiz() {
+  const qBox = document.getElementById("quiz-box");
+  qBox.innerHTML = `
+    <p style="font-weight:700; color:#7a4a5c;">What is the meaning of "谢谢"?</p>
+    <div style="display:grid; gap:8px;">
+      <button class="chip" onclick="this.style.background='#d4f5dd'">Thank you (Спасибо)</button>
+      <button class="chip" onclick="this.style.background='#ffd6d6'">Hello (Привет)</button>
+      <button class="chip" onclick="this.style.background='#ffd6d6'">Goodbye (Пока)</button>
+    </div>
+  `;
 }
 
 /* ============ DAILY DATA ============ */
 const wordsOfDay = [
-  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! don't give up! (давай! не сдавайся!)",
-    ex: "加油！你可以的！", exPy: "jiāyóu! nǐ kěyǐ de!",
-    exRu: "Go for it! You can do it! (Давай! Ты сможешь!)" },
-  { hanzi: "辛苦", pinyin: "xīnkǔ", meaning: "tiring, hard work (устал, тяжело)",
-    ex: "你辛苦了。", exPy: "nǐ xīnkǔ le.",
-    exRu: "You've worked hard. (Ты устал, спасибо за труд.)" },
-  { hanzi: "慢慢来", pinyin: "mànman lái", meaning: "take it slow (не спеши, потихоньку)",
-    ex: "慢慢来，别着急。", exPy: "mànman lái, bié zháojí.",
-    exRu: "Take it slow, don't rush. (Не спеши, не волнуйся.)" },
-  { hanzi: "太好了", pinyin: "tài hǎo le", meaning: "that's great! (как здорово!)",
-    ex: "太好了！我们去吧！", exPy: "tài hǎo le! wǒmen qù ba!",
-    exRu: "Great! Let's go! (Отлично! Пойдём!)" },
-  { hanzi: "真的吗", pinyin: "zhēn de ma", meaning: "really? (правда? серьёзно?)",
-    ex: "真的吗？太厉害了！", exPy: "zhēn de ma? tài lìhai le!",
-    exRu: "Really? That's awesome! (Правда? Вот это круто!)" },
+  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! don't give up! (давай! не сдавайся!)", ex: "加油！你可以的！", exPy: "jiāyóu! nǐ kěyǐ de!", exRu: "Go for it! You can do it! (Давай! Ты сможешь!)" },
+  { hanzi: "辛苦", pinyin: "xīnkǔ", meaning: "tiring, hard work (устал, тяжело)", ex: "你辛苦了。", exPy: "nǐ xīnkǔ le.", exRu: "You've worked hard. (Ты устал, спасибо за труд.)" }
 ];
 
 const slangOfDay = [
-  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад, нереально)",
-    ex: "这个太好吃了，绝了！", exPy: "zhège tài hǎochī le, jué le!",
-    exRu: "This is so tasty, insane! (Это так вкусно, просто отпад!)" },
-  { hanzi: "yyds", pinyin: "yǒngyuǎn de shén", meaning: "the eternal GOAT (навсегда бог)",
-    ex: "周杰伦 yyds！", exPy: "Zhōu Jiélún yyds!",
-    exRu: "Jay Chou is the eternal GOAT! (Джей Чоу — навсегда бог!)" },
-  { hanzi: "破防", pinyin: "pò fáng", meaning: "emotionally overwhelmed (пробило на эмоции)",
-    ex: "这首歌让我破防了。", exPy: "zhè shǒu gē ràng wǒ pò fáng le.",
-    exRu: "This song broke me emotionally. (Эта песня пробила меня на эмоции.)" },
-  { hanzi: "栓Q", pinyin: "shuān Q", meaning: "thank you (jokey, distorted) (спасибо, шутл.)",
-    ex: "栓Q你了！", exPy: "shuān Q nǐ le!",
-    exRu: "Thank you! (jokey) (Спасибо тебе, шутл.)" },
-  { hanzi: "emo了", pinyin: "emo le", meaning: "got emo, sad (загрустил)",
-    ex: "今天有点 emo 了。", exPy: "jīntiān yǒudiǎn emo le.",
-    exRu: "Feeling a bit emo today. (Сегодня что-то загрустил.)" },
+  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад, нереально)", ex: "这个太好吃了，绝了！", exPy: "zhège tài hǎochī le, jué le!", exRu: "This is so tasty, insane! (Это так вкусно, просто отпад!)" },
+  { hanzi: "yyds", pinyin: "yǒngyuǎn de shén", meaning: "the eternal GOAT (навсегда бог)", ex: "周杰伦 yyds！", exPy: "Zhōu Jiélún yyds!", exRu: "Jay Chou is the eternal GOAT! (Джей Чоу — навсегда бог!)" }
 ];
 
-function dayIndex(len) {
-  const day = Math.floor(Date.now() / 86400000);
-  return day % len;
+function renderDailyCollection() {
+  const container = document.getElementById("daily-list");
+  const all = [...wordsOfDay, ...slangOfDay];
+  container.innerHTML = all.map(item => `
+    <div class="daily-card" style="margin-bottom:12px;">
+      <div class="daily-hanzi">${item.hanzi}</div>
+      <div class="daily-pinyin">${item.pinyin}</div>
+      <div class="daily-meaning">${item.meaning}</div>
+    </div>
+  `).join("");
 }
+
+function filterDailyCollection() {
+  const query = document.getElementById("daily-search").value.toLowerCase();
+  const all = [...wordsOfDay, ...slangOfDay];
+  const filtered = all.filter(i => i.hanzi.includes(query) || i.pinyin.toLowerCase().includes(query) || i.meaning.toLowerCase().includes(query));
+  const container = document.getElementById("daily-list");
+  container.innerHTML = filtered.map(item => `
+    <div class="daily-card" style="margin-bottom:12px;">
+      <div class="daily-hanzi">${item.hanzi}</div>
+      <div class="daily-pinyin">${item.pinyin}</div>
+      <div class="daily-meaning">${item.meaning}</div>
+    </div>
+  `).join("");
+}
+
+function dayIndex(len) { return Math.floor(Date.now() / 86400000) % len; }
 
 function setGreeting() {
   const h = new Date().getHours();
   let cn, en;
-  if (h < 6)       { cn = "还没睡吗？"; en = "still awake?"; }
+  if (h < 6)        { cn = "还没睡吗？"; en = "still awake?"; }
   else if (h < 12) { cn = "早上好！";   en = "good morning!"; }
   else if (h < 18) { cn = "下午好！";   en = "good afternoon!"; }
-  else             { cn = "晚上好！";   en = "good evening!"; }
+  else              { cn = "晚上好！";   en = "good evening!"; }
   document.getElementById("greet-cn").textContent = cn;
   document.getElementById("greet-en").textContent = en;
 }
