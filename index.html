@@ -8,7 +8,7 @@
 <style>
   :root {
     --bg-gradient: linear-gradient(135deg, #ffe5ec 0%, #f0e6ff 40%, #e8f4ff 70%, #ffd9e8 100%);
-    --card-bg: rgba(255, 255, 255, 0.88);
+    --card-bg: rgba(255, 255, 255, 0.90);
     --card-border: #ffffff;
     --primary: #ff5c97;
     --primary-soft: #ff85b3;
@@ -107,7 +107,6 @@
   }
   .header-card p { font-size: 14px; color: var(--text-muted); font-weight: 700; margin-top: 4px; }
 
-  /* SANRIO CHARACTERS DECORATION */
   .sanrio-avatar {
     width: 52px; height: 52px; border-radius: 50%;
     background: #fff; border: 2px solid #ffd1e0; display: inline-flex;
@@ -143,7 +142,7 @@
     background: linear-gradient(135deg, #ffffff 0%, #fff0f6 100%);
   }
 
-  /* COMMON BUTTONS */
+  /* BUTTONS */
   .btn-kawaii {
     background: linear-gradient(135deg, #ff7eb3 0%, #ff5c97 100%);
     color: #ffffff; border: none; font-family: inherit; font-weight: 900;
@@ -169,33 +168,7 @@
 
   .hidden { display: none !important; }
 
-  /* ===== AI ASSISTANT CHAT ===== */
-  .chat-box {
-    display: flex; flex-direction: column; gap: 12px; max-height: 320px;
-    overflow-y: auto; padding: 12px; background: rgba(255, 255, 255, 0.6);
-    border-radius: 20px; border: 2px solid #fff; margin-bottom: 14px;
-  }
-  .chat-msg {
-    max-width: 82%; padding: 10px 16px; border-radius: 18px; font-size: 14px;
-    font-weight: 700; line-height: 1.4;
-  }
-  .chat-msg.ai {
-    background: #ffffff; color: var(--text-dark); align-self: flex-start;
-    border-bottom-left-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  }
-  .chat-msg.user {
-    background: var(--primary); color: #ffffff; align-self: flex-end;
-    border-bottom-right-radius: 4px; box-shadow: 0 4px 12px rgba(255, 92, 151, 0.25);
-  }
-
-  .chat-input-bar { display: flex; gap: 8px; }
-  .chat-input {
-    width: 100%; border: 2px solid #ffd1e0; border-radius: 999px;
-    padding: 12px 20px; font-family: inherit; font-size: 14px; font-weight: 700;
-    outline: none; background: #ffffff; color: var(--text-dark);
-  }
-
-  /* ===== FLASHCARDS ===== */
+  /* FLASHCARDS */
   .card-prompt-label {
     font-size: 12px; font-weight: 900; text-transform: uppercase;
     letter-spacing: 1.5px; color: var(--lavender); margin-bottom: 12px;
@@ -227,6 +200,12 @@
   }
   .feedback-text.ok { color: #2e8b57; }
   .feedback-text.no { color: #d93856; }
+
+  .chat-input {
+    width: 100%; border: 2px solid #ffd1e0; border-radius: 999px;
+    padding: 12px 20px; font-family: inherit; font-size: 14px; font-weight: 700;
+    outline: none; background: #ffffff; color: var(--text-dark);
+  }
 </style>
 </head>
 <body>
@@ -236,15 +215,15 @@
 
 <div class="layout-wrapper">
 
-  <!-- ============ SIDEBAR HSK PANELS ============ -->
+  <!-- ============ SIDEBAR HSK 3.0 PANELS ============ -->
   <aside class="sidebar">
     <div class="sidebar-box">
-      <div class="sidebar-title">🌸 HSK Levels</div>
-      <div class="hsk-chip active" onclick="filterHSK(1)"><span>HSK Level 1</span> <span class="hsk-badge">150</span></div>
-      <div class="hsk-chip" onclick="filterHSK(2)"><span>HSK Level 2</span> <span class="hsk-badge">300</span></div>
-      <div class="hsk-chip" onclick="filterHSK(3)"><span>HSK Level 3</span> <span class="hsk-badge">600</span></div>
-      <div class="hsk-chip" onclick="filterHSK(4)"><span>HSK Level 4</span> <span class="hsk-badge">1200</span></div>
-      <div class="hsk-chip" onclick="filterHSK(5)"><span>HSK Level 5</span> <span class="hsk-badge">2500</span></div>
+      <div class="sidebar-title">🌸 HSK 3.0 Levels</div>
+      <div class="hsk-chip active" onclick="filterHSK(1)"><span>HSK Level 1</span> <span class="hsk-badge">300</span></div>
+      <div class="hsk-chip" onclick="filterHSK(2)"><span>HSK Level 2</span> <span class="hsk-badge">500</span></div>
+      <div class="hsk-chip" onclick="filterHSK(3)"><span>HSK Level 3</span> <span class="hsk-badge">1000</span></div>
+      <div class="hsk-chip" onclick="filterHSK(4)"><span>HSK Level 4</span> <span class="hsk-badge">2000</span></div>
+      <div class="hsk-chip" onclick="filterHSK(5)"><span>HSK Level 5</span> <span class="hsk-badge">3600</span></div>
       <div class="hsk-chip" onclick="filterHSK('slang')"><span>Slang & Idioms</span> <span class="hsk-badge">Hot 🔥</span></div>
     </div>
 
@@ -270,7 +249,7 @@
       <div class="card-3d">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <span style="font-size:12px; font-weight:900; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">✿ Word of the Day</span>
-          <button class="audio-btn" onclick="speakFast('加油')">⚡ Fast Speak</button>
+          <button class="audio-btn" onclick="playAudioDirect('加油')">🔊 Play Audio</button>
         </div>
         <div style="font-size:42px; font-weight:900; color:var(--text-dark); margin-top:8px;" id="wotd-hanzi">加油</div>
         <div style="font-size:18px; font-weight:800; color:var(--primary);" id="wotd-pinyin">jiāyóu</div>
@@ -281,12 +260,7 @@
         <div class="nav-btn" onclick="openSection('cards')">
           <div class="icon">🃏</div>
           <div class="title">Flashcards</div>
-          <div class="desc"><span id="total-words-count">71</span> items • Active SRS</div>
-        </div>
-        <div class="nav-btn" onclick="openSection('ai')">
-          <div class="icon">🤖</div>
-          <div class="title">AI Study Buddy</div>
-          <div class="desc">Ask grammar & stories</div>
+          <div class="desc"><span id="total-words-count">71</span> items • HSK 3.0 Ready</div>
         </div>
         <div class="nav-btn" onclick="openSection('sentences')">
           <div class="icon">✍️</div>
@@ -312,7 +286,7 @@
       <div class="card-3d" style="text-align:center;">
         <div class="card-prompt-label" id="card-prompt">Character Flashcard</div>
         <div class="hanzi-display" id="card-hanzi">我</div>
-        <button class="audio-btn" onclick="speakFastCurrent()">⚡ Listen Audio</button>
+        <button class="audio-btn" onclick="playCurrentCardAudio()">🔊 Play Audio</button>
 
         <div class="pinyin-display" id="card-pinyin-reveal" style="display:none;">wǒ</div>
         <div class="meaning-display" id="card-meaning-reveal" style="display:none;">I, me (я)</div>
@@ -327,21 +301,6 @@
       <div style="display:flex; gap:12px; justify-content:center;">
         <button class="btn-soft" onclick="prevCard()">← Prev</button>
         <button class="btn-kawaii" onclick="nextCard()">Next →</button>
-      </div>
-    </div>
-
-    <!-- ============ AI ASSISTANT VIEW ============ -->
-    <div id="ai-view" class="hidden">
-      <button class="back-btn" onclick="goHome()">← Back Home</button>
-      <div class="card-3d">
-        <div class="card-prompt-label">🤖 Sanrio AI Study Buddy by astagme</div>
-        <div class="chat-box" id="chat-box">
-          <div class="chat-msg ai">Hello! I'm your AI Chinese Tutor! Ask me anything about grammar, radical breakdowns, or HSK preparation 🌸</div>
-        </div>
-        <div class="chat-input-bar">
-          <input type="text" class="chat-input" id="chat-input" placeholder="Ask e.g. How to use 吗 vs 吧?..." onkeydown="if(event.key==='Enter') sendChatMessage()">
-          <button class="btn-kawaii" onclick="sendChatMessage()">Send 🎀</button>
-        </div>
       </div>
     </div>
 
@@ -364,7 +323,7 @@
       <div class="card-3d">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <span style="font-size:18px; font-weight:900; color:var(--primary);">1. Self Introduction & HSK Study</span>
-          <button class="audio-btn" onclick="speakFast('你好！我是学生。我每天学习中文。')">⚡ Listen All</button>
+          <button class="audio-btn" onclick="playAudioDirect('你好！我是学生。我每天学习中文。')">🔊 Play Audio</button>
         </div>
         <div style="font-size:20px; font-weight:800; margin-top:12px; line-height:1.6;">你好！我是学生。我每天学习中文。我的老师很好。</div>
         <div style="font-size:14px; color:var(--primary); font-weight:700; margin-top:6px;">Nǐ hǎo! Wǒ shì xuéshēng. Wǒ měitiān xuéxí zhōngwén. Wǒ de lǎoshī hěn hǎo.</div>
@@ -397,23 +356,22 @@ const allWords = [
 
 document.getElementById("total-words-count").textContent = allWords.length;
 
-/* ============ INSTANT SPEECH SYNTHESIS ENGINE ============ */
-let synth = window.speechSynthesis;
-let cachedUtterance = null;
-
-function speakFast(text) {
-  if (!synth) return;
-  synth.cancel(); // Cancel immediately to prevent queue delay
+/* ============ RELIABLE INSTANT AUDIO ENGINE ============ */
+function playAudioDirect(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
   
   const msg = new SpeechSynthesisUtterance(text);
   msg.lang = 'zh-CN';
-  msg.rate = 1.0; // Fast responsive playback
-  synth.speak(msg);
+  msg.rate = 0.9;
+  
+  // Show visual highlight if audio is restricted by browser policy
+  window.speechSynthesis.speak(msg);
 }
 
-function speakFastCurrent() {
-  const current = allWords[cardIdx];
-  if (current) speakFast(current.hanzi);
+function playCurrentCardAudio() {
+  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter || currentHSKFilter === 1);
+  if (words[cardIdx]) playAudioDirect(words[cardIdx].hanzi);
 }
 
 /* ============ NAVIGATION & SECTIONS ============ */
@@ -428,18 +386,17 @@ function filterHSK(level) {
 }
 
 function openSection(sec) {
-  ["home-view", "cards-view", "ai-view", "sentences-view", "texts-view", "daily-view"].forEach(id => {
+  ["home-view", "cards-view", "sentences-view", "texts-view", "daily-view"].forEach(id => {
     document.getElementById(id).classList.add("hidden");
   });
   if (sec === 'cards') { document.getElementById("cards-view").classList.remove("hidden"); renderCard(); }
-  else if (sec === 'ai') { document.getElementById("ai-view").classList.remove("hidden"); }
   else if (sec === 'sentences') { document.getElementById("sentences-view").classList.remove("hidden"); }
   else if (sec === 'texts') { document.getElementById("texts-view").classList.remove("hidden"); }
   else if (sec === 'daily') { document.getElementById("daily-view").classList.remove("hidden"); renderArchive(); }
 }
 
 function goHome() {
-  ["cards-view", "ai-view", "sentences-view", "texts-view", "daily-view"].forEach(id => {
+  ["cards-view", "sentences-view", "texts-view", "daily-view"].forEach(id => {
     document.getElementById(id).classList.add("hidden");
   });
   document.getElementById("home-view").classList.remove("hidden");
@@ -460,7 +417,7 @@ function renderCard() {
   document.getElementById("card-meaning-reveal").style.display = "none";
   document.getElementById("card-feedback").textContent = "";
   document.getElementById("card-input").value = "";
-  speakFast(w.hanzi);
+  playAudioDirect(w.hanzi);
 }
 
 function checkCardAnswer() {
@@ -483,24 +440,6 @@ function checkCardAnswer() {
 function nextCard() { cardIdx++; renderCard(); }
 function prevCard() { cardIdx = (cardIdx - 1 + allWords.length) % allWords.length; renderCard(); }
 
-/* ============ AI ASSISTANT CHAT ============ */
-function sendChatMessage() {
-  const input = document.getElementById("chat-input");
-  const text = input.value.trim();
-  if (!text) return;
-
-  const box = document.getElementById("chat-box");
-  box.innerHTML += `<div class="chat-msg user">${text}</div>`;
-  input.value = "";
-
-  setTimeout(() => {
-    let reply = "That's a great question! In HSK study, practicing word order (Subject + Time + Location + Verb) is key to mastering this fast! 🌸";
-    if (text.toLowerCase().includes("hsk")) reply = "For HSK 4-5, focus on learning 10 new words daily and practicing reading short stories!";
-    box.innerHTML += `<div class="chat-msg ai">${reply}</div>`;
-    box.scrollTop = box.scrollHeight;
-  }, 600);
-}
-
 /* ============ ARCHIVE ============ */
 function renderArchive(filter = "") {
   const box = document.getElementById("archive-list");
@@ -509,7 +448,7 @@ function renderArchive(filter = "") {
     <div class="card-3d" style="padding:16px; margin-bottom:10px;">
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <span style="font-size:26px; font-weight:900;">${w.hanzi}</span>
-        <button class="audio-btn" onclick="speakFast('${w.hanzi}')">⚡ Speak</button>
+        <button class="audio-btn" onclick="playAudioDirect('${w.hanzi}')">🔊 Play</button>
       </div>
       <div style="color:var(--primary); font-weight:800;">${w.pinyin}</div>
       <div style="color:var(--text-muted); font-size:14px;">${w.meaning}</div>
