@@ -83,7 +83,7 @@
     font-size: 11px; font-weight: 800;
   }
 
-  /* ===== HEADER & LOTUS BANNER ===== */
+  /* ===== HEADER ===== */
   .main-content { width: 100%; }
   .header-box {
     background: rgba(255, 255, 255, 0.9); border: 2.5px solid #ffffff;
@@ -101,17 +101,18 @@
   .header-box h1 { font-size: 26px; font-weight: 900; color: var(--primary); line-height: 1.2; }
   .header-box p { font-size: 13px; color: var(--text-sub); font-weight: 700; margin-top: 4px; }
 
-  /* Digital Clock Display */
+  /* Digital Clock Display - Prominent & Minimal */
   .time-badge {
-    background: #ffffff; border: 1.5px solid var(--border-color);
-    padding: 8px 16px; border-radius: 14px; font-weight: 900; font-size: 14px;
-    color: var(--primary); box-shadow: 0 4px 12px rgba(107, 164, 200, 0.12);
+    background: #ffffff; border: 2px solid var(--border-color);
+    padding: 10px 20px; border-radius: 18px; font-weight: 900; font-size: 26px;
+    color: var(--primary); box-shadow: 0 6px 18px rgba(107, 164, 200, 0.15);
     display: flex; align-items: center; gap: 8px; white-space: nowrap;
+    letter-spacing: 1px;
   }
 
   /* SVG Lotus Banner Decor */
   .lotus-banner {
-    width: 60px; height: 60px; opacity: 0.85; flex-shrink: 0;
+    width: 54px; height: 54px; opacity: 0.85; flex-shrink: 0;
   }
 
   /* ===== SINGLE WORD OF THE DAY ===== */
@@ -154,7 +155,7 @@
   /* ===== FLIP CARDS ===== */
   .flip-container {
     perspective: 1000px;
-    width: 100%; min-height: 380px; cursor: pointer; margin-bottom: 20px;
+    width: 100%; min-height: 380px; cursor: pointer; margin-bottom: 16px;
   }
   .flipper {
     transition: 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
@@ -244,9 +245,9 @@
         <svg style="width:14px; height:14px; fill:var(--primary);" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         HSK Levels
       </div>
-      <div class="hsk-item active" onclick="filterHSK(1)"><span>HSK 1</span> <span class="hsk-count">300</span></div>
-      <div class="hsk-item" onclick="filterHSK(2)"><span>HSK 2</span> <span class="hsk-count">500</span></div>
-      <div class="hsk-item" onclick="filterHSK(3)"><span>HSK 3</span> <span class="hsk-count">1000</span></div>
+      <div class="hsk-item active" onclick="filterHSK(1)"><span>HSK 1</span> <span class="hsk-count" id="count-hsk1">0</span></div>
+      <div class="hsk-item" onclick="filterHSK(2)"><span>HSK 2</span> <span class="hsk-count" id="count-hsk2">0</span></div>
+      <div class="hsk-item" onclick="filterHSK(3)"><span>HSK 3</span> <span class="hsk-count" id="count-hsk3">0</span></div>
       <div class="hsk-item" onclick="filterHSK('slang')"><span>Phrases & Slang</span> <span class="hsk-count">✿</span></div>
     </div>
 
@@ -271,12 +272,8 @@
       </div>
       
       <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-        <div class="time-badge" id="local-clock">
-          <svg style="width:14px; height:14px; fill:var(--primary);" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/></svg>
-          <span id="clock-text">00:00:00</span>
-        </div>
+        <div class="time-badge" id="clock-text">00:00</div>
         
-        <!-- Lotus SVG Aesthetic Illustration -->
         <svg class="lotus-banner" viewBox="0 0 64 64">
           <path fill="#a8d0e6" d="M32 10c-8 12-18 20-24 24 10 2 20 0 24-10 4 10 14 12 24 10-6-4-16-12-24-24z"/>
           <path fill="#6ba4c8" d="M32 22c-5 8-12 12-18 16 8 1 14 0 18-6 4 6 10 7 18 6-6-4-13-8-18-16z"/>
@@ -362,6 +359,13 @@
         </div>
       </div>
 
+      <!-- Optional Input Test under Card -->
+      <div style="margin-bottom:16px; display:flex; gap:8px; justify-content:center;" onclick="event.stopPropagation()">
+        <input type="text" class="search-input" id="card-check-input" style="max-width:300px; margin-bottom:0;" placeholder="Test yourself: type pinyin/meaning..." onkeydown="if(event.key==='Enter') testCardMemory()">
+        <button class="btn-primary" onclick="testCardMemory()">Check</button>
+      </div>
+      <div id="card-check-feedback" style="text-align:center; font-weight:800; font-size:13px; margin-bottom:14px; min-height:18px;"></div>
+
       <div style="display:flex; gap:12px; justify-content:center; align-items:center;">
         <button class="btn-soft" onclick="prevCard()">← Prev</button>
         <span id="card-progress" style="font-size:13px; font-weight:800; color:var(--text-sub);">1 / 10</span>
@@ -389,7 +393,7 @@
       <div style="background:#fff; border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow-soft);">
         <div style="font-size:12px; font-weight:900; color:var(--primary); text-transform:uppercase; margin-bottom:8px;">Sentence Builder</div>
         <div style="font-size:18px; font-weight:800; color:var(--text-dark);" id="sent-prompt">I love my mom very much.</div>
-        <div style="font-size:13px; color:var(--text-sub); margin-bottom:14px;">Hint: Subject + 很 + Verb + Object</div>
+        <div style="font-size:13px; color:var(--text-sub); margin-bottom:14px;">Grammar rule: Subject + 很 + Verb + Object</div>
         <input type="text" class="search-input" id="sent-input" placeholder="Type Chinese or pinyin...">
         <button class="btn-primary" onclick="checkSentence()">Check Answer</button>
         <div id="sent-feedback" style="margin-top:12px; font-weight:800; font-size:14px;"></div>
@@ -413,7 +417,7 @@
 </div>
 
 <script>
-/* ============ EXTENDED VOCABULARY DATABASE ============ */
+/* ============ FULL HSK VOCABULARY DATABASE ============ */
 const allWords = [
   // HSK 1
   { hanzi: "我", pinyin: "wǒ", meaning: "I, me (я)", cat: "Pronoun", hsk: 1, radicals: "手 (hand) + 戈 (weapon)", story: "A hand holding a weapon to protect myself." },
@@ -423,30 +427,52 @@ const allWords = [
   { hanzi: "好", pinyin: "hǎo", meaning: "good, fine (хороший)", cat: "Adjective", hsk: 1, radicals: "女 (woman) + 子 (child)", story: "A woman with a child represents goodness." },
   { hanzi: "看", pinyin: "kàn", meaning: "to watch, look (смотреть)", cat: "Verb", hsk: 1, radicals: "手 (hand) + 目 (eye)", story: "Putting a hand over the eye to look far away." },
   { hanzi: "听", pinyin: "tīng", meaning: "to listen (слушать)", cat: "Verb", hsk: 1, radicals: "口 (mouth) + 斤 (axe)", story: "Listening carefully to nearby sounds." },
+  { hanzi: "说", pinyin: "shuō", meaning: "to speak (говорить)", cat: "Verb", hsk: 1, radicals: "讠(speech) + 兑 (joy)", story: "Expressing joyful words with speech." },
+  { hanzi: "读", pinyin: "dú", meaning: "to read (читать)", cat: "Verb", hsk: 1, radicals: "讠(speech) + 卖 (sell)", story: "Speaking out loud from a book." },
+  { hanzi: "写", pinyin: "xiě", meaning: "to write (писать)", cat: "Verb", hsk: 1, radicals: "冖 (roof) + 与", story: "Writing characters neatly under a roof." },
   { hanzi: "妈妈", pinyin: "māma", meaning: "mom (мама)", cat: "Noun", hsk: 1, radicals: "女 (woman) + 马 (horse)", story: "The woman who works hard for her family." },
+  { hanzi: "爸爸", pinyin: "bàba", meaning: "dad (папа)", cat: "Noun", hsk: 1, radicals: "父 (father) + 巴", story: "The father figure of the household." },
+  { hanzi: "老师", pinyin: "lǎoshī", meaning: "teacher (учитель)", cat: "Noun", hsk: 1, radicals: "老 (old) + 师 (master)", story: "A respected master who shares knowledge." },
+  { hanzi: "学生", pinyin: "xuésheng", meaning: "student (ученик)", cat: "Noun", hsk: 1, radicals: "学 (study) + 生 (birth)", story: "Someone growing through daily learning." },
   { hanzi: "猫", pinyin: "māo", meaning: "cat (кошка)", cat: "Noun", hsk: 1, radicals: "犭(beast) + 苗 (sprout)", story: "A small animal hiding in the field." },
+  { hanzi: "狗", pinyin: "gǒu", meaning: "dog (собака)", cat: "Noun", hsk: 1, radicals: "犭(beast) + 句", story: "A loyal pet watching over the home." },
+  { hanzi: "水", pinyin: "shuǐ", meaning: "water (вода)", cat: "Noun", hsk: 1, radicals: "水 (water river)", story: "Flowing streams of fresh water." },
+  { hanzi: "茶", pinyin: "chá", meaning: "tea (чай)", cat: "Noun", hsk: 1, radicals: "艹 (grass/plant) + 木 (tree)", story: "Leaves picked from a tea plant." },
+  { hanzi: "吃", pinyin: "chī", meaning: "to eat (есть)", cat: "Verb", hsk: 1, radicals: "口 (mouth) + 乞", story: "Putting delicious food in the mouth." },
+  { hanzi: "喝", pinyin: "hē", meaning: "to drink (пить)", cat: "Verb", hsk: 1, radicals: "口 (mouth) + 曷", story: "Drinking water with mouth." },
 
   // HSK 2
   { hanzi: "准备", pinyin: "zhǔnbèi", meaning: "to prepare (готовить)", cat: "Verb", hsk: 2, radicals: "冫(ice) + 👤", story: "Getting everything ready beforehand." },
   { hanzi: "帮助", pinyin: "bāngzhù", meaning: "to help (помогать)", cat: "Verb", hsk: 2, radicals: "巾 (towel) + 力 (strength)", story: "Offering strength to assist someone." },
+  { hanzi: "简单", pinyin: "jiǎndān", meaning: "simple, easy (простой)", cat: "Adjective", hsk: 2, radicals: "竹 (bamboo) + 𠮤", story: "Plain like straight bamboo." },
+  { hanzi: "开始", pinyin: "kāishǐ", meaning: "to start, begin (начинать)", cat: "Verb", hsk: 2, radicals: "开 (open) + 始 (first)", story: "Opening the door for a new beginning." },
+  { hanzi: "知道", pinyin: "zhīdào", meaning: "to know (знать)", cat: "Verb", hsk: 2, radicals: "矢 (arrow) + 口 + 道", story: "Hitting the mark of truth in speech." },
 
-  // Slang
-  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад)", cat: "Slang", hsk: "slang", radicals: "纟(silk) + 色 (color)", story: "So amazing that nothing can top it!" },
-  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! (давай!)", cat: "Slang", hsk: "slang", radicals: "加 (add) + 油 (oil)", story: "Adding oil to the engine for more power!" }
+  // HSK 3
+  { hanzi: "简单", pinyin: "jiǎndān", meaning: "simple (простой)", cat: "Adjective", hsk: 3, radicals: "竹 (bamboo)", story: "Uncomplicated structure." },
+  { hanzi: "影响", pinyin: "yǐngxiǎng", meaning: "influence, effect (влияние)", cat: "Noun/Verb", hsk: 3, radicals: "彡 (shadow) + 音 (sound)", story: "Echo and shadows spreading influence." },
+
+  // Slang & Expressions
+  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад)", cat: "Slang", hsk: "slang", radicals: "纟(silk) + 色", story: "So amazing nothing can match it!" },
+  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! (давай!)", cat: "Slang", hsk: "slang", radicals: "加 (add) + 油 (oil)", story: "Adding fuel to boost energy!" },
+  { hanzi: "破防", pinyin: "pò fáng", meaning: "overwhelmed emotionally (пробило на эмоции)", cat: "Slang", hsk: "slang", radicals: "破 (break) + 防 (defense)", story: "Emotional defenses broken down." }
 ];
 
 document.getElementById("total-words-count").textContent = allWords.length;
 
-/* ============ LOCAL DIGITAL CLOCK ============ */
+// Dynamic Counts in Sidebar
+document.getElementById("count-hsk1").textContent = allWords.filter(w=>w.hsk===1).length;
+document.getElementById("count-hsk2").textContent = allWords.filter(w=>w.hsk===2).length;
+document.getElementById("count-hsk3").textContent = allWords.filter(w=>w.hsk===3).length;
+
+/* ============ LOCAL DIGITAL CLOCK (HH:MM ONLY) ============ */
 function updateClock() {
   const now = new Date();
   const hours = String(now.getHours()).padStart(2, '0');
   const minutes = String(now.getMinutes()).padStart(2, '0');
-  const seconds = String(now.getSeconds()).padStart(2, '0');
   
-  document.getElementById("clock-text").textContent = `${hours}:${minutes}:${seconds}`;
+  document.getElementById("clock-text").textContent = `${hours}:${minutes}`;
   
-  // Greeting based on user local time
   const h = now.getHours();
   let greet = "Good day! Welcome to your study sanctuary";
   if (h < 6) greet = "Late night study session? Take it easy";
@@ -495,6 +521,12 @@ const quizQuestions = [
     options: ["A. To listen", "B. To eat", "C. To watch / read", "D. To speak"],
     correct: 2,
     explain: "看 (kàn) consists of 手 (hand) over 目 (eye) meaning to look or watch."
+  },
+  {
+    q: "In Chinese word order, where does the time expression usually go?",
+    options: ["A. At the very end of sentence", "B. Before the verb or at start of sentence", "C. After the object", "D. Inside the verb"],
+    correct: 1,
+    explain: "Standard word order is Subject + Time + Location + Verb + Object."
   }
 ];
 let currentQuizIdx = 0;
@@ -506,6 +538,12 @@ const readingTexts = [
     cn: "你好！我是学生。我爱学习中文。我的老师很好。",
     py: "Nǐ hǎo! Wǒ shì xuéshēng. Wǒ ài xuéxí zhōngwén. Wǒ de lǎoshī hěn hǎo.",
     ru: "Привет! Я студент. Я люблю учить китайский. Мой учитель очень хороший."
+  },
+  {
+    title: "2. Daily Routine (Мой день)",
+    cn: "今天我去看书。妈妈去买米。我们都很高兴。",
+    py: "Jīntiān wǒ qù kàn shū. Māma qù mǎi mǐ. Wǒmen dōu hěn gāoxìng.",
+    ru: "Сегодня я иду читать книгу. Мама идет покупать рис. Мы все очень счастливы."
   }
 ];
 
@@ -539,7 +577,7 @@ function goHome() {
   document.getElementById("home-view").classList.remove("hidden");
 }
 
-/* ============ FLIP CARDS WITH RADICALS ============ */
+/* ============ FLIP CARDS ============ */
 function getFilteredWords() {
   return allWords.filter(w => currentHSK === 'slang' ? w.hsk === 'slang' : w.hsk === currentHSK);
 }
@@ -548,11 +586,13 @@ function renderCard() {
   const words = getFilteredWords();
   const container = document.getElementById("flip-card");
   container.classList.remove("flipped");
+  document.getElementById("card-check-input").value = "";
+  document.getElementById("card-check-feedback").textContent = "";
 
   if (!words.length) {
     document.getElementById("card-hanzi").textContent = "🌸";
     document.getElementById("card-pinyin").textContent = "Coming Soon";
-    document.getElementById("card-meaning").textContent = "No words found in this section";
+    document.getElementById("card-meaning").textContent = "No words found in this level";
     document.getElementById("card-radicals").textContent = "-";
     document.getElementById("card-story").textContent = "-";
     document.getElementById("card-progress").textContent = "0 / 0";
@@ -572,6 +612,22 @@ function renderCard() {
 
 function toggleCardFlip() {
   document.getElementById("flip-card").classList.toggle("flipped");
+}
+
+function testCardMemory() {
+  const val = document.getElementById("card-check-input").value.trim().toLowerCase();
+  const words = getFilteredWords();
+  const w = words[cardIdx];
+  const fb = document.getElementById("card-check-feedback");
+
+  if (!val) return;
+  if (val === w.pinyin.toLowerCase() || w.meaning.toLowerCase().includes(val)) {
+    fb.textContent = "✅ Correct memory!";
+    fb.style.color = "#2e7d32";
+  } else {
+    fb.textContent = `❌ Practice needed: ${w.pinyin} (${w.meaning})`;
+    fb.style.color = "#c62828";
+  }
 }
 
 function nextCard() {
