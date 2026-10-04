@@ -38,7 +38,7 @@
     overflow-x: hidden;
   }
 
-  /* Soft Ambient Clouds Background */
+  /* Soft Ambient Background Elements */
   .cloud-bg {
     position: fixed; border-radius: 50%;
     background: rgba(255, 255, 255, 0.7);
@@ -48,7 +48,7 @@
   .cloud-2 { width: 420px; height: 420px; bottom: -100px; right: -80px; }
 
   .layout-wrapper {
-    position: relative; z-index: 1; width: 100%; max-width: 900px;
+    position: relative; z-index: 1; width: 100%; max-width: 920px;
     display: grid; grid-template-columns: 220px 1fr; gap: 24px;
   }
 
@@ -64,8 +64,9 @@
     box-shadow: var(--shadow-soft);
   }
   .sidebar-title {
-    font-size: 12px; font-weight: 900; text-transform: uppercase;
+    font-size: 11px; font-weight: 900; text-transform: uppercase;
     letter-spacing: 1.5px; color: var(--primary); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
   }
 
   .hsk-item {
@@ -78,25 +79,61 @@
     background: var(--primary); color: #ffffff; border-color: var(--primary);
   }
   .hsk-count {
-    background: rgba(0,0,0,0.06); padding: 2px 8px; border-radius: 999px;
+    background: rgba(0,0,0,0.05); padding: 2px 8px; border-radius: 999px;
     font-size: 11px; font-weight: 800;
   }
 
-  /* ===== HEADER ===== */
+  /* ===== HEADER & LOTUS BANNER ===== */
   .main-content { width: 100%; }
   .header-box {
     background: rgba(255, 255, 255, 0.9); border: 2.5px solid #ffffff;
-    border-radius: var(--radius-lg); padding: 24px; text-align: center;
+    border-radius: var(--radius-lg); padding: 24px 28px; text-align: left;
     box-shadow: var(--shadow-soft); margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; overflow: hidden;
   }
   .creator-tag {
     display: inline-flex; align-items: center; gap: 6px;
     background: #eef7fc; border: 1px solid #d0e8f9; color: var(--primary);
-    font-size: 12px; font-weight: 900; padding: 5px 14px; border-radius: 999px;
-    margin-bottom: 8px;
+    font-size: 11px; font-weight: 900; padding: 4px 12px; border-radius: 999px;
+    margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;
   }
-  .header-box h1 { font-size: 28px; font-weight: 900; color: var(--primary); }
-  .header-box p { font-size: 13px; color: var(--text-sub); font-weight: 700; margin-top: 2px; }
+  .header-box h1 { font-size: 26px; font-weight: 900; color: var(--primary); line-height: 1.2; }
+  .header-box p { font-size: 13px; color: var(--text-sub); font-weight: 700; margin-top: 4px; }
+
+  /* Digital Clock Display */
+  .time-badge {
+    background: #ffffff; border: 1.5px solid var(--border-color);
+    padding: 8px 16px; border-radius: 14px; font-weight: 900; font-size: 14px;
+    color: var(--primary); box-shadow: 0 4px 12px rgba(107, 164, 200, 0.12);
+    display: flex; align-items: center; gap: 8px; white-space: nowrap;
+  }
+
+  /* SVG Lotus Banner Decor */
+  .lotus-banner {
+    width: 60px; height: 60px; opacity: 0.85; flex-shrink: 0;
+  }
+
+  /* ===== SINGLE WORD OF THE DAY ===== */
+  .wotd-card {
+    background: #ffffff; border: 2.5px solid #ffffff;
+    border-radius: var(--radius-lg); padding: 22px 26px;
+    box-shadow: var(--shadow-soft); margin-bottom: 20px;
+  }
+  .wotd-label {
+    font-size: 11px; font-weight: 900; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--primary); margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .wotd-hanzi { font-size: 38px; font-weight: 900; color: var(--text-dark); line-height: 1; }
+  .wotd-pinyin { font-size: 16px; font-weight: 800; color: var(--primary); margin-top: 4px; }
+  .wotd-meaning { font-size: 14px; font-weight: 700; color: var(--text-sub); margin-top: 4px; }
+  .wotd-ex {
+    margin-top: 10px; padding-top: 10px; border-top: 1.5px dashed var(--border-color);
+    font-size: 13px; color: var(--text-dark); font-weight: 700;
+  }
+  .wotd-ex .py { color: var(--primary); font-size: 12px; }
+  .wotd-ex .ru { color: var(--text-sub); font-style: italic; font-size: 12px; }
 
   /* ===== NAVIGATION CARDS ===== */
   .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -109,12 +146,12 @@
     transform: translateY(-3px); background: #ffffff;
     border-color: var(--primary-soft);
   }
-  .nav-card .icon { font-size: 28px; margin-bottom: 6px; }
+  .nav-card .svg-icon { width: 28px; height: 28px; fill: var(--primary); margin-bottom: 8px; display: block; }
   .nav-card .title { font-size: 15px; font-weight: 900; color: var(--primary); }
   .nav-card .desc { font-size: 12px; color: var(--text-sub); margin-top: 2px; font-weight: 700; }
   .nav-card.wide { grid-column: 1 / -1; }
 
-  /* ===== QUIZLET-STYLE FLIP CARD ===== */
+  /* ===== FLIP CARDS ===== */
   .flip-container {
     perspective: 1000px;
     width: 100%; min-height: 380px; cursor: pointer; margin-bottom: 20px;
@@ -124,9 +161,8 @@
     transform-style: preserve-3d;
     position: relative; width: 100%; min-height: 380px;
   }
-  .flip-container.flipped .flipper {
-    transform: rotateY(180deg);
-  }
+  .flip-container.flipped .flipper { transform: rotateY(180deg); }
+  
   .card-front, .card-back {
     backface-visibility: hidden;
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -136,18 +172,13 @@
   }
   .card-back {
     transform: rotateY(180deg);
-    background: #f8fcff; border-color: #e1effa;
-    overflow-y: auto;
+    background: #f8fcff; border-color: #e1effa; overflow-y: auto;
   }
 
   .hanzi-main { font-size: 88px; font-weight: 900; color: var(--text-dark); line-height: 1; }
   .pinyin-back { font-size: 28px; font-weight: 900; color: var(--primary); margin-bottom: 6px; }
   .meaning-back { font-size: 18px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px; }
-  .cat-badge {
-    background: #e3f2fd; color: var(--primary); font-size: 11px;
-    font-weight: 800; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px;
-    display: inline-block;
-  }
+  
   .radical-box {
     background: #ffffff; border: 1.5px solid #d0e8f9; border-radius: 14px;
     padding: 10px 14px; text-align: left; font-size: 12px; width: 100%; max-width: 380px;
@@ -187,9 +218,7 @@
     padding: 12px 20px; font-family: inherit; font-size: 14px; font-weight: 700;
     outline: none; background: #ffffff; color: var(--text-dark); margin-bottom: 16px;
   }
-  .search-input:focus { border-color: var(--primary); }
 
-  /* HSK QUIZ OPTIONS */
   .quiz-option {
     background: #ffffff; border: 2px solid var(--border-color); border-radius: 16px;
     padding: 12px 18px; font-family: inherit; font-size: 14px; font-weight: 800;
@@ -211,17 +240,23 @@
   <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar">
     <div class="sidebar-card">
-      <div class="sidebar-title">🐰 HSK Levels</div>
+      <div class="sidebar-title">
+        <svg style="width:14px; height:14px; fill:var(--primary);" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        HSK Levels
+      </div>
       <div class="hsk-item active" onclick="filterHSK(1)"><span>HSK 1</span> <span class="hsk-count">300</span></div>
       <div class="hsk-item" onclick="filterHSK(2)"><span>HSK 2</span> <span class="hsk-count">500</span></div>
       <div class="hsk-item" onclick="filterHSK(3)"><span>HSK 3</span> <span class="hsk-count">1000</span></div>
-      <div class="hsk-item" onclick="filterHSK('slang')"><span>Slang & Phrases</span> <span class="hsk-count">✿</span></div>
+      <div class="hsk-item" onclick="filterHSK('slang')"><span>Phrases & Slang</span> <span class="hsk-count">✿</span></div>
     </div>
 
     <div class="sidebar-card" style="text-align:center;">
-      <div style="font-size:32px; margin-bottom:4px;">🐰☁️</div>
-      <div style="font-weight:900; font-size:14px; color:var(--primary);">Study Corner</div>
-      <div style="font-size:12px; color:var(--text-sub); margin-top:2px;">Soft & Gentle Learning</div>
+      <svg class="lotus-banner" style="margin: 0 auto;" viewBox="0 0 64 64">
+        <path fill="#a8d0e6" d="M32 12c-6 10-14 16-20 20 8 2 16 0 20-8 4 8 12 10 20 8-6-4-14-10-20-20z"/>
+        <path fill="#6ba4c8" d="M32 20c-4 8-10 12-16 16 6 2 12 0 16-6 4 6 10 8 16 6-6-4-12-8-16-16z"/>
+      </svg>
+      <div style="font-weight:900; font-size:13px; color:var(--primary); margin-top:8px;">Sanctuary Studio</div>
+      <div style="font-size:11px; color:var(--text-sub); margin-top:2px;">Minimal & Pure Aesthetic</div>
     </div>
   </aside>
 
@@ -229,43 +264,79 @@
   <main class="main-content">
 
     <header class="header-box">
-      <div class="creator-tag">☁️ by astagme</div>
-      <h1>中文 Studio</h1>
-      <p id="greet-text">Cozy pastel Chinese learning space 🌸</p>
+      <div>
+        <div class="creator-tag">by astagme</div>
+        <h1>中文 Studio</h1>
+        <p id="greet-text">Good day! Welcome to your study sanctuary</p>
+      </div>
+      
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+        <div class="time-badge" id="local-clock">
+          <svg style="width:14px; height:14px; fill:var(--primary);" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/></svg>
+          <span id="clock-text">00:00:00</span>
+        </div>
+        
+        <!-- Lotus SVG Aesthetic Illustration -->
+        <svg class="lotus-banner" viewBox="0 0 64 64">
+          <path fill="#a8d0e6" d="M32 10c-8 12-18 20-24 24 10 2 20 0 24-10 4 10 14 12 24 10-6-4-16-12-24-24z"/>
+          <path fill="#6ba4c8" d="M32 22c-5 8-12 12-18 16 8 1 14 0 18-6 4 6 10 7 18 6-6-4-13-8-18-16z"/>
+        </svg>
+      </div>
     </header>
 
     <!-- ============ HOME SCREEN ============ -->
     <div id="home-view">
+      
+      <!-- SINGLE WORD OF THE DAY -->
+      <div class="wotd-card">
+        <div class="wotd-label">
+          <span>Word of the Day</span>
+          <span style="font-size:11px; color:var(--text-light);" id="wotd-date">Today</span>
+        </div>
+        <div class="wotd-hanzi" id="wotd-hanzi">加油</div>
+        <div class="wotd-pinyin" id="wotd-pinyin">jiāyóu</div>
+        <div class="wotd-meaning" id="wotd-meaning">go for it! don't give up! (давай! не сдавайся!)</div>
+        <div class="wotd-ex">
+          <div id="wotd-ex">加油！你可以的！</div>
+          <div class="py" id="wotd-ex-py">jiāyóu! nǐ kěyǐ de!</div>
+          <div class="ru" id="wotd-ex-ru">Go for it! You can do it! (Давай! Ты сможешь!)</div>
+        </div>
+      </div>
+
       <div class="nav-grid">
         <div class="nav-card" onclick="openSection('cards')">
-          <div class="icon">🃏</div>
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/></svg>
           <div class="title">Flashcards & Radicals</div>
           <div class="desc"><span id="total-words-count">0</span> items • Keys & Stories</div>
         </div>
+
         <div class="nav-card" onclick="openSection('quiz')">
-          <div class="icon">🎯</div>
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
           <div class="title">HSK Practice Tests</div>
           <div class="desc">Grammar & vocabulary quizzes</div>
         </div>
+
         <div class="nav-card" onclick="openSection('sentences')">
-          <div class="icon">✍️</div>
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
           <div class="title">Sentences</div>
           <div class="desc">Build & translate</div>
         </div>
+
         <div class="nav-card" onclick="openSection('texts')">
-          <div class="icon">📖</div>
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h2v8l2.5-1.5L13 12V4h5v16z"/></svg>
           <div class="title">Reading Texts</div>
           <div class="desc">Short stories & pinyin</div>
         </div>
+
         <div class="nav-card wide" onclick="openSection('daily')">
-          <div class="icon">✨</div>
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
           <div class="title">Dictionary & Slang</div>
           <div class="desc">Full searchable vocabulary list</div>
         </div>
       </div>
     </div>
 
-    <!-- ============ FLASHCARDS VIEW (QUIZLET FLIP + RADICALS) ============ -->
+    <!-- ============ FLASHCARDS VIEW ============ -->
     <div id="cards-view" class="hidden">
       <button class="back-btn" onclick="goHome()">← Back</button>
 
@@ -274,20 +345,19 @@
           <div class="card-front">
             <div style="font-size:12px; font-weight:800; color:var(--primary); margin-bottom:12px; text-transform:uppercase;">Character</div>
             <div class="hanzi-main" id="card-hanzi">我</div>
-            <div class="flip-hint">Click card to flip 🐰</div>
+            <div class="flip-hint">Click card to flip</div>
           </div>
           <div class="card-back">
             <div class="pinyin-back" id="card-pinyin">wǒ</div>
             <div class="meaning-back" id="card-meaning">I, me (я)</div>
-            <div class="cat-badge" id="card-cat">Pronoun</div>
             
             <div class="radical-box">
-              <div class="radical-title">🔑 Radicals & Memory Story</div>
+              <div class="radical-title">Radicals & Memory Story</div>
               <div style="font-weight:800; color:var(--text-dark);" id="card-radicals">Key: 手 (hand) + 戈 (spear)</div>
               <div style="color:var(--text-sub); margin-top:4px;" id="card-story">A hand holding a spear to protect "myself".</div>
             </div>
 
-            <div class="flip-hint">Click card to flip back ☁️</div>
+            <div class="flip-hint">Click card to flip back</div>
           </div>
         </div>
       </div>
@@ -321,7 +391,7 @@
         <div style="font-size:18px; font-weight:800; color:var(--text-dark);" id="sent-prompt">I love my mom very much.</div>
         <div style="font-size:13px; color:var(--text-sub); margin-bottom:14px;">Hint: Subject + 很 + Verb + Object</div>
         <input type="text" class="search-input" id="sent-input" placeholder="Type Chinese or pinyin...">
-        <button class="btn-primary" onclick="checkSentence()">Check Answer 🐰</button>
+        <button class="btn-primary" onclick="checkSentence()">Check Answer</button>
         <div id="sent-feedback" style="margin-top:12px; font-weight:800; font-size:14px;"></div>
       </div>
     </div>
@@ -343,24 +413,22 @@
 </div>
 
 <script>
-/* ============ EXTENDED VOCABULARY DATABASE WITH RADICALS & STORIES ============ */
+/* ============ EXTENDED VOCABULARY DATABASE ============ */
 const allWords = [
   // HSK 1
   { hanzi: "我", pinyin: "wǒ", meaning: "I, me (я)", cat: "Pronoun", hsk: 1, radicals: "手 (hand) + 戈 (weapon)", story: "A hand holding a weapon to protect myself." },
   { hanzi: "你", pinyin: "nǐ", meaning: "you (ты)", cat: "Pronoun", hsk: 1, radicals: "亻(person) + 尔 (small)", story: "A person standing right in front of you." },
   { hanzi: "他", pinyin: "tā", meaning: "he, him (он)", cat: "Pronoun", hsk: 1, radicals: "亻(person) + 也 (also)", story: "Another person standing over there." },
   { hanzi: "她", pinyin: "tā", meaning: "she, her (она)", cat: "Pronoun", hsk: 1, radicals: "女 (woman) + 也 (also)", story: "A female person." },
-  { hanzi: "好", pinyin: "hǎo", meaning: "good, fine (хороший)", cat: "Adjective", hsk: 1, radicals: "女 (woman) + 子 (child)", story: "A woman with a child represents goodness and harmony." },
+  { hanzi: "好", pinyin: "hǎo", meaning: "good, fine (хороший)", cat: "Adjective", hsk: 1, radicals: "女 (woman) + 子 (child)", story: "A woman with a child represents goodness." },
   { hanzi: "看", pinyin: "kàn", meaning: "to watch, look (смотреть)", cat: "Verb", hsk: 1, radicals: "手 (hand) + 目 (eye)", story: "Putting a hand over the eye to look far away." },
   { hanzi: "听", pinyin: "tīng", meaning: "to listen (слушать)", cat: "Verb", hsk: 1, radicals: "口 (mouth) + 斤 (axe)", story: "Listening carefully to nearby sounds." },
-  { hanzi: "妈妈", pinyin: "māma", meaning: "mom (мама)", cat: "Noun", hsk: 1, radicals: "女 (woman) + 马 (horse)", story: "The woman who works hard as a horse for her family." },
-  { hanzi: "猫", pinyin: "māo", meaning: "cat (кошка)", cat: "Noun", hsk: 1, radicals: "犭(beast) + 苗 (sprout)", story: "A small animal in the grass field catching mice." },
-  { hanzi: "爱", pinyin: "ài", meaning: "to love (любить)", cat: "Verb", hsk: 1, radicals: "爫 (claw) + 友 (friend)", story: "Reaching out with affection to embrace a friend." },
+  { hanzi: "妈妈", pinyin: "māma", meaning: "mom (мама)", cat: "Noun", hsk: 1, radicals: "女 (woman) + 马 (horse)", story: "The woman who works hard for her family." },
+  { hanzi: "猫", pinyin: "māo", meaning: "cat (кошка)", cat: "Noun", hsk: 1, radicals: "犭(beast) + 苗 (sprout)", story: "A small animal hiding in the field." },
 
   // HSK 2
   { hanzi: "准备", pinyin: "zhǔnbèi", meaning: "to prepare (готовить)", cat: "Verb", hsk: 2, radicals: "冫(ice) + 👤", story: "Getting everything ready beforehand." },
-  { hanzi: "帮助", pinyin: "bāngzhù", meaning: "to help (помогать)", cat: "Verb", hsk: 2, radicals: "巾 (towel) + 力 (strength)", story: "Offering strength to assist someone in need." },
-  { hanzi: "简单", pinyin: "jiǎndān", meaning: "simple, easy (простой)", cat: "Adjective", hsk: 2, radicals: "竹 (bamboo) + 𠮤", story: "Uncomplicated like plain bamboo sticks." },
+  { hanzi: "帮助", pinyin: "bāngzhù", meaning: "to help (помогать)", cat: "Verb", hsk: 2, radicals: "巾 (towel) + 力 (strength)", story: "Offering strength to assist someone." },
 
   // Slang
   { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад)", cat: "Slang", hsk: "slang", radicals: "纟(silk) + 色 (color)", story: "So amazing that nothing can top it!" },
@@ -368,6 +436,51 @@ const allWords = [
 ];
 
 document.getElementById("total-words-count").textContent = allWords.length;
+
+/* ============ LOCAL DIGITAL CLOCK ============ */
+function updateClock() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  
+  document.getElementById("clock-text").textContent = `${hours}:${minutes}:${seconds}`;
+  
+  // Greeting based on user local time
+  const h = now.getHours();
+  let greet = "Good day! Welcome to your study sanctuary";
+  if (h < 6) greet = "Late night study session? Take it easy";
+  else if (h < 12) greet = "Good morning! Ready to learn Chinese?";
+  else if (h < 18) greet = "Good afternoon! Happy Chinese review time";
+  else greet = "Good evening! Cozy study sanctuary";
+  
+  document.getElementById("greet-text").textContent = greet;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+/* ============ SINGLE WORD OF THE DAY ENGINE ============ */
+const wordsOfDay = [
+  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! don't give up! (давай! не сдавайся!)", ex: "加油！你可以的！", exPy: "jiāyóu! nǐ kěyǐ de!", exRu: "Go for it! You can do it! (Давай! Ты сможешь!)" },
+  { hanzi: "辛苦", pinyin: "xīnkǔ", meaning: "tiring, hard work (устал, тяжело)", ex: "你辛苦了。", exPy: "nǐ xīnkǔ le.", exRu: "You've worked hard. (Ты устал, спасибо за труд.)" },
+  { hanzi: "慢慢来", pinyin: "mànman lái", meaning: "take it slow (не спеши, потихоньку)", ex: "慢慢来，别着急。", exPy: "mànman lái, bié zháojí.", exRu: "Take it slow. (Не спеши, не волнуйся.)" }
+];
+
+function setWordOfTheDay() {
+  const dayIndex = Math.floor(Date.now() / 86400000) % wordsOfDay.length;
+  const w = wordsOfDay[dayIndex];
+  
+  document.getElementById("wotd-hanzi").textContent = w.hanzi;
+  document.getElementById("wotd-pinyin").textContent = w.pinyin;
+  document.getElementById("wotd-meaning").textContent = w.meaning;
+  document.getElementById("wotd-ex").textContent = w.ex;
+  document.getElementById("wotd-ex-py").textContent = w.exPy;
+  document.getElementById("wotd-ex-ru").textContent = w.exRu;
+  
+  const todayStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  document.getElementById("wotd-date").textContent = todayStr;
+}
+setWordOfTheDay();
 
 /* ============ HSK PRACTICE QUIZZES ============ */
 const quizQuestions = [
@@ -382,12 +495,6 @@ const quizQuestions = [
     options: ["A. To listen", "B. To eat", "C. To watch / read", "D. To speak"],
     correct: 2,
     explain: "看 (kàn) consists of 手 (hand) over 目 (eye) meaning to look or watch."
-  },
-  {
-    q: "How do you say 'My mom' in Chinese?",
-    options: ["A. 我妈妈 (wǒ māma)", "B. 你妈妈 (nǐ māma)", "C. 他老师 (tā lǎoshī)", "D. 很好 (hěn hǎo)"],
-    correct: 0,
-    explain: "我 (wǒ) means I/my, so 我妈妈 is my mom."
   }
 ];
 let currentQuizIdx = 0;
@@ -399,12 +506,6 @@ const readingTexts = [
     cn: "你好！我是学生。我爱学习中文。我的老师很好。",
     py: "Nǐ hǎo! Wǒ shì xuéshēng. Wǒ ài xuéxí zhōngwén. Wǒ de lǎoshī hěn hǎo.",
     ru: "Привет! Я студент. Я люблю учить китайский. Мой учитель очень хороший."
-  },
-  {
-    title: "2. Daily Routine (Мой день)",
-    cn: "今天我去看书。妈妈去买米。我们都很高兴。",
-    py: "Jīntiān wǒ qù kàn shū. Māma qù mǎi mǐ. Wǒmen dōu hěn gāoxìng.",
-    ru: "Сегодня я иду читать книгу. Мама идет покупать рис. Мы все очень счастливы."
   }
 ];
 
@@ -449,10 +550,9 @@ function renderCard() {
   container.classList.remove("flipped");
 
   if (!words.length) {
-    document.getElementById("card-hanzi").textContent = "🐰";
+    document.getElementById("card-hanzi").textContent = "🌸";
     document.getElementById("card-pinyin").textContent = "Coming Soon";
     document.getElementById("card-meaning").textContent = "No words found in this section";
-    document.getElementById("card-cat").textContent = "Info";
     document.getElementById("card-radicals").textContent = "-";
     document.getElementById("card-story").textContent = "-";
     document.getElementById("card-progress").textContent = "0 / 0";
@@ -465,7 +565,6 @@ function renderCard() {
   document.getElementById("card-hanzi").textContent = w.hanzi;
   document.getElementById("card-pinyin").textContent = w.pinyin;
   document.getElementById("card-meaning").textContent = w.meaning;
-  document.getElementById("card-cat").textContent = w.cat;
   document.getElementById("card-radicals").textContent = w.radicals || "Standard components";
   document.getElementById("card-story").textContent = w.story || "Practice writing and repeating.";
   document.getElementById("card-progress").textContent = `${cardIdx + 1} / ${words.length}`;
@@ -509,10 +608,10 @@ function checkQuizAnswer(chosenIdx) {
   });
 
   if (chosenIdx === q.correct) {
-    fb.textContent = `✅ Correct! ${q.explain}`;
+    fb.textContent = `Correct! ${q.explain}`;
     fb.style.color = "#2e7d32";
   } else {
-    fb.textContent = `❌ Incorrect. ${q.explain}`;
+    fb.textContent = `Incorrect. ${q.explain}`;
     fb.style.color = "#c62828";
   }
 }
@@ -527,10 +626,10 @@ function checkSentence() {
   const input = document.getElementById("sent-input").value.trim().toLowerCase();
   const fb = document.getElementById("sent-feedback");
   if (input.includes("我很爱妈妈") || input.includes("wo hen ai mama")) {
-    fb.textContent = "✅ Correct! 🐰";
+    fb.textContent = "Correct!";
     fb.style.color = "#2e8b57";
   } else {
-    fb.textContent = "❌ Answer: 我很爱妈妈 (wǒ hěn ài māma)";
+    fb.textContent = "Answer: 我很爱妈妈 (wǒ hěn ài māma)";
     fb.style.color = "#d93856";
   }
 }
@@ -563,24 +662,12 @@ function renderArchive(query = "") {
         <div style="font-size:24px; font-weight:900; color:var(--text-dark);">${w.hanzi}</div>
         <div style="font-size:14px; font-weight:800; color:var(--primary);">${w.pinyin}</div>
         <div style="font-size:13px; color:var(--text-sub);">${w.meaning}</div>
-        ${w.radicals ? `<div style="font-size:11px; color:var(--text-light); margin-top:2px;">🔑 ${w.radicals}</div>` : ''}
+        ${w.radicals ? `<div style="font-size:11px; color:var(--text-light); margin-top:2px;">Key: ${w.radicals}</div>` : ''}
       </div>
       <span style="background:#e3f2fd; color:var(--primary); font-size:11px; font-weight:800; padding:4px 10px; border-radius:999px;">${w.cat}</span>
     </div>
   `).join("");
 }
-
-/* ============ GREETING ============ */
-function setGreeting() {
-  const h = new Date().getHours();
-  let text = "Cozy pastel Chinese learning space 🌸";
-  if (h < 6) text = "Late night study session? Take it easy 🌙";
-  else if (h < 12) text = "Good morning! Ready to learn Chinese? ☀️";
-  else if (h < 18) text = "Good afternoon! Happy Chinese review time ☁️";
-  else text = "Good evening! Cozy study sanctuary ✨";
-  document.getElementById("greet-text").textContent = text;
-}
-setGreeting();
 </script>
 </body>
 </html>
