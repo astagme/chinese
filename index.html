@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>✿ 中文 ✿</title>
+<title>✿ 中文 ✿ Study Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
@@ -14,15 +14,15 @@
     100% { transform: translateY(0px) rotate(0deg); }
   }
 
-  @keyframes pulseGlow {
-    0% { box-shadow: 0 10px 30px rgba(255,158,196,0.3); }
-    50% { box-shadow: 0 15px 40px rgba(255,158,196,0.5); }
-    100% { box-shadow: 0 10px 30px rgba(255,158,196,0.3); }
+  @keyframes floatSlow {
+    0% { transform: translate(0px, 0px); }
+    50% { transform: translate(15px, -15px); }
+    100% { transform: translate(0px, 0px); }
   }
 
   body {
     font-family: 'Nunito', sans-serif;
-    background: linear-gradient(160deg, #ffe4ec 0%, #ffd1e0 50%, #ffc9de 100%);
+    background: linear-gradient(160deg, #ffe4ec 0%, #e8e0ff 40%, #ffd1e0 70%, #ffc9de 100%);
     min-height: 100vh;
     margin: 0;
     display: flex;
@@ -34,211 +34,240 @@
     overflow-x: hidden;
   }
 
+  /* Kawaii Clouds Decorative Background */
   body::before, body::after {
     content: '';
     position: fixed;
     border-radius: 50%;
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.6);
     filter: blur(35px);
     z-index: 0;
-    pointer-events: none;
+    animation: floatSlow 8s ease-in-out infinite;
   }
-  body::before { width: 320px; height: 320px; top: -80px; left: -80px; }
-  body::after  { width: 420px; height: 420px; bottom: -150px; right: -120px; }
+  body::before { width: 320px; height: 320px; top: -60px; left: -60px; background: rgba(230, 225, 255, 0.7); }
+  body::after  { width: 420px; height: 420px; bottom: -120px; right: -100px; background: rgba(255, 218, 233, 0.7); }
 
-  .container { position: relative; z-index: 1; width: 100%; max-width: 520px; }
+  .bg-cloud {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50px;
+    filter: blur(20px);
+    z-index: 0;
+    animation: float 6s ease-in-out infinite;
+  }
+  .bg-cloud-1 { width: 180px; height: 80px; top: 20%; right: 5%; animation-delay: -2s; }
+  .bg-cloud-2 { width: 220px; height: 90px; bottom: 25%; left: 3%; animation-delay: -4s; }
+
+  .container { position: relative; z-index: 1; width: 100%; max-width: 540px; }
 
   /* ===== HOME ===== */
-  .greeting { text-align: center; margin-bottom: 20px; animation: float 6s ease-in-out infinite; }
+  .greeting { text-align: center; margin-bottom: 20px; }
   .greeting h1 {
     font-size: 28px; font-weight: 800;
     color: #ff7eb3; margin: 0 0 4px;
-    text-shadow: 0 2px 10px rgba(255,126,179,0.2);
+    text-shadow: 0 2px 10px rgba(255, 126, 179, 0.2);
   }
-  .greeting p { font-size: 14px; color: #b3809a; margin: 0; }
+  .greeting p { font-size: 14px; color: #9c7b9b; margin: 0; font-weight: 700; }
 
   .daily { display: grid; gap: 14px; margin-bottom: 24px; }
   .daily-card {
-    background: #fff; border-radius: 26px; padding: 20px 22px;
-    box-shadow: 0 10px 30px rgba(255,158,196,0.3);
+    background: rgba(255, 255, 255, 0.95); border-radius: 26px; padding: 20px 22px;
+    box-shadow: 0 10px 30px rgba(255,158,196,0.25);
     position: relative; overflow: hidden;
-    transition: transform 0.3s;
-    animation: pulseGlow 4s infinite ease-in-out;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    animation: float 7s ease-in-out infinite;
   }
+  .daily-card:nth-child(2) { animation-delay: -3.5s; }
   .daily-card::before {
-    content: '✿'; position: absolute; top: 12px; right: 16px;
-    color: #ffc9de; font-size: 20px;
+    content: '☁️'; position: absolute; top: 12px; right: 16px;
+    font-size: 20px; opacity: 0.8;
   }
   .daily-label {
     font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
-    color: #d8a5bc; font-weight: 700; margin-bottom: 10px;
+    color: #b3809a; font-weight: 800; margin-bottom: 8px;
   }
-  .daily-hanzi { font-size: 42px; font-weight: 700; color: #7a4a5c; line-height: 1.1; }
+  .daily-hanzi { font-size: 40px; font-weight: 800; color: #7a4a5c; line-height: 1.1; }
   .daily-pinyin { font-size: 18px; color: #ff7eb3; font-weight: 700; margin-top: 4px; }
-  .daily-meaning { font-size: 15px; color: #b3809a; margin-top: 6px; }
+  .daily-meaning { font-size: 15px; color: #8e6c88; margin-top: 6px; font-weight: 600; }
   .daily-example {
     font-size: 14px; color: #7a4a5c; margin-top: 10px;
     padding-top: 10px; border-top: 1px dashed #ffd1e0;
   }
-  .daily-example .py { color: #ff7eb3; font-size: 13px; }
-  .daily-example .ru { color: #b3809a; font-size: 13px; font-style: italic; }
+  .daily-example .py { color: #ff7eb3; font-size: 13px; font-weight: 700; }
+  .daily-example .ru { color: #a37993; font-size: 13px; font-style: italic; }
 
   .sections { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .section {
-    background: #fff; border: none; border-radius: 24px;
-    padding: 22px 16px; font-family: inherit; text-align: left;
-    cursor: pointer; box-shadow: 0 8px 24px rgba(255,158,196,0.25);
-    transition: all 0.25s ease; color: #7a4a5c;
+    background: rgba(255, 255, 255, 0.9); border: 2px solid #ffffff; border-radius: 24px;
+    padding: 20px 16px; font-family: inherit; text-align: left;
+    cursor: pointer; box-shadow: 0 8px 24px rgba(255,158,196,0.2);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); color: #7a4a5c;
   }
-  .section:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(255,158,196,0.4); }
+  .section:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 14px 32px rgba(255,158,196,0.35); }
   .section .icon { font-size: 28px; }
   .section .title { font-size: 15px; font-weight: 800; margin-top: 8px; color: #ff7eb3; }
-  .section .desc { font-size: 12px; color: #b3809a; margin-top: 2px; }
-  .section.wide { grid-column: 1 / -1; }
+  .section .desc { font-size: 12px; color: #aa7d98; margin-top: 2px; font-weight: 600; }
+  .section.wide { grid-column: 1 / -1; background: linear-gradient(135deg, #ffffff 0%, #fff0f6 100%); }
 
-  /* ===== COMMON INTERFACE ===== */
+  /* ===== SECTION COMMON ===== */
   .back-btn {
-    background: rgba(255,255,255,0.85); border: none; color: #b3809a;
-    font-family: inherit; font-weight: 700; font-size: 14px;
-    padding: 10px 18px; border-radius: 999px; cursor: pointer;
+    background: rgba(255,255,255,0.85); border: 2px solid #fff; color: #b3809a;
+    font-family: inherit; font-weight: 800; font-size: 14px;
+    padding: 10px 20px; border-radius: 999px; cursor: pointer;
     margin-bottom: 16px; transition: all 0.2s;
     box-shadow: 0 4px 12px rgba(255,158,196,0.15);
   }
-  .back-btn:hover { background: #fff; transform: translateX(-2px); }
+  .back-btn:hover { background: #fff; color: #ff7eb3; transform: translateX(-3px); }
 
   .hidden { display: none !important; }
 
   /* ===== FLASHCARDS ===== */
-  .modes {
+  .modes, .filters {
     display: flex; gap: 8px; justify-content: center;
     margin-bottom: 14px; flex-wrap: wrap;
   }
-  .mode-btn {
-    background: rgba(255,255,255,0.7); border: 2px solid transparent;
-    color: #b3809a; font-family: inherit; font-weight: 700;
+  .mode-btn, .filter-btn {
+    background: rgba(255,255,255,0.75); border: 2px solid #fff;
+    color: #9c7b9b; font-family: inherit; font-weight: 700;
     font-size: 13px; padding: 8px 14px; border-radius: 999px;
     cursor: pointer; transition: all 0.2s;
   }
-  .mode-btn:hover { background: #fff; }
+  .mode-btn:hover, .filter-btn:hover { background: #fff; color: #ff7eb3; }
   .mode-btn.active {
-    background: #ff9ec4; color: #fff;
-    box-shadow: 0 4px 14px rgba(255,158,196,0.5);
+    background: #ff9ec4; color: #fff; border-color: #ff9ec4;
+    box-shadow: 0 4px 14px rgba(255,158,196,0.4);
   }
-
-  .filters {
-    display: flex; gap: 6px; justify-content: center;
-    margin-bottom: 16px; flex-wrap: wrap;
-  }
-  .filter-btn {
-    background: rgba(255,255,255,0.5); border: none;
-    color: #b3809a; font-family: inherit; font-weight: 700;
-    font-size: 12px; padding: 6px 12px; border-radius: 999px;
-    cursor: pointer; transition: all 0.2s;
-  }
-  .filter-btn.active { background: #ffd1e0; color: #ff7eb3; }
+  .filter-btn.active { background: #e0d5ff; color: #6c528f; border-color: #e0d5ff; }
 
   .card {
-    background: #fff; border-radius: 28px; padding: 32px 24px;
+    background: rgba(255,255,255,0.95); border-radius: 28px; padding: 36px 24px;
     min-height: 320px; display: flex; flex-direction: column;
     align-items: center; justify-content: center; text-align: center;
-    box-shadow: 0 12px 40px rgba(255,158,196,0.3);
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 12px 40px rgba(255,158,196,0.25);
+    cursor: pointer; transition: all 0.25s;
     position: relative; overflow: hidden;
+    border: 2px solid #ffffff;
   }
   .card::before {
-    content: '✿'; position: absolute; top: 14px; right: 18px;
-    font-size: 18px; color: #ffc9de;
+    content: '🎀'; position: absolute; top: 14px; right: 18px;
+    font-size: 18px; opacity: 0.8;
   }
 
   .prompt-label {
     font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px;
-    color: #d8a5bc; margin-bottom: 16px; font-weight: 700;
+    color: #b3809a; margin-bottom: 16px; font-weight: 800;
   }
-  .hanzi { font-size: 100px; line-height: 1; color: #7a4a5c; font-weight: 700; }
+  .hanzi { font-size: 100px; line-height: 1; color: #7a4a5c; font-weight: 800; }
   .hanzi.small { font-size: 58px; }
-  .pinyin { font-size: 30px; color: #ff7eb3; font-weight: 700; margin-top: 12px; }
-  .meaning { font-size: 20px; color: #7a4a5c; margin-top: 10px; font-weight: 600; }
-  .hint-flip { font-size: 13px; color: #d8a5bc; margin-top: 20px; }
+  .pinyin { font-size: 32px; color: #ff7eb3; font-weight: 800; margin-top: 14px; }
+  .meaning { font-size: 20px; color: #7a4a5c; margin-top: 10px; font-weight: 700; }
+  .meaning .ru-part { color: #9c7b9b; font-size: 15px; font-style: italic; font-weight: 600; }
+  .hint-flip { font-size: 13px; color: #c49bb6; margin-top: 20px; font-weight: 700; }
 
-  .audio-btn {
-    background: #fff5f8; border: 1px solid #ffd1e0; color: #ff7eb3;
-    border-radius: 50%; width: 38px; height: 38px; cursor: pointer;
-    margin-top: 10px; display: inline-flex; align-items: center; justify-content: center;
-    font-size: 16px; transition: all 0.2s;
+  /* Pinyin Input Field */
+  .pinyin-input-box {
+    margin-top: 18px; width: 100%; max-width: 340px;
+    display: flex; gap: 8px; justify-content: center;
   }
-  .audio-btn:hover { background: #ff7eb3; color: #fff; }
+  .pinyin-input {
+    width: 100%; border: 2px solid #ffd1e0; border-radius: 999px;
+    padding: 10px 18px; font-family: inherit; font-size: 16px;
+    outline: none; transition: all 0.2s; text-align: center;
+    background: #fffdfd; color: #7a4a5c; font-weight: 700;
+  }
+  .pinyin-input:focus { border-color: #ff7eb3; box-shadow: 0 0 10px rgba(255, 126, 179, 0.3); }
+  .pinyin-submit {
+    background: #ff7eb3; color: white; border: none; border-radius: 999px;
+    padding: 10px 18px; font-family: inherit; font-weight: 800;
+    cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  }
+  .pinyin-submit:hover { background: #ff5c9e; transform: scale(1.05); }
 
-  /* Input area under card */
-  .card-input-box {
-    width: 100%; margin-top: 20px; display: flex; gap: 8px; justify-content: center;
-  }
-  .card-input {
-    width: 70%; padding: 12px 18px; border-radius: 999px; border: 2px solid #ffd1e0;
-    outline: none; font-family: inherit; font-weight: 700; color: #7a4a5c;
-    background: #fff5f8; text-align: center; font-size: 15px; transition: border-color 0.2s;
-  }
-  .card-input:focus { border-color: #ff7eb3; background: #fff; }
-
-  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 20px; }
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 16px; }
   .option {
     background: #fff5f8; border: 2px solid #ffd1e0; border-radius: 18px;
-    padding: 14px; font-family: inherit; font-size: 14px; font-weight: 700;
+    padding: 12px; font-family: inherit; font-size: 14px; font-weight: 700;
     color: #7a4a5c; cursor: pointer; transition: all 0.2s;
   }
   .option:hover { background: #ffe4ec; border-color: #ff9ec4; }
-  .option.correct { background: #d4f5dd; border-color: #7ed99a; color: #2e7d4a; }
-  .option.wrong   { background: #ffd6d6; border-color: #ff9a9a; color: #a33; }
+  .option.correct { background: #e2f8e9; border-color: #82e29e; color: #237841; }
+  .option.wrong   { background: #ffe0e0; border-color: #ff9e9e; color: #a63131; }
 
   .controls { display: flex; gap: 10px; margin-top: 20px; justify-content: center; }
   .btn {
     background: #ff9ec4; color: #fff; border: none; font-family: inherit;
-    font-weight: 700; font-size: 15px; padding: 12px 24px; border-radius: 999px;
+    font-weight: 800; font-size: 15px; padding: 12px 24px; border-radius: 999px;
     cursor: pointer; transition: all 0.2s;
-    box-shadow: 0 4px 14px rgba(255,158,196,0.4);
+    box-shadow: 0 4px 14px rgba(255,158,196,0.35);
   }
-  .btn:hover { background: #ff7eb3; transform: translateY(-1px); }
-  .btn.ghost { background: rgba(255,255,255,0.8); color: #b3809a; box-shadow: none; }
-  .btn.ghost:hover { background: #fff; }
+  .btn:hover { background: #ff7eb3; transform: translateY(-2px); }
+  .btn.ghost { background: rgba(255,255,255,0.85); color: #b3809a; box-shadow: none; }
+  .btn.ghost:hover { background: #fff; color: #ff7eb3; }
 
-  .progress { text-align: center; font-size: 13px; color: #b3809a; margin-top: 16px; font-weight: 700; }
-  .feedback { text-align: center; font-size: 15px; font-weight: 700; margin-top: 12px; min-height: 22px; }
-  .feedback.ok { color: #2e7d4a; }
+  .progress { text-align: center; font-size: 13px; color: #9c7b9b; margin-top: 16px; font-weight: 800; }
+  .feedback { text-align: center; font-size: 15px; font-weight: 800; margin-top: 12px; min-height: 24px; }
+  .feedback.ok { color: #329c54; }
   .feedback.no { color: #d94a4a; }
 
-  /* ===== SECTION VIEWS ===== */
-  .section-card {
-    background: #fff; border-radius: 28px; padding: 24px;
-    box-shadow: 0 10px 30px rgba(255,158,196,0.3); margin-bottom: 16px;
+  /* ===== SENTENCES SCREEN ===== */
+  .sentence-box {
+    background: #fff; border-radius: 24px; padding: 24px;
+    box-shadow: 0 10px 30px rgba(255,158,196,0.25); margin-bottom: 16px;
+    text-align: center; border: 2px solid #fff;
   }
-  .section-title { font-size: 18px; font-weight: 800; color: #ff7eb3; margin-bottom: 12px; }
-
-  /* Sentences builder */
-  .sentence-target { font-size: 16px; color: #7a4a5c; margin-bottom: 16px; font-weight: 700; text-align: center; }
-  .word-slots {
-    min-height: 50px; border: 2px dashed #ffd1e0; border-radius: 18px;
-    padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; justify-content: center;
+  .target-translation { font-size: 18px; font-weight: 800; color: #ff7eb3; margin-bottom: 16px; }
+  .built-sentence {
+    min-height: 50px; border: 2px dashed #ffd1e0; border-radius: 16px;
+    padding: 10px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center; align-items: center; background: #fffafc;
   }
-  .word-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .word-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
   .chip {
-    background: #fff5f8; border: 1.5px solid #ffd1e0; color: #7a4a5c;
-    padding: 8px 14px; border-radius: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    background: #e8e0ff; color: #5a437a; font-size: 18px; font-weight: 800;
+    padding: 8px 16px; border-radius: 14px; cursor: pointer; transition: all 0.2s;
+    border: 2px solid #fff; box-shadow: 0 4px 10px rgba(180, 160, 230, 0.2);
   }
-  .chip:hover { background: #ff9ec4; color: #fff; border-color: #ff9ec4; }
+  .chip:hover { transform: translateY(-2px); background: #d7c9ff; }
 
-  /* Texts reading */
-  .text-story { line-height: 1.8; font-size: 18px; color: #7a4a5c; }
-  .text-story span { cursor: pointer; padding: 2px 4px; border-radius: 6px; }
-  .text-story span:hover { background: #ffe4ec; color: #ff7eb3; }
-
-  /* Search bar */
-  .search-input {
-    width: 100%; padding: 12px 18px; border-radius: 999px; border: 2px solid #ffd1e0;
-    outline: none; font-family: inherit; font-weight: 700; color: #7a4a5c;
-    background: #fff; margin-bottom: 16px;
+  /* ===== TEXTS SCREEN ===== */
+  .text-card {
+    background: #fff; border-radius: 24px; padding: 22px;
+    box-shadow: 0 10px 30px rgba(255,158,196,0.2); margin-bottom: 14px;
+    border: 2px solid #fff;
   }
+  .text-title { font-size: 18px; font-weight: 800; color: #ff7eb3; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+  .text-cn { font-size: 20px; line-height: 1.6; color: #7a4a5c; font-weight: 700; margin-bottom: 8px; }
+  .text-py { font-size: 14px; color: #ff7eb3; font-weight: 600; margin-bottom: 6px; }
+  .text-ru { font-size: 13px; color: #8e6c88; font-style: italic; }
+
+  /* ===== TASKS / QUIZ SCREEN ===== */
+  .quiz-box {
+    background: #fff; border-radius: 24px; padding: 24px;
+    box-shadow: 0 10px 30px rgba(255,158,196,0.25); text-align: center;
+  }
+  .audio-btn {
+    background: #e0d5ff; color: #6c528f; border: none; font-family: inherit;
+    font-weight: 800; font-size: 16px; padding: 12px 24px; border-radius: 999px;
+    cursor: pointer; margin-bottom: 16px; transition: all 0.2s; display: inline-flex;
+    align-items: center; gap: 8px;
+  }
+  .audio-btn:hover { background: #d0c0ff; transform: scale(1.04); }
+
+  /* ===== DAILY ARCHIVE ===== */
+  .search-box {
+    width: 100%; border: 2px solid #fff; border-radius: 999px;
+    padding: 12px 20px; font-family: inherit; font-size: 14px;
+    outline: none; margin-bottom: 16px; background: rgba(255,255,255,0.9);
+    color: #7a4a5c; font-weight: 700; box-shadow: 0 4px 12px rgba(255,158,196,0.15);
+  }
+
 </style>
 </head>
 <body>
+
+<div class="bg-cloud bg-cloud-1"></div>
+<div class="bg-cloud bg-cloud-2"></div>
 
 <div class="container">
 
@@ -294,12 +323,12 @@
       <button class="section" onclick="openSection('tasks')">
         <div class="icon">🎯</div>
         <div class="title">tasks</div>
-        <div class="desc">mini quizzes</div>
+        <div class="desc">quizzes & audio</div>
       </button>
       <button class="section wide" onclick="openSection('daily')">
         <div class="icon">✨</div>
-        <div class="title">word & slang of the day</div>
-        <div class="desc">phrase collection</div>
+        <div class="title">word & slang collection</div>
+        <div class="desc">phrase archive & search</div>
       </button>
     </div>
   </div>
@@ -338,14 +367,15 @@
   <!-- ============ SENTENCES ============ -->
   <div id="sentences-view" class="hidden">
     <button class="back-btn" onclick="goHome()">← back</button>
-    <div class="section-card">
-      <div class="section-title">✏️ Sentence Constructor</div>
-      <div class="sentence-target" id="sent-target">Build: "I love mom"</div>
-      <div class="word-slots" id="word-slots"></div>
-      <div class="word-bank" id="word-bank"></div>
+    <div class="sentence-box">
+      <div class="prompt-label">✿ sentence constructor</div>
+      <div class="target-translation" id="sent-target">I love my mom</div>
+      <div class="built-sentence" id="built-sentence"></div>
+      <div class="word-chips" id="word-chips"></div>
       <div class="feedback" id="sent-feedback"></div>
-      <div style="text-align:center; margin-top:16px;">
-        <button class="btn" onclick="checkSentence()">check ✨</button>
+      <div style="margin-top: 16px;">
+        <button class="btn ghost" onclick="resetSentence()">reset 🌸</button>
+        <button class="btn" onclick="nextSentence()">next →</button>
       </div>
     </div>
   </div>
@@ -353,29 +383,28 @@
   <!-- ============ TEXTS ============ -->
   <div id="texts-view" class="hidden">
     <button class="back-btn" onclick="goHome()">← back</button>
-    <div class="section-card">
-      <div class="section-title">📖 Mini Reading Story</div>
-      <div class="text-story" id="text-story-content">
-        你好！我是老师。我喜欢看书，也喜欢喝茶。你呢？
-      </div>
-      <p style="font-size:13px; color:#b3809a; margin-top:12px; italic">Tip: Click on characters for quick hint!</p>
-    </div>
+    <div id="texts-list"></div>
   </div>
 
-  <!-- ============ TASKS ============ -->
+  <!-- ============ TASKS / QUIZZES ============ -->
   <div id="tasks-view" class="hidden">
     <button class="back-btn" onclick="goHome()">← back</button>
-    <div class="section-card">
-      <div class="section-title">🎯 Quick Quiz</div>
-      <div id="quiz-box"></div>
+    <div class="quiz-box">
+      <div class="prompt-label">✿ audio & comprehension quiz</div>
+      <button class="audio-btn" onclick="playCurrentAudio()">🔊 listen to audio</button>
+      <div class="options" id="quiz-options"></div>
+      <div class="feedback" id="quiz-feedback"></div>
+      <div style="margin-top: 20px;">
+        <button class="btn" onclick="nextQuiz()">next question →</button>
+      </div>
     </div>
   </div>
 
-  <!-- ============ DAILY COLLECTION ============ -->
+  <!-- ============ DAILY ARCHIVE ============ -->
   <div id="daily-view" class="hidden">
     <button class="back-btn" onclick="goHome()">← back</button>
-    <input type="text" class="search-input" id="daily-search" placeholder="Search phrases..." oninput="filterDailyCollection()">
-    <div id="daily-list"></div>
+    <input type="text" class="search-box" id="daily-search" placeholder="Search phrases or meaning..." oninput="filterDailyArchive()">
+    <div id="daily-archive-list"></div>
   </div>
 
 </div>
@@ -479,18 +508,9 @@ const cardEl = document.getElementById("card");
 const feedbackEl = document.getElementById("feedback");
 const progressEl = document.getElementById("progress");
 
-/* Helper: normalize pinyin (removes tone marks for flexible user input) */
-function removeTones(str) {
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
-}
-
-/* Audio synth */
-function speak(text) {
-  if ('speechSynthesis' in window) {
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'zh-CN';
-    window.speechSynthesis.speak(u);
-  }
+/* Helper to normalize pinyin for flexible check (e.g., "jiāyóu" -> "jiayou") */
+function normalizePinyin(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/[\s\-_]/g, "");
 }
 
 /* ============ FILTER ============ */
@@ -520,19 +540,18 @@ function render() {
   const showBack = () => `
     <div class="prompt-label">answer</div>
     <div class="hanzi ${w.hanzi.length > 2 ? "small" : ""}">${w.hanzi}</div>
-    <button class="audio-btn" onclick="speak('${w.hanzi}')">🔊</button>
     <div class="pinyin">${w.pinyin}</div>
     <div class="meaning">${w.meaning}</div>
   `;
 
   if (mode === "hanzi2meaning") {
     cardEl.innerHTML = `
-      <div class="prompt-label">what does it mean?</div>
+      <div class="prompt-label">what does it mean / pinyin?</div>
       <div class="hanzi ${w.hanzi.length > 2 ? "small" : ""}">${w.hanzi}</div>
-      <button class="audio-btn" onclick="event.stopPropagation(); speak('${w.hanzi}')">🔊</button>
       <div class="hint-flip">click to reveal answer</div>
-      <div class="card-input-box" onclick="event.stopPropagation()">
-        <input type="text" class="card-input" id="pinyin-input" placeholder="Type pinyin..." onkeydown="handleCardInput(event, '${w.pinyin}')">
+      <div class="pinyin-input-box" onclick="event.stopPropagation()">
+        <input type="text" class="pinyin-input" id="pinyin-input" placeholder="type pinyin (e.g. ${normalizePinyin(w.pinyin)})..." onkeydown="if(event.key==='Enter') checkPinyinInput()">
+        <button class="pinyin-submit" onclick="checkPinyinInput()">check 🌸</button>
       </div>
     `;
     cardEl.onclick = () => {
@@ -543,7 +562,7 @@ function render() {
   if (mode === "meaning2hanzi") {
     cardEl.innerHTML = `
       <div class="prompt-label">which character?</div>
-      <div class="meaning" style="font-size:26px;">${w.meaning}</div>
+      <div class="meaning" style="font-size:24px;">${w.meaning}</div>
       <div class="hint-flip">click to reveal</div>
     `;
     cardEl.onclick = () => {
@@ -560,7 +579,6 @@ function render() {
     cardEl.innerHTML = `
       <div class="prompt-label">pick the meaning</div>
       <div class="hanzi ${w.hanzi.length > 2 ? "small" : ""}">${w.hanzi}</div>
-      <button class="audio-btn" onclick="speak('${w.hanzi}')">🔊</button>
       <div class="options" id="options">
         ${options.map(o => `<button class="option" data-hanzi="${o.hanzi}">${o.meaning}</button>`).join("")}
       </div>
@@ -568,20 +586,21 @@ function render() {
     cardEl.onclick = null;
 
     document.querySelectorAll(".option").forEach(btn => {
-      btn.onclick = () => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
         if (answered) return;
         answered = true;
         const chosen = btn.dataset.hanzi;
         if (chosen === w.hanzi) {
           btn.classList.add("correct");
-          feedbackEl.textContent = "✅ correct!";
+          feedbackEl.textContent = "✅ Correct! Great job! 🌸";
           feedbackEl.className = "feedback ok";
         } else {
           btn.classList.add("wrong");
           document.querySelectorAll(".option").forEach(b => {
             if (b.dataset.hanzi === w.hanzi) b.classList.add("correct");
           });
-          feedbackEl.textContent = `❌ correct: ${w.pinyin} — ${w.meaning}`;
+          feedbackEl.textContent = `❌ Correct: ${w.pinyin} — ${w.meaning}`;
           feedbackEl.className = "feedback no";
         }
       };
@@ -589,17 +608,20 @@ function render() {
   }
 }
 
-function handleCardInput(e, correctPinyin) {
-  if (e.key === "Enter") {
-    const inputVal = e.target.value.trim();
-    if (!inputVal) return;
-    if (removeTones(inputVal) === removeTones(correctPinyin)) {
-      feedbackEl.textContent = "✅ Correct Pinyin!";
-      feedbackEl.className = "feedback ok";
-    } else {
-      feedbackEl.textContent = `❌ Incorrect! Answer: ${correctPinyin}`;
-      feedbackEl.className = "feedback no";
-    }
+function checkPinyinInput() {
+  const inputEl = document.getElementById("pinyin-input");
+  if (!inputEl) return;
+  const userVal = normalizePinyin(inputEl.value);
+  const words = currentWords();
+  const w = words[index];
+  const targetVal = normalizePinyin(w.pinyin);
+
+  if (userVal === targetVal) {
+    feedbackEl.textContent = "✅ Perfect pinyin! 🌸";
+    feedbackEl.className = "feedback ok";
+  } else {
+    feedbackEl.textContent = `❌ Expected: ${w.pinyin} (${targetVal})`;
+    feedbackEl.className = "feedback no";
   }
 }
 
@@ -639,7 +661,7 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
 /* ============ KEYBOARD ============ */
 document.addEventListener("keydown", (e) => {
   if (document.getElementById("cards-view").classList.contains("hidden")) return;
-  if (e.target.tagName === 'INPUT') return; // Ignore when typing in input
+  if (e.target.tagName === "INPUT") return;
   if (e.key === "ArrowRight") next();
   if (e.key === "ArrowLeft") prev();
   if (e.key === " ") { e.preventDefault(); cardEl.click(); }
@@ -660,15 +682,16 @@ function openSection(key) {
     render();
   } else if (key === "sentences") {
     document.getElementById("sentences-view").classList.remove("hidden");
-    initSentences();
+    initSentenceTask();
   } else if (key === "texts") {
     document.getElementById("texts-view").classList.remove("hidden");
+    renderTexts();
   } else if (key === "tasks") {
     document.getElementById("tasks-view").classList.remove("hidden");
-    initQuiz();
+    initQuizTask();
   } else if (key === "daily") {
     document.getElementById("daily-view").classList.remove("hidden");
-    renderDailyCollection();
+    renderDailyArchive();
   }
 }
 
@@ -681,101 +704,215 @@ function goHome() {
   document.getElementById("home").classList.remove("hidden");
 }
 
-/* ============ SENTENCES SECTION ============ */
-const sentenceData = [
-  { target: "I love mom", targetRu: "Я люблю маму", correct: ["我", "爱", "妈妈"], pool: ["我", "爱", "妈妈", "看", "不", "好"] }
+/* ============ SENTENCES CONSTRUCTOR ============ */
+const sentenceList = [
+  { target: "I love my mom (Я люблю маму)", correct: ["我", "爱", "妈妈"], options: ["我", "爱", "妈妈", "看", "很"] },
+  { target: "Are you a Chinese person? (Ты китаец?)", correct: ["你", "是", "中国人", "吗"], options: ["你", "是", "中国人", "吗", "不", "好"] },
+  { target: "Teacher reads a book (Учитель читает книгу)", correct: ["老师", "看", "书"], options: ["老师", "看", "书", "听", "去"] },
 ];
-let currentSentSlots = [];
+let currentSentIdx = 0;
+let userBuiltSentence = [];
 
-function initSentences() {
-  const data = sentenceData[0];
-  document.getElementById("sent-target").textContent = `Build: "${data.target}" (${data.targetRu})`;
-  currentSentSlots = [];
-  renderSentSlots();
+function initSentenceTask() {
+  const sent = sentenceList[currentSentIdx];
+  document.getElementById("sent-target").textContent = sent.target;
+  userBuiltSentence = [];
+  renderBuiltSentence();
   
-  const bankEl = document.getElementById("word-bank");
-  bankEl.innerHTML = data.pool.map(w => `<div class="chip" onclick="addSentWord('${w}')">${w}</div>`).join("");
+  const chipsEl = document.getElementById("word-chips");
+  const shuffled = [...sent.options].sort(() => Math.random() - 0.5);
+  chipsEl.innerHTML = shuffled.map(w => `<button class="chip" onclick="addWordToSent('${w}')">${w}</button>`).join("");
+  document.getElementById("sent-feedback").textContent = "";
 }
 
-function renderSentSlots() {
-  const slotsEl = document.getElementById("word-slots");
-  slotsEl.innerHTML = currentSentSlots.map((w, i) => `<div class="chip" onclick="removeSentWord(${i})">${w}</div>`).join("");
+function addWordToSent(w) {
+  userBuiltSentence.push(w);
+  renderBuiltSentence();
+  checkSentenceResult();
 }
 
-function addSentWord(w) {
-  currentSentSlots.push(w);
-  renderSentSlots();
+function renderBuiltSentence() {
+  const box = document.getElementById("built-sentence");
+  box.innerHTML = userBuiltSentence.map((w, i) => `<span class="chip" onclick="removeWordFromSent(${i})">${w}</span>`).join("");
 }
 
-function removeSentWord(i) {
-  currentSentSlots.splice(i, 1);
-  renderSentSlots();
+function removeWordFromSent(idx) {
+  userBuiltSentence.splice(idx, 1);
+  renderBuiltSentence();
+  checkSentenceResult();
 }
 
-function checkSentence() {
-  const correctStr = sentenceData[0].correct.join("");
-  const currentStr = currentSentSlots.join("");
-  const f = document.getElementById("sent-feedback");
-  if (currentStr === correctStr) {
-    f.textContent = "✨ Great job! Perfect sentence!";
-    f.className = "feedback ok";
+function resetSentence() {
+  userBuiltSentence = [];
+  renderBuiltSentence();
+  document.getElementById("sent-feedback").textContent = "";
+}
+
+function checkSentenceResult() {
+  const sent = sentenceList[currentSentIdx];
+  const fb = document.getElementById("sent-feedback");
+  if (userBuiltSentence.join("") === sent.correct.join("")) {
+    fb.textContent = "✅ Correct sentence structure! 🌸";
+    fb.className = "feedback ok";
   } else {
-    f.textContent = "❌ Try again!";
-    f.className = "feedback no";
+    fb.textContent = "";
   }
 }
 
-/* ============ TASKS / QUIZ SECTION ============ */
-function initQuiz() {
-  const qBox = document.getElementById("quiz-box");
-  qBox.innerHTML = `
-    <p style="font-weight:700; color:#7a4a5c;">What is the meaning of "谢谢"?</p>
-    <div style="display:grid; gap:8px;">
-      <button class="chip" onclick="this.style.background='#d4f5dd'">Thank you (Спасибо)</button>
-      <button class="chip" onclick="this.style.background='#ffd6d6'">Hello (Привет)</button>
-      <button class="chip" onclick="this.style.background='#ffd6d6'">Goodbye (Пока)</button>
-    </div>
-  `;
+function nextSentence() {
+  currentSentIdx = (currentSentIdx + 1) % sentenceList.length;
+  initSentenceTask();
 }
 
-/* ============ DAILY DATA ============ */
-const wordsOfDay = [
-  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! don't give up! (давай! не сдавайся!)", ex: "加油！你可以的！", exPy: "jiāyóu! nǐ kěyǐ de!", exRu: "Go for it! You can do it! (Давай! Ты сможешь!)" },
-  { hanzi: "辛苦", pinyin: "xīnkǔ", meaning: "tiring, hard work (устал, тяжело)", ex: "你辛苦了。", exPy: "nǐ xīnkǔ le.", exRu: "You've worked hard. (Ты устал, спасибо за труд.)" }
+/* ============ TEXTS ============ */
+const textsData = [
+  {
+    title: "1. Self Introduction (Знакомство)",
+    cn: "你好！我是学生。我爱学习中文。我的老师很好。",
+    py: "Nǐ hǎo! Wǒ shì xuéshēng. Wǒ ài xuéxí zhōngwén. Wǒ de lǎoshī hěn hǎo.",
+    ru: "Привет! Я студент. Я люблю учить китайский язык. Мой учитель очень хороший."
+  },
+  {
+    title: "2. Daily Routine (Мой день)",
+    cn: "今天我去看书。妈妈去买米。我们都很高兴。",
+    py: "Jīntiān wǒ qù kàn shū. Māma qù mǎi mǐ. Wǒmen dōu hěn gāoxìng.",
+    ru: "Сегодня я иду читать книгу. Мама идет покупать рис. Мы все очень счастливы."
+  }
 ];
 
-const slangOfDay = [
-  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад, нереально)", ex: "这个太好吃了，绝了！", exPy: "zhège tài hǎochī le, jué le!", exRu: "This is so tasty, insane! (Это так вкусно, просто отпад!)" },
-  { hanzi: "yyds", pinyin: "yǒngyuǎn de shén", meaning: "the eternal GOAT (навсегда бог)", ex: "周杰伦 yyds！", exPy: "Zhōu Jiélún yyds!", exRu: "Jay Chou is the eternal GOAT! (Джей Чоу — навсегда бог!)" }
-];
-
-function renderDailyCollection() {
-  const container = document.getElementById("daily-list");
-  const all = [...wordsOfDay, ...slangOfDay];
-  container.innerHTML = all.map(item => `
-    <div class="daily-card" style="margin-bottom:12px;">
-      <div class="daily-hanzi">${item.hanzi}</div>
-      <div class="daily-pinyin">${item.pinyin}</div>
-      <div class="daily-meaning">${item.meaning}</div>
+function renderTexts() {
+  const container = document.getElementById("texts-list");
+  container.innerHTML = textsData.map(t => `
+    <div class="text-card">
+      <div class="text-title">
+        <span>${t.title}</span>
+        <button class="btn ghost" style="padding:4px 12px; font-size:12px;" onclick="speakText('${t.cn}')">🔊 speak</button>
+      </div>
+      <div class="text-cn">${t.cn}</div>
+      <div class="text-py">${t.py}</div>
+      <div class="text-ru">${t.ru}</div>
     </div>
   `).join("");
 }
 
-function filterDailyCollection() {
-  const query = document.getElementById("daily-search").value.toLowerCase();
-  const all = [...wordsOfDay, ...slangOfDay];
-  const filtered = all.filter(i => i.hanzi.includes(query) || i.pinyin.toLowerCase().includes(query) || i.meaning.toLowerCase().includes(query));
-  const container = document.getElementById("daily-list");
+function speakText(text) {
+  if ('speechSynthesis' in window) {
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = 'zh-CN';
+    window.speechSynthesis.speak(msg);
+  } else {
+    alert("Speech synthesis not supported on this browser.");
+  }
+}
+
+/* ============ TASKS / AUDIO QUIZ ============ */
+let currentQuizWord = null;
+
+function initQuizTask() {
+  currentQuizWord = allWords[Math.floor(Math.random() * allWords.length)];
+  const others = allWords.filter(x => x.hanzi !== currentQuizWord.hanzi)
+                         .sort(() => Math.random() - 0.5)
+                         .slice(0, 3);
+  const options = [currentQuizWord, ...others].sort(() => Math.random() - 0.5);
+
+  const container = document.getElementById("quiz-options");
+  container.innerHTML = options.map(o => `
+    <button class="option" onclick="checkQuiz('${o.hanzi}')">${o.meaning}</button>
+  `).join("");
+  document.getElementById("quiz-feedback").textContent = "";
+  playCurrentAudio();
+}
+
+function playCurrentAudio() {
+  if (currentQuizWord) {
+    speakText(currentQuizWord.hanzi);
+  }
+}
+
+function checkQuiz(chosenHanzi) {
+  const fb = document.getElementById("quiz-feedback");
+  if (chosenHanzi === currentQuizWord.hanzi) {
+    fb.textContent = `✅ Correct! ${currentQuizWord.hanzi} (${currentQuizWord.pinyin})`;
+    fb.className = "feedback ok";
+  } else {
+    fb.textContent = `❌ Correct answer: ${currentQuizWord.hanzi} (${currentQuizWord.pinyin})`;
+    fb.className = "feedback no";
+  }
+}
+
+function nextQuiz() {
+  initQuizTask();
+}
+
+/* ============ DAILY ARCHIVE ============ */
+const wordsOfDay = [
+  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! don't give up! (давай! не сдавайся!)",
+    ex: "加油！你可以的！", exPy: "jiāyóu! nǐ kěyǐ de!",
+    exRu: "Go for it! You can do it! (Давай! Ты сможешь!)" },
+  { hanzi: "辛苦", pinyin: "xīnkǔ", meaning: "tiring, hard work (устал, тяжело)",
+    ex: "你辛苦了。", exPy: "nǐ xīnkǔ le.",
+    exRu: "You've worked hard. (Ты устал, спасибо за труд.)" },
+  { hanzi: "慢慢来", pinyin: "mànman lái", meaning: "take it slow (не спеши, потихоньку)",
+    ex: "慢慢来，别着急。", exPy: "mànman lái, bié zháojí.",
+    exRu: "Take it slow, don't rush. (Не спеши, не волнуйся.)" },
+  { hanzi: "太好了", pinyin: "tài hǎo le", meaning: "that's great! (как здорово!)",
+    ex: "太好了！我们去吧！", exPy: "tài hǎo le! wǒmen qù ba!",
+    exRu: "Great! Let's go! (Отлично! Пойдём!)" },
+  { hanzi: "真的吗", pinyin: "zhēn de ma", meaning: "really? (правда? серьёзно?)",
+    ex: "真的吗？太厉害了！", exPy: "zhēn de ma? tài lìhai le!",
+    exRu: "Really? That's awesome! (Правда? Вот это круто!)" },
+];
+
+const slangOfDay = [
+  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад, нереально)",
+    ex: "这个太好吃了，绝了！", exPy: "zhège tài hǎochī le, jué le!",
+    exRu: "This is so tasty, insane! (Это так вкусно, просто отпад!)" },
+  { hanzi: "yyds", pinyin: "yǒngyuǎn de shén", meaning: "the eternal GOAT (навсегда бог)",
+    ex: "周杰伦 yyds！", exPy: "Zhōu Jiélún yyds!",
+    exRu: "Jay Chou is the eternal GOAT! (Джей Чоу — навсегда бог!)" },
+  { hanzi: "破防", pinyin: "pò fáng", meaning: "emotionally overwhelmed (пробило на эмоции)",
+    ex: "这首歌让我破防了。", exPy: "zhè shǒu gē ràng wǒ pò fáng le.",
+    exRu: "This song broke me emotionally. (Эта песня пробила меня на эмоции.)" },
+  { hanzi: "栓Q", pinyin: "shuān Q", meaning: "thank you (jokey, distorted) (спасибо, шутл.)",
+    ex: "栓Q你了！", exPy: "shuān Q nǐ le!",
+    exRu: "Thank you! (jokey) (Спасибо тебе, шутл.)" },
+  { hanzi: "emo了", pinyin: "emo le", meaning: "got emo, sad (загрустил)",
+    ex: "今天有点 emo 了。", exPy: "jīntiān yǒudiǎn emo le.",
+    exRu: "Feeling a bit emo today. (Сегодня что-то загрустил.)" },
+];
+
+function renderDailyArchive(filter = "") {
+  const container = document.getElementById("daily-archive-list");
+  const allDaily = [...wordsOfDay, ...slangOfDay];
+  const filtered = allDaily.filter(item => 
+    item.hanzi.includes(filter) || 
+    item.pinyin.toLowerCase().includes(filter.toLowerCase()) || 
+    item.meaning.toLowerCase().includes(filter.toLowerCase())
+  );
+
   container.innerHTML = filtered.map(item => `
     <div class="daily-card" style="margin-bottom:12px;">
       <div class="daily-hanzi">${item.hanzi}</div>
       <div class="daily-pinyin">${item.pinyin}</div>
       <div class="daily-meaning">${item.meaning}</div>
+      <div class="daily-example">
+        <div>${item.ex}</div>
+        <div class="py">${item.exPy}</div>
+        <div class="ru">${item.exRu}</div>
+      </div>
     </div>
   `).join("");
 }
 
-function dayIndex(len) { return Math.floor(Date.now() / 86400000) % len; }
+function filterDailyArchive() {
+  const val = document.getElementById("daily-search").value;
+  renderDailyArchive(val);
+}
+
+function dayIndex(len) {
+  const day = Math.floor(Date.now() / 86400000);
+  return day % len;
+}
 
 function setGreeting() {
   const h = new Date().getHours();
