@@ -37,7 +37,6 @@
     overflow-x: hidden;
   }
 
-  /* Decorative Ambient Clouds */
   .bg-glow {
     position: fixed; border-radius: 50%; filter: blur(70px);
     z-index: 0; pointer-events: none;
@@ -88,7 +87,6 @@
   /* ===== MAIN CONTAINER ===== */
   .main-content { width: 100%; }
 
-  /* HEADER & BRANDING */
   .header-card {
     background: rgba(255, 255, 255, 0.9); border: 3px solid #ffffff;
     border-radius: var(--radius-3d); padding: 24px; text-align: center;
@@ -114,7 +112,6 @@
     box-shadow: 0 6px 16px rgba(255, 126, 179, 0.2);
   }
 
-  /* 3D CARDS */
   .card-3d {
     background: var(--card-bg); border: 3px solid var(--card-border);
     border-radius: var(--radius-3d); padding: 28px;
@@ -123,7 +120,6 @@
   }
   .card-3d:hover { transform: translateY(-4px); }
 
-  /* NAVIGATION GRID */
   .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .nav-btn {
     background: rgba(255, 255, 255, 0.92); border: 2.5px solid #ffffff;
@@ -142,7 +138,6 @@
     background: linear-gradient(135deg, #ffffff 0%, #fff0f6 100%);
   }
 
-  /* BUTTONS */
   .btn-kawaii {
     background: linear-gradient(135deg, #ff7eb3 0%, #ff5c97 100%);
     color: #ffffff; border: none; font-family: inherit; font-weight: 900;
@@ -168,7 +163,6 @@
 
   .hidden { display: none !important; }
 
-  /* FLASHCARDS */
   .card-prompt-label {
     font-size: 12px; font-weight: 900; text-transform: uppercase;
     letter-spacing: 1.5px; color: var(--lavender); margin-bottom: 12px;
@@ -219,8 +213,8 @@
   <aside class="sidebar">
     <div class="sidebar-box">
       <div class="sidebar-title">🌸 HSK 3.0 Levels</div>
-      <div class="hsk-chip active" onclick="filterHSK(1)"><span>HSK Level 1</span> <span class="hsk-badge">300</span></div>
-      <div class="hsk-chip" onclick="filterHSK(2)"><span>HSK Level 2</span> <span class="hsk-badge">500</span></div>
+      <div class="hsk-chip active" onclick="filterHSK(1)"><span>HSK Level 1</span> <span class="hsk-badge" id="badge-hsk1">300</span></div>
+      <div class="hsk-chip" onclick="filterHSK(2)"><span>HSK Level 2</span> <span class="hsk-badge" id="badge-hsk2">500</span></div>
       <div class="hsk-chip" onclick="filterHSK(3)"><span>HSK Level 3</span> <span class="hsk-badge">1000</span></div>
       <div class="hsk-chip" onclick="filterHSK(4)"><span>HSK Level 4</span> <span class="hsk-badge">2000</span></div>
       <div class="hsk-chip" onclick="filterHSK(5)"><span>HSK Level 5</span> <span class="hsk-badge">3600</span></div>
@@ -237,7 +231,6 @@
   <!-- ============ MAIN CONTENT AREA ============ -->
   <main class="main-content">
 
-    <!-- HEADER -->
     <header class="header-card">
       <div class="creator-badge">🎀 by astagme</div>
       <h1>中文 Learning Hub</h1>
@@ -260,7 +253,7 @@
         <div class="nav-btn" onclick="openSection('cards')">
           <div class="icon">🃏</div>
           <div class="title">Flashcards</div>
-          <div class="desc"><span id="total-words-count">71</span> items • HSK 3.0 Ready</div>
+          <div class="desc"><span id="total-words-count">0</span> loaded • HSK 3.0 Ready</div>
         </div>
         <div class="nav-btn" onclick="openSection('sentences')">
           <div class="icon">✍️</div>
@@ -342,16 +335,157 @@
 </div>
 
 <script>
-/* ============ DATABASE ============ */
+/* ============ EXPANDED HSK 1 & 2 VOCABULARY DATABASE ============ */
 const allWords = [
+  // HSK 1 (Band 1 - Expanded)
   { hanzi: "我", pinyin: "wǒ", meaning: "I, me (я)", cat: "代词", hsk: 1 },
   { hanzi: "你", pinyin: "nǐ", meaning: "you (ты)", cat: "代词", hsk: 1 },
   { hanzi: "他", pinyin: "tā", meaning: "he, him (он)", cat: "代词", hsk: 1 },
+  { hanzi: "她", pinyin: "tā", meaning: "she, her (она)", cat: "代词", hsk: 1 },
+  { hanzi: "它", pinyin: "tā", meaning: "it (оно)", cat: "代词", hsk: 1 },
+  { hanzi: "我们", pinyin: "wǒmen", meaning: "we, us (мы)", cat: "代词", hsk: 1 },
+  { hanzi: "你们", pinyin: "nǐmen", meaning: "you plural (вы)", cat: "代词", hsk: 1 },
+  { hanzi: "他们", pinyin: "tāmen", meaning: "they (они)", cat: "代词", hsk: 1 },
+  { hanzi: "这", pinyin: "zhè", meaning: "this (это)", cat: "代词", hsk: 1 },
+  { hanzi: "那", pinyin: "nà", meaning: "that (то)", cat: "代词", hsk: 1 },
+  { hanzi: "哪", pinyin: "nǎ", meaning: "which (какой)", cat: "代词", hsk: 1 },
+  { hanzi: "谁", pinyin: "shuí", meaning: "who (кто)", cat: "代词", hsk: 1 },
+  { hanzi: "什么", pinyin: "shénme", meaning: "what (что)", cat: "代词", hsk: 1 },
+  { hanzi: "多少", pinyin: "duōshao", meaning: "how much, how many (сколько)", cat: "代词", hsk: 1 },
+  { hanzi: "几", pinyin: "jǐ", meaning: "how many (несколько, сколько)", cat: "代词", hsk: 1 },
+  { hanzi: "怎么", pinyin: "zěnme", meaning: "how (как)", cat: "代词", hsk: 1 },
+
+  // Numbers (HSK 1)
+  { hanzi: "一", pinyin: "yī", meaning: "one (один)", cat: "число", hsk: 1 },
+  { hanzi: "二", pinyin: "èr", meaning: "two (два)", cat: "число", hsk: 1 },
+  { hanzi: "三", pinyin: "sān", meaning: "three (три)", cat: "число", hsk: 1 },
+  { hanzi: "四", pinyin: "sì", meaning: "four (четыре)", cat: "число", hsk: 1 },
+  { hanzi: "五", pinyin: "wǔ", meaning: "five (пять)", cat: "число", hsk: 1 },
+  { hanzi: "六", pinyin: "liù", meaning: "six (шесть)", cat: "число", hsk: 1 },
+  { hanzi: "七", pinyin: "qī", meaning: "seven (семь)", cat: "число", hsk: 1 },
+  { hanzi: "八", pinyin: "bā", meaning: "eight (восемь)", cat: "число", hsk: 1 },
+  { hanzi: "九", pinyin: "jiǔ", meaning: "nine (девять)", cat: "число", hsk: 1 },
+  { hanzi: "十", pinyin: "shí", meaning: "ten (десять)", cat: "число", hsk: 1 },
+  { hanzi: "百", pinyin: "bǎi", meaning: "hundred (сто)", cat: "число", hsk: 1 },
+
+  // Verbs (HSK 1)
   { hanzi: "是", pinyin: "shì", meaning: "to be (быть)", cat: "глагол", hsk: 1 },
   { hanzi: "有", pinyin: "yǒu", meaning: "to have (иметь)", cat: "глагол", hsk: 1 },
-  { hanzi: "看", pinyin: "kàn", meaning: "to look, watch (смотреть)", cat: "глагол", hsk: 1 },
+  { hanzi: "看", pinyin: "kàn", meaning: "to watch, look (смотреть)", cat: "глагол", hsk: 1 },
+  { hanzi: "听", pinyin: "tīng", meaning: "to listen (слушать)", cat: "глагол", hsk: 1 },
+  { hanzi: "说话", pinyin: "shuōhuà", meaning: "to speak (говорить)", cat: "глагол", hsk: 1 },
+  { hanzi: "读", pinyin: "dú", meaning: "to read (читать)", cat: "глагол", hsk: 1 },
+  { hanzi: "写", pinyin: "xiě", meaning: "to write (писать)", cat: "глагол", hsk: 1 },
+  { hanzi: "看见", pinyin: "kànjiàn", meaning: "to see (видеть)", cat: "глагол", hsk: 1 },
+  { hanzi: "叫", pinyin: "jiào", meaning: "to call, be named (звать)", cat: "глагол", hsk: 1 },
+  { hanzi: "来", pinyin: "lái", meaning: "to come (приходить)", cat: "глагол", hsk: 1 },
+  { hanzi: "去", pinyin: "qù", meaning: "to go (идти)", cat: "глагол", hsk: 1 },
+  { hanzi: "吃", pinyin: "chī", meaning: "to eat (есть)", cat: "глагол", hsk: 1 },
+  { hanzi: "喝", pinyin: "hē", meaning: "to drink (пить)", cat: "глагол", hsk: 1 },
+  { hanzi: "睡", pinyin: "shuì", meaning: "to sleep (спать)", cat: "глагол", hsk: 1 },
+  { hanzi: "做", pinyin: "zuò", meaning: "to do, make (делать)", cat: "глагол", hsk: 1 },
+  { hanzi: "买", pinyin: "mǎi", meaning: "to buy (покупать)", cat: "глагол", hsk: 1 },
+  { hanzi: "卖", pinyin: "mài", meaning: "to sell (продавать)", cat: "глагол", hsk: 1 },
+  { hanzi: "开", pinyin: "kāi", meaning: "to open, drive (открывать, водить)", cat: "глагол", hsk: 1 },
+  { hanzi: "坐", pinyin: "zuò", meaning: "to sit (сидеть)", cat: "глагол", hsk: 1 },
+  { hanzi: "住", pinyin: "zhù", meaning: "to live, reside (жить)", cat: "глагол", hsk: 1 },
+  { hanzi: "学习", pinyin: "xuéxí", meaning: "to study (учиться)", cat: "глагол", hsk: 1 },
+  { hanzi: "工作", pinyin: "gōngzuò", meaning: "to work (работать)", cat: "глагол", hsk: 1 },
+  { hanzi: "爱", pinyin: "ài", meaning: "to love (любить)", cat: "глагол", hsk: 1 },
+  { hanzi: "喜欢", pinyin: "xǐhuan", meaning: "to like (нравиться)", cat: "глагол", hsk: 1 },
+  { hanzi: "想", pinyin: "xiǎng", meaning: "to want, think (хотеть, думать)", cat: "глагол", hsk: 1 },
+  { hanzi: "认识", pinyin: "rènshi", meaning: "to know, meet (знать, знакомиться)", cat: "глагол", hsk: 1 },
+
+  // Nouns (HSK 1)
+  { hanzi: "家", pinyin: "jiā", meaning: "home, family (дом, семья)", cat: "сущ", hsk: 1 },
+  { hanzi: "学校", pinyin: "xuéxiào", meaning: "school (школа)", cat: "сущ", hsk: 1 },
+  { hanzi: "饭店", pinyin: "fàndiàn", meaning: "restaurant, hotel (ресторан)", cat: "сущ", hsk: 1 },
+  { hanzi: "商店", pinyin: "shāngdiàn", meaning: "shop, store (магазин)", cat: "сущ", hsk: 1 },
+  { hanzi: "医院", pinyin: "yīyuàn", meaning: "hospital (больница)", cat: "сущ", hsk: 1 },
+  { hanzi: "中国", pinyin: "Zhōngguó", meaning: "China (Китай)", cat: "сущ", hsk: 1 },
+  { hanzi: "北京", pinyin: "Běijīng", meaning: "Beijing (Пекин)", cat: "сущ", hsk: 1 },
+  { hanzi: "上", pinyin: "shàng", meaning: "up, above (на, вверху)", cat: "сущ", hsk: 1 },
+  { hanzi: "下", pinyin: "xià", meaning: "down, below (под, внизу)", cat: "сущ", hsk: 1 },
+  { hanzi: "前面", pinyin: "qiánmiàn", meaning: "front (спереди)", cat: "сущ", hsk: 1 },
+  { hanzi: "后面", pinyin: "hòumiàn", meaning: "back, behind (сзади)", cat: "сущ", hsk: 1 },
+  { hanzi: "今天", pinyin: "jīntiān", meaning: "today (сегодня)", cat: "сущ", hsk: 1 },
+  { hanzi: "明天", pinyin: "míngtiān", meaning: "tomorrow (завтра)", cat: "сущ", hsk: 1 },
+  { hanzi: "昨天", pinyin: "zuótiān", meaning: "yesterday (вчера)", cat: "сущ", hsk: 1 },
+  { hanzi: "上午", pinyin: "shàngwǔ", meaning: "morning (утро)", cat: "сущ", hsk: 1 },
+  { hanzi: "中午", pinyin: "zhōngwǔ", meaning: "noon (полдень)", cat: "сущ", hsk: 1 },
+  { hanzi: "下午", pinyin: "xiàwǔ", meaning: "afternoon (день)", cat: "сущ", hsk: 1 },
+  { hanzi: "年", pinyin: "nián", meaning: "year (год)", cat: "сущ", hsk: 1 },
+  { hanzi: "月", pinyin: "yuè", meaning: "month (месяц)", cat: "сущ", hsk: 1 },
+  { hanzi: "日", pinyin: "rì", meaning: "day, sun (день, солнце)", cat: "сущ", hsk: 1 },
+  { hanzi: "星期", pinyin: "xīngqī", meaning: "week (неделя)", cat: "сущ", hsk: 1 },
+  { hanzi: "点", pinyin: "diǎn", meaning: "o'clock (час)", cat: "сущ", hsk: 1 },
+  { hanzi: "分钟", pinyin: "fēnzhōng", meaning: "minute (минута)", cat: "сущ", hsk: 1 },
+  { hanzi: "爸爸", pinyin: "bàba", meaning: "dad (папа)", cat: "сущ", hsk: 1 },
   { hanzi: "妈妈", pinyin: "māma", meaning: "mom (мама)", cat: "сущ", hsk: 1 },
-  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад)", cat: "slang", hsk: "slang" }
+  { hanzi: "儿子", pinyin: "érzi", meaning: "son (сын)", cat: "сущ", hsk: 1 },
+  { hanzi: "女儿", pinyin: "nǚ'ér", meaning: "daughter (дочь)", cat: "сущ", hsk: 1 },
+  { hanzi: "老师", pinyin: "lǎoshī", meaning: "teacher (учитель)", cat: "сущ", hsk: 1 },
+  { hanzi: "学生", pinyin: "xuésheng", meaning: "student (ученик)", cat: "сущ", hsk: 1 },
+  { hanzi: "同学", pinyin: "tóngxué", meaning: "classmate (одноклассник)", cat: "сущ", hsk: 1 },
+  { hanzi: "朋友", pinyin: "péngyou", meaning: "friend (друг)", cat: "сущ", hsk: 1 },
+  { hanzi: "医生", pinyin: "yīshēng", meaning: "doctor (врач)", cat: "сущ", hsk: 1 },
+  { hanzi: "先生", pinyin: "xiānsheng", meaning: "Mr., sir (господин)", cat: "сущ", hsk: 1 },
+  { hanzi: "小姐", pinyin: "xiǎojiě", meaning: "Miss (девушка)", cat: "сущ", hsk: 1 },
+  { hanzi: "衣服", pinyin: "yīfu", meaning: "clothes (одежда)", cat: "сущ", hsk: 1 },
+  { hanzi: "水", pinyin: "shuǐ", meaning: "water (вода)", cat: "сущ", hsk: 1 },
+  { hanzi: "茶", pinyin: "chá", meaning: "tea (чай)", cat: "сущ", hsk: 1 },
+  { hanzi: "菜", pinyin: "cài", meaning: "dish, vegetable (блюдо, овощи)", cat: "сущ", hsk: 1 },
+  { hanzi: "米饭", pinyin: "mǐfàn", meaning: "cooked rice (рис)", cat: "сущ", hsk: 1 },
+  { hanzi: "水果", pinyin: "shuǐguǒ", meaning: "fruit (фрукты)", cat: "сущ", hsk: 1 },
+  { hanzi: "苹果", pinyin: "píngguǒ", meaning: "apple (яблоко)", cat: "сущ", hsk: 1 },
+  { hanzi: "猫", pinyin: "māo", meaning: "cat (кошка)", cat: "сущ", hsk: 1 },
+  { hanzi: "狗", pinyin: "gǒu", meaning: "dog (собака)", cat: "сущ", hsk: 1 },
+  { hanzi: "书", pinyin: "shū", meaning: "book (книга)", cat: "сущ", hsk: 1 },
+  { hanzi: "桌子", pinyin: "zhuōzi", meaning: "table, desk (стол)", cat: "сущ", hsk: 1 },
+  { hanzi: "椅子", pinyin: "yǐzi", meaning: "chair (стул)", cat: "сущ", hsk: 1 },
+  { hanzi: "钱", pinyin: "qián", meaning: "money (деньги)", cat: "сущ", hsk: 1 },
+  { hanzi: "飞机", pinyin: "fēijī", meaning: "airplane (самолет)", cat: "сущ", hsk: 1 },
+  { hanzi: "出租车", pinyin: "chūzūchē", meaning: "taxi (такси)", cat: "сущ", hsk: 1 },
+  { hanzi: "电视", pinyin: "diànshì", meaning: "TV (телевизор)", cat: "сущ", hsk: 1 },
+  { hanzi: "电脑", pinyin: "diànnǎo", meaning: "computer (компьютер)", cat: "сущ", hsk: 1 },
+  { hanzi: "电影", pinyin: "diànyǐng", meaning: "movie (кино)", cat: "сущ", hsk: 1 },
+  { hanzi: "天气", pinyin: "tiānqì", meaning: "weather (погода)", cat: "сущ", hsk: 1 },
+  { hanzi: "字", pinyin: "zì", meaning: "character, word (иероглиф)", cat: "сущ", hsk: 1 },
+  { hanzi: "汉语", pinyin: "Hànyǔ", meaning: "Chinese language (китайский)", cat: "сущ", hsk: 1 },
+
+  // Adjectives & Particles (HSK 1)
+  { hanzi: "好", pinyin: "hǎo", meaning: "good (хороший)", cat: "прил", hsk: 1 },
+  { hanzi: "大", pinyin: "dà", meaning: "big (большой)", cat: "прил", hsk: 1 },
+  { hanzi: "小", pinyin: "xiǎo", meaning: "small (маленький)", cat: "прил", hsk: 1 },
+  { hanzi: "多", pinyin: "duō", meaning: "many, much (много)", cat: "прил", hsk: 1 },
+  { hanzi: "少", pinyin: "shǎo", meaning: "few, little (мало)", cat: "прил", hsk: 1 },
+  { hanzi: "冷", pinyin: "lěng", meaning: "cold (холодный)", cat: "прил", hsk: 1 },
+  { hanzi: "热", pinyin: "rè", meaning: "hot (горячий)", cat: "прил", hsk: 1 },
+  { hanzi: "高兴", pinyin: "gāoxìng", meaning: "happy (радостный)", cat: "прил", hsk: 1 },
+  { hanzi: "漂亮", pinyin: "piàoliang", meaning: "beautiful (красивый)", cat: "прил", hsk: 1 },
+  { hanzi: "不", pinyin: "bù", meaning: "not, no (не, нет)", cat: "частица", hsk: 1 },
+  { hanzi: "没", pinyin: "méi", meaning: "not have (не иметь)", cat: "частица", hsk: 1 },
+  { hanzi: "很", pinyin: "hěn", meaning: "very (очень)", cat: "нареч", hsk: 1 },
+  { hanzi: "太", pinyin: "tài", meaning: "too, excessively (слишком)", cat: "нареч", hsk: 1 },
+  { hanzi: "都", pinyin: "dōu", meaning: "all, both (все, оба)", cat: "нареч", hsk: 1 },
+  { hanzi: "和", pinyin: "hé", meaning: "and (и)", cat: "частица", hsk: 1 },
+  { hanzi: "在", pinyin: "zài", meaning: "at, in, on (в, находиться)", cat: "частица", hsk: 1 },
+  { hanzi: "的", pinyin: "de", meaning: "possessive particle (притяж. частица)", cat: "частица", hsk: 1 },
+  { hanzi: "吗", pinyin: "ma", meaning: "question particle (вопр. частица)", cat: "частица", hsk: 1 },
+  { hanzi: "呢", pinyin: "ne", meaning: "modal particle (а...?)", cat: "частица", hsk: 1 },
+
+  // HSK 2 Sample Words
+  { hanzi: "准备", pinyin: "zhǔnbèi", meaning: "to prepare (готовить)", cat: "глагол", hsk: 2 },
+  { hanzi: "开始", pinyin: "kāishǐ", meaning: "to start, begin (начинать)", cat: "глагол", hsk: 2 },
+  { hanzi: "帮助", pinyin: "bāngzhù", meaning: "to help (помогать)", cat: "глагол", hsk: 2 },
+  { hanzi: "简单", pinyin: "jiǎndān", meaning: "simple, easy (простой)", cat: "прил", hsk: 2 },
+  { hanzi: "忙", pinyin: "máng", meaning: "busy (занят)", cat: "прил", hsk: 2 },
+
+  // Slang & Idioms
+  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад)", cat: "slang", hsk: "slang" },
+  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! (давай!)", cat: "slang", hsk: "slang" },
+  { hanzi: "破防", pinyin: "pò fáng", meaning: "emotionally overwhelmed (пробило на эмоции)", cat: "slang", hsk: "slang" },
+  { hanzi: "yyds", pinyin: "yǒngyuǎn de shén", meaning: "eternal GOAT (навсегда бог)", cat: "slang", hsk: "slang" }
 ];
 
 document.getElementById("total-words-count").textContent = allWords.length;
@@ -364,13 +498,11 @@ function playAudioDirect(text) {
   const msg = new SpeechSynthesisUtterance(text);
   msg.lang = 'zh-CN';
   msg.rate = 0.9;
-  
-  // Show visual highlight if audio is restricted by browser policy
   window.speechSynthesis.speak(msg);
 }
 
 function playCurrentCardAudio() {
-  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter || currentHSKFilter === 1);
+  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter);
   if (words[cardIdx]) playAudioDirect(words[cardIdx].hanzi);
 }
 
@@ -382,6 +514,7 @@ function filterHSK(level) {
   currentHSKFilter = level;
   document.querySelectorAll(".hsk-chip").forEach(chip => chip.classList.remove("active"));
   event.currentTarget.classList.add("active");
+  cardIdx = 0;
   openSection("cards");
 }
 
@@ -404,8 +537,14 @@ function goHome() {
 
 /* ============ FLASHCARDS ============ */
 function renderCard() {
-  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter || currentHSKFilter === 1);
-  if (!words.length) return;
+  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter);
+  if (!words.length) {
+    document.getElementById("card-hanzi").textContent = "🌸";
+    document.getElementById("card-pinyin-reveal").textContent = "More words coming soon";
+    document.getElementById("card-meaning-reveal").textContent = "";
+    document.getElementById("card-pinyin-reveal").style.display = "block";
+    return;
+  }
   
   if (cardIdx >= words.length) cardIdx = 0;
   const w = words[cardIdx];
@@ -422,7 +561,7 @@ function renderCard() {
 
 function checkCardAnswer() {
   const val = document.getElementById("card-input").value.toLowerCase().trim();
-  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter || currentHSKFilter === 1);
+  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter);
   const w = words[cardIdx];
 
   document.getElementById("card-pinyin-reveal").style.display = "block";
@@ -437,8 +576,14 @@ function checkCardAnswer() {
   }
 }
 
-function nextCard() { cardIdx++; renderCard(); }
-function prevCard() { cardIdx = (cardIdx - 1 + allWords.length) % allWords.length; renderCard(); }
+function nextCard() {
+  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter);
+  if (words.length) { cardIdx = (cardIdx + 1) % words.length; renderCard(); }
+}
+function prevCard() {
+  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter);
+  if (words.length) { cardIdx = (cardIdx - 1 + words.length) % words.length; renderCard(); }
+}
 
 /* ============ ARCHIVE ============ */
 function renderArchive(filter = "") {
