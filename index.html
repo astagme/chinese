@@ -416,48 +416,11 @@
   </main>
 </div>
 
+<!-- ПОДКЛЮЧАЕМ ВНЕШНЮЮ БАЗУ СЛОВ -->
+<script src="words.js"></script>
+
+<!-- ОСНОВНАЯ ЛОГИКА ПРИЛОЖЕНИЯ -->
 <script>
-/* ============ FULL HSK VOCABULARY DATABASE ============ */
-const allWords = [
-  // HSK 1
-  { hanzi: "我", pinyin: "wǒ", meaning: "I, me (я)", cat: "Pronoun", hsk: 1, radicals: "手 (hand) + 戈 (weapon)", story: "A hand holding a weapon to protect myself." },
-  { hanzi: "你", pinyin: "nǐ", meaning: "you (ты)", cat: "Pronoun", hsk: 1, radicals: "亻(person) + 尔 (small)", story: "A person standing right in front of you." },
-  { hanzi: "他", pinyin: "tā", meaning: "he, him (он)", cat: "Pronoun", hsk: 1, radicals: "亻(person) + 也 (also)", story: "Another person standing over there." },
-  { hanzi: "她", pinyin: "tā", meaning: "she, her (она)", cat: "Pronoun", hsk: 1, radicals: "女 (woman) + 也 (also)", story: "A female person." },
-  { hanzi: "好", pinyin: "hǎo", meaning: "good, fine (хороший)", cat: "Adjective", hsk: 1, radicals: "女 (woman) + 子 (child)", story: "A woman with a child represents goodness." },
-  { hanzi: "看", pinyin: "kàn", meaning: "to watch, look (смотреть)", cat: "Verb", hsk: 1, radicals: "手 (hand) + 目 (eye)", story: "Putting a hand over the eye to look far away." },
-  { hanzi: "听", pinyin: "tīng", meaning: "to listen (слушать)", cat: "Verb", hsk: 1, radicals: "口 (mouth) + 斤 (axe)", story: "Listening carefully to nearby sounds." },
-  { hanzi: "说", pinyin: "shuō", meaning: "to speak (говорить)", cat: "Verb", hsk: 1, radicals: "讠(speech) + 兑 (joy)", story: "Expressing joyful words with speech." },
-  { hanzi: "读", pinyin: "dú", meaning: "to read (читать)", cat: "Verb", hsk: 1, radicals: "讠(speech) + 卖 (sell)", story: "Speaking out loud from a book." },
-  { hanzi: "写", pinyin: "xiě", meaning: "to write (писать)", cat: "Verb", hsk: 1, radicals: "冖 (roof) + 与", story: "Writing characters neatly under a roof." },
-  { hanzi: "妈妈", pinyin: "māma", meaning: "mom (мама)", cat: "Noun", hsk: 1, radicals: "女 (woman) + 马 (horse)", story: "The woman who works hard for her family." },
-  { hanzi: "爸爸", pinyin: "bàba", meaning: "dad (папа)", cat: "Noun", hsk: 1, radicals: "父 (father) + 巴", story: "The father figure of the household." },
-  { hanzi: "老师", pinyin: "lǎoshī", meaning: "teacher (учитель)", cat: "Noun", hsk: 1, radicals: "老 (old) + 师 (master)", story: "A respected master who shares knowledge." },
-  { hanzi: "学生", pinyin: "xuésheng", meaning: "student (ученик)", cat: "Noun", hsk: 1, radicals: "学 (study) + 生 (birth)", story: "Someone growing through daily learning." },
-  { hanzi: "猫", pinyin: "māo", meaning: "cat (кошка)", cat: "Noun", hsk: 1, radicals: "犭(beast) + 苗 (sprout)", story: "A small animal hiding in the field." },
-  { hanzi: "狗", pinyin: "gǒu", meaning: "dog (собака)", cat: "Noun", hsk: 1, radicals: "犭(beast) + 句", story: "A loyal pet watching over the home." },
-  { hanzi: "水", pinyin: "shuǐ", meaning: "water (вода)", cat: "Noun", hsk: 1, radicals: "水 (water river)", story: "Flowing streams of fresh water." },
-  { hanzi: "茶", pinyin: "chá", meaning: "tea (чай)", cat: "Noun", hsk: 1, radicals: "艹 (grass/plant) + 木 (tree)", story: "Leaves picked from a tea plant." },
-  { hanzi: "吃", pinyin: "chī", meaning: "to eat (есть)", cat: "Verb", hsk: 1, radicals: "口 (mouth) + 乞", story: "Putting delicious food in the mouth." },
-  { hanzi: "喝", pinyin: "hē", meaning: "to drink (пить)", cat: "Verb", hsk: 1, radicals: "口 (mouth) + 曷", story: "Drinking water with mouth." },
-
-  // HSK 2
-  { hanzi: "准备", pinyin: "zhǔnbèi", meaning: "to prepare (готовить)", cat: "Verb", hsk: 2, radicals: "冫(ice) + 👤", story: "Getting everything ready beforehand." },
-  { hanzi: "帮助", pinyin: "bāngzhù", meaning: "to help (помогать)", cat: "Verb", hsk: 2, radicals: "巾 (towel) + 力 (strength)", story: "Offering strength to assist someone." },
-  { hanzi: "简单", pinyin: "jiǎndān", meaning: "simple, easy (простой)", cat: "Adjective", hsk: 2, radicals: "竹 (bamboo) + 𠮤", story: "Plain like straight bamboo." },
-  { hanzi: "开始", pinyin: "kāishǐ", meaning: "to start, begin (начинать)", cat: "Verb", hsk: 2, radicals: "开 (open) + 始 (first)", story: "Opening the door for a new beginning." },
-  { hanzi: "知道", pinyin: "zhīdào", meaning: "to know (знать)", cat: "Verb", hsk: 2, radicals: "矢 (arrow) + 口 + 道", story: "Hitting the mark of truth in speech." },
-
-  // HSK 3
-  { hanzi: "简单", pinyin: "jiǎndān", meaning: "simple (простой)", cat: "Adjective", hsk: 3, radicals: "竹 (bamboo)", story: "Uncomplicated structure." },
-  { hanzi: "影响", pinyin: "yǐngxiǎng", meaning: "influence, effect (влияние)", cat: "Noun/Verb", hsk: 3, radicals: "彡 (shadow) + 音 (sound)", story: "Echo and shadows spreading influence." },
-
-  // Slang & Expressions
-  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад)", cat: "Slang", hsk: "slang", radicals: "纟(silk) + 色", story: "So amazing nothing can match it!" },
-  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! (давай!)", cat: "Slang", hsk: "slang", radicals: "加 (add) + 油 (oil)", story: "Adding fuel to boost energy!" },
-  { hanzi: "破防", pinyin: "pò fáng", meaning: "overwhelmed emotionally (пробило на эмоции)", cat: "Slang", hsk: "slang", radicals: "破 (break) + 防 (defense)", story: "Emotional defenses broken down." }
-];
-
 document.getElementById("total-words-count").textContent = allWords.length;
 
 // Dynamic Counts in Sidebar
@@ -725,6 +688,5 @@ function renderArchive(query = "") {
   `).join("");
 }
 </script>
-<script src="words.js"></script>
 </body>
 </html>
