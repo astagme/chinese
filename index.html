@@ -3,22 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>✿ 中文 Studio by astagme ✿</title>
+<title>✿ 中文 Studio by astagme ✿ Miffy Edition</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-gradient: linear-gradient(135deg, #ffe5ec 0%, #f0e6ff 40%, #e8f4ff 70%, #ffd9e8 100%);
-    --card-bg: rgba(255, 255, 255, 0.90);
-    --card-border: #ffffff;
-    --primary: #ff5c97;
-    --primary-soft: #ff85b3;
-    --lavender: #a084ed;
-    --cinna-blue: #71c5ee;
-    --text-dark: #503240;
-    --text-muted: #967083;
-    --shadow-3d: 0 18px 40px -10px rgba(255, 126, 179, 0.35), inset 0 2px 4px #ffffff;
-    --shadow-btn: 0 8px 20px rgba(255, 92, 151, 0.3);
-    --radius-3d: 30px;
+    --bg-main: #f4f9fd;
+    --bg-gradient: linear-gradient(160deg, #f0f7ff 0%, #e1effa 50%, #d5e8f7 100%);
+    --card-bg: #ffffff;
+    --primary: #6ba4c8;
+    --primary-soft: #a8d0e6;
+    --accent-blue: #8bc2e2;
+    --text-dark: #37474f;
+    --text-sub: #78909c;
+    --text-light: #b0bec5;
+    --border-color: #e3f2fd;
+    --shadow-soft: 0 10px 30px rgba(168, 208, 230, 0.25);
+    --radius-lg: 26px;
+    --radius-md: 18px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,303 +32,270 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 24px 16px 80px;
+    padding: 32px 16px 80px;
     color: var(--text-dark);
     position: relative;
     overflow-x: hidden;
   }
 
-  .bg-glow {
-    position: fixed; border-radius: 50%; filter: blur(70px);
-    z-index: 0; pointer-events: none;
+  /* Soft Ambient Miffy Clouds Background */
+  .cloud-bg {
+    position: fixed; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    filter: blur(40px); pointer-events: none; z-index: 0;
   }
-  .glow-pink { width: 400px; height: 400px; top: -80px; left: -80px; background: rgba(255, 182, 213, 0.5); }
-  .glow-purple { width: 450px; height: 450px; bottom: -100px; right: -80px; background: rgba(203, 186, 255, 0.5); }
+  .cloud-1 { width: 380px; height: 380px; top: -80px; left: -80px; }
+  .cloud-2 { width: 420px; height: 420px; bottom: -100px; right: -80px; }
 
   .layout-wrapper {
-    position: relative; z-index: 1; width: 100%; max-width: 960px;
-    display: grid; grid-template-columns: 240px 1fr; gap: 24px;
+    position: relative; z-index: 1; width: 100%; max-width: 900px;
+    display: grid; grid-template-columns: 220px 1fr; gap: 24px;
   }
 
   @media (max-width: 768px) {
     .layout-wrapper { grid-template-columns: 1fr; }
   }
 
-  /* ===== SIDEBAR HSK PANELS ===== */
-  .sidebar {
-    display: flex; flex-direction: column; gap: 14px;
-  }
-  .sidebar-box {
-    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px);
-    border: 2.5px solid #ffffff; border-radius: 26px; padding: 20px;
-    box-shadow: 0 10px 30px rgba(255, 143, 187, 0.18);
+  /* ===== SIDEBAR ===== */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar-card {
+    background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(12px);
+    border: 2px solid #ffffff; border-radius: var(--radius-lg); padding: 20px;
+    box-shadow: var(--shadow-soft);
   }
   .sidebar-title {
-    font-size: 13px; font-weight: 900; text-transform: uppercase;
-    letter-spacing: 1.5px; color: var(--lavender); margin-bottom: 12px;
-    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 900; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--primary); margin-bottom: 12px;
   }
 
-  .hsk-chip {
-    background: #ffffff; border: 2px solid #f3e5f5; border-radius: 18px;
+  .hsk-item {
+    background: #ffffff; border: 1.5px solid var(--border-color); border-radius: 16px;
     padding: 10px 14px; font-size: 13px; font-weight: 800; color: var(--text-dark);
-    cursor: pointer; transition: all 0.25s ease; margin-bottom: 8px;
+    cursor: pointer; transition: all 0.2s ease; margin-bottom: 8px;
     display: flex; justify-content: space-between; align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
   }
-  .hsk-chip:hover, .hsk-chip.active {
+  .hsk-item:hover, .hsk-item.active {
     background: var(--primary); color: #ffffff; border-color: var(--primary);
-    transform: translateX(4px); box-shadow: var(--shadow-btn);
   }
-  .hsk-badge {
-    background: rgba(0,0,0,0.08); padding: 2px 8px; border-radius: 999px;
+  .hsk-count {
+    background: rgba(0,0,0,0.06); padding: 2px 8px; border-radius: 999px;
     font-size: 11px; font-weight: 800;
   }
 
-  /* ===== MAIN CONTAINER ===== */
+  /* ===== HEADER ===== */
   .main-content { width: 100%; }
-
-  .header-card {
-    background: rgba(255, 255, 255, 0.9); border: 3px solid #ffffff;
-    border-radius: var(--radius-3d); padding: 24px; text-align: center;
-    box-shadow: var(--shadow-3d); margin-bottom: 20px; position: relative;
+  .header-box {
+    background: rgba(255, 255, 255, 0.9); border: 2.5px solid #ffffff;
+    border-radius: var(--radius-lg); padding: 24px; text-align: center;
+    box-shadow: var(--shadow-soft); margin-bottom: 20px;
   }
-  .creator-badge {
+  .creator-tag {
     display: inline-flex; align-items: center; gap: 6px;
-    background: linear-gradient(135deg, #ffe0ec 0%, #e1d5ff 100%);
-    border: 1.5px solid #ffffff; color: var(--primary);
-    font-size: 12px; font-weight: 900; padding: 6px 16px; border-radius: 999px;
-    margin-bottom: 10px; box-shadow: 0 4px 12px rgba(255, 92, 151, 0.15);
+    background: #eef7fc; border: 1px solid #d0e8f9; color: var(--primary);
+    font-size: 12px; font-weight: 900; padding: 5px 14px; border-radius: 999px;
+    margin-bottom: 8px;
   }
-  .header-card h1 {
-    font-size: 32px; font-weight: 900; color: var(--primary);
-    letter-spacing: -0.5px; line-height: 1.1;
-  }
-  .header-card p { font-size: 14px; color: var(--text-muted); font-weight: 700; margin-top: 4px; }
+  .header-box h1 { font-size: 28px; font-weight: 900; color: var(--primary); }
+  .header-box p { font-size: 13px; color: var(--text-sub); font-weight: 700; margin-top: 2px; }
 
-  .sanrio-avatar {
-    width: 52px; height: 52px; border-radius: 50%;
-    background: #fff; border: 2px solid #ffd1e0; display: inline-flex;
-    align-items: center; justify-content: center; font-size: 28px;
-    box-shadow: 0 6px 16px rgba(255, 126, 179, 0.2);
-  }
-
-  .card-3d {
-    background: var(--card-bg); border: 3px solid var(--card-border);
-    border-radius: var(--radius-3d); padding: 28px;
-    box-shadow: var(--shadow-3d); margin-bottom: 20px;
-    position: relative; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  .card-3d:hover { transform: translateY(-4px); }
-
+  /* ===== NAVIGATION CARDS ===== */
   .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .nav-btn {
-    background: rgba(255, 255, 255, 0.92); border: 2.5px solid #ffffff;
-    border-radius: 22px; padding: 20px; text-align: left; cursor: pointer;
-    box-shadow: 0 10px 25px rgba(255, 158, 196, 0.15); transition: all 0.25s ease;
+  .nav-card {
+    background: rgba(255, 255, 255, 0.95); border: 2px solid #ffffff;
+    border-radius: var(--radius-md); padding: 20px; text-align: left; cursor: pointer;
+    box-shadow: var(--shadow-soft); transition: all 0.2s ease;
   }
-  .nav-btn:hover {
-    transform: translateY(-3px) scale(1.02); background: #ffffff;
-    box-shadow: 0 16px 32px rgba(255, 126, 179, 0.3);
+  .nav-card:hover {
+    transform: translateY(-3px); background: #ffffff;
+    border-color: var(--primary-soft);
   }
-  .nav-btn .icon { font-size: 32px; margin-bottom: 6px; }
-  .nav-btn .title { font-size: 16px; font-weight: 900; color: var(--primary); }
-  .nav-btn .desc { font-size: 12px; color: var(--text-muted); font-weight: 700; margin-top: 2px; }
-  .nav-btn.wide {
-    grid-column: 1 / -1;
-    background: linear-gradient(135deg, #ffffff 0%, #fff0f6 100%);
+  .nav-card .icon { font-size: 28px; margin-bottom: 6px; }
+  .nav-card .title { font-size: 15px; font-weight: 900; color: var(--primary); }
+  .nav-card .desc { font-size: 12px; color: var(--text-sub); margin-top: 2px; font-weight: 700; }
+  .nav-card.wide { grid-column: 1 / -1; }
+
+  /* ===== QUIZLET-STYLE FLIP CARD ===== */
+  .flip-container {
+    perspective: 1000px;
+    width: 100%; height: 340px; cursor: pointer; margin-bottom: 20px;
+  }
+  .flipper {
+    transition: 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+    position: relative; width: 100%; height: 100%;
+  }
+  .flip-container.flipped .flipper {
+    transform: rotateY(180deg);
+  }
+  .card-front, .card-back {
+    backface-visibility: hidden;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: #ffffff; border: 3px solid #ffffff; border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 24px; text-align: center;
+  }
+  .card-back {
+    transform: rotateY(180deg);
+    background: #f8fcff; border-color: #e1effa;
   }
 
-  .btn-kawaii {
-    background: linear-gradient(135deg, #ff7eb3 0%, #ff5c97 100%);
-    color: #ffffff; border: none; font-family: inherit; font-weight: 900;
-    font-size: 15px; padding: 12px 28px; border-radius: 999px;
-    cursor: pointer; box-shadow: var(--shadow-btn); transition: all 0.2s;
+  .hanzi-main { font-size: 88px; font-weight: 900; color: var(--text-dark); line-height: 1; }
+  .pinyin-back { font-size: 32px; font-weight: 900; color: var(--primary); margin-bottom: 10px; }
+  .meaning-back { font-size: 20px; font-weight: 800; color: var(--text-dark); }
+  .cat-badge {
+    background: #e3f2fd; color: var(--primary); font-size: 11px;
+    font-weight: 800; padding: 4px 12px; border-radius: 999px; margin-top: 14px;
   }
-  .btn-kawaii:hover { transform: translateY(-2px) scale(1.03); background: #ff408b; }
-  
+  .flip-hint {
+    font-size: 12px; color: var(--text-light); font-weight: 700; position: absolute; bottom: 16px;
+  }
+
+  /* BUTTONS & COMMON */
   .btn-soft {
-    background: #ffffff; color: var(--text-muted); border: 2px solid #ffe0ec;
-    font-family: inherit; font-weight: 800; font-size: 14px;
-    padding: 10px 22px; border-radius: 999px; cursor: pointer; transition: all 0.2s;
+    background: #ffffff; color: var(--text-sub); border: 2px solid var(--border-color);
+    font-family: inherit; font-weight: 800; font-size: 14px; padding: 10px 24px;
+    border-radius: 999px; cursor: pointer; transition: all 0.2s;
   }
-  .btn-soft:hover { background: #fff5f8; color: var(--primary); border-color: var(--primary); }
+  .btn-soft:hover { background: #f0f7ff; color: var(--primary); border-color: var(--primary-soft); }
+
+  .btn-primary {
+    background: var(--primary); color: #ffffff; border: none; font-family: inherit;
+    font-weight: 900; font-size: 14px; padding: 10px 26px; border-radius: 999px;
+    cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 14px rgba(107, 164, 200, 0.3);
+  }
+  .btn-primary:hover { background: #5a93b7; }
 
   .back-btn {
-    background: #ffffff; border: 2px solid #fff; color: var(--text-muted);
-    font-family: inherit; font-weight: 800; font-size: 13px;
-    padding: 8px 20px; border-radius: 999px; cursor: pointer;
-    margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    background: #ffffff; border: 1.5px solid var(--border-color); color: var(--text-sub);
+    font-family: inherit; font-weight: 800; font-size: 13px; padding: 8px 18px;
+    border-radius: 999px; cursor: pointer; margin-bottom: 16px;
   }
-  .back-btn:hover { color: var(--primary); transform: translateX(-3px); }
+  .back-btn:hover { color: var(--primary); border-color: var(--primary-soft); }
 
   .hidden { display: none !important; }
 
-  .card-prompt-label {
-    font-size: 12px; font-weight: 900; text-transform: uppercase;
-    letter-spacing: 1.5px; color: var(--lavender); margin-bottom: 12px;
-  }
-  .hanzi-display { font-size: 90px; font-weight: 900; color: var(--text-dark); line-height: 1; }
-  .pinyin-display { font-size: 26px; font-weight: 800; color: var(--primary); margin-top: 10px; }
-  .meaning-display { font-size: 18px; font-weight: 700; color: var(--text-muted); margin-top: 6px; }
-
-  .audio-btn {
-    background: rgba(160, 132, 237, 0.12); color: var(--lavender);
-    border: none; padding: 8px 18px; border-radius: 999px; font-weight: 800;
-    font-size: 13px; cursor: pointer; transition: all 0.2s; margin-top: 10px;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .audio-btn:hover { background: var(--lavender); color: #ffffff; }
-
-  .answer-box {
-    margin-top: 20px; display: flex; gap: 8px; justify-content: center;
-  }
-  .answer-input {
-    width: 100%; max-width: 320px; border: 2.5px solid #ffd1e0; border-radius: 999px;
-    padding: 12px 20px; font-family: inherit; font-size: 15px; font-weight: 700;
-    text-align: center; outline: none; background: #ffffff;
-  }
-  .answer-input:focus { border-color: var(--primary); }
-
-  .feedback-text {
-    font-size: 14px; font-weight: 800; text-align: center; margin-top: 12px; min-height: 22px;
-  }
-  .feedback-text.ok { color: #2e8b57; }
-  .feedback-text.no { color: #d93856; }
-
-  .chat-input {
-    width: 100%; border: 2px solid #ffd1e0; border-radius: 999px;
+  .search-input {
+    width: 100%; border: 2px solid var(--border-color); border-radius: 999px;
     padding: 12px 20px; font-family: inherit; font-size: 14px; font-weight: 700;
-    outline: none; background: #ffffff; color: var(--text-dark);
+    outline: none; background: #ffffff; color: var(--text-dark); margin-bottom: 16px;
   }
+  .search-input:focus { border-color: var(--primary); }
 </style>
 </head>
 <body>
 
-<div class="bg-glow glow-pink"></div>
-<div class="bg-glow glow-purple"></div>
+<div class="cloud-bg cloud-1"></div>
+<div class="cloud-bg cloud-2"></div>
 
 <div class="layout-wrapper">
 
-  <!-- ============ SIDEBAR HSK 3.0 PANELS ============ -->
+  <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar">
-    <div class="sidebar-box">
-      <div class="sidebar-title">🌸 HSK 3.0 Levels</div>
-      <div class="hsk-chip active" onclick="filterHSK(1)"><span>HSK Level 1</span> <span class="hsk-badge" id="badge-hsk1">300</span></div>
-      <div class="hsk-chip" onclick="filterHSK(2)"><span>HSK Level 2</span> <span class="hsk-badge" id="badge-hsk2">500</span></div>
-      <div class="hsk-chip" onclick="filterHSK(3)"><span>HSK Level 3</span> <span class="hsk-badge">1000</span></div>
-      <div class="hsk-chip" onclick="filterHSK(4)"><span>HSK Level 4</span> <span class="hsk-badge">2000</span></div>
-      <div class="hsk-chip" onclick="filterHSK(5)"><span>HSK Level 5</span> <span class="hsk-badge">3600</span></div>
-      <div class="hsk-chip" onclick="filterHSK('slang')"><span>Slang & Idioms</span> <span class="hsk-badge">Hot 🔥</span></div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">🐰 HSK Levels</div>
+      <div class="hsk-item active" onclick="filterHSK(1)"><span>HSK 1</span> <span class="hsk-count">300</span></div>
+      <div class="hsk-item" onclick="filterHSK(2)"><span>HSK 2</span> <span class="hsk-count">500</span></div>
+      <div class="hsk-item" onclick="filterHSK(3)"><span>HSK 3</span> <span class="hsk-count">1000</span></div>
+      <div class="hsk-item" onclick="filterHSK('slang')"><span>Slang & Phrases</span> <span class="hsk-count">✿</span></div>
     </div>
 
-    <div class="sidebar-box" style="text-align:center;">
-      <div class="sanrio-avatar">🎀</div>
-      <div style="font-weight:900; font-size:15px; color:var(--primary); margin-top:8px;">Sanrio Study Companion</div>
-      <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">Hello Kitty & Cinnamoroll are cheering for you! ✨</div>
+    <div class="sidebar-card" style="text-align:center;">
+      <div style="font-size:32px; margin-bottom:4px;">🐰☁️</div>
+      <div style="font-weight:900; font-size:14px; color:var(--primary);">Miffy Study Corner</div>
+      <div style="font-size:12px; color:var(--text-sub); margin-top:2px;">Simple & Soft Learning</div>
     </div>
   </aside>
 
-  <!-- ============ MAIN CONTENT AREA ============ -->
+  <!-- ============ MAIN CONTENT ============ -->
   <main class="main-content">
 
-    <header class="header-card">
-      <div class="creator-badge">🎀 by astagme</div>
-      <h1>中文 Learning Hub</h1>
-      <p id="greet-text">Good day! Welcome to your study sanctuary 🌸</p>
+    <header class="header-box">
+      <div class="creator-tag">☁️ by astagme</div>
+      <h1>中文 Studio</h1>
+      <p id="greet-text">Cozy pastel Chinese learning space 🌸</p>
     </header>
 
     <!-- ============ HOME SCREEN ============ -->
     <div id="home-view">
-      <div class="card-3d">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-size:12px; font-weight:900; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">✿ Word of the Day</span>
-          <button class="audio-btn" onclick="playAudioDirect('加油')">🔊 Play Audio</button>
-        </div>
-        <div style="font-size:42px; font-weight:900; color:var(--text-dark); margin-top:8px;" id="wotd-hanzi">加油</div>
-        <div style="font-size:18px; font-weight:800; color:var(--primary);" id="wotd-pinyin">jiāyóu</div>
-        <div style="font-size:15px; font-weight:700; color:var(--text-muted); margin-top:4px;" id="wotd-meaning">go for it! don't give up! (давай! не сдавайся!)</div>
-      </div>
-
       <div class="nav-grid">
-        <div class="nav-btn" onclick="openSection('cards')">
+        <div class="nav-card" onclick="openSection('cards')">
           <div class="icon">🃏</div>
           <div class="title">Flashcards</div>
-          <div class="desc"><span id="total-words-count">0</span> loaded • HSK 3.0 Ready</div>
+          <div class="desc"><span id="total-words-count">0</span> items • Quizlet Flip Mode</div>
         </div>
-        <div class="nav-btn" onclick="openSection('sentences')">
+        <div class="nav-card" onclick="openSection('sentences')">
           <div class="icon">✍️</div>
           <div class="title">Sentences</div>
-          <div class="desc">Translation mastery</div>
+          <div class="desc">Translate & practice</div>
         </div>
-        <div class="nav-btn" onclick="openSection('texts')">
+        <div class="nav-card" onclick="openSection('texts')">
           <div class="icon">📖</div>
           <div class="title">Reading Texts</div>
-          <div class="desc">Comprehension & audio</div>
+          <div class="desc">Short stories & pinyin</div>
         </div>
-        <div class="nav-btn wide" onclick="openSection('daily')">
+        <div class="nav-card wide" onclick="openSection('daily')">
           <div class="icon">✨</div>
-          <div class="title">Phrase & Slang Archive</div>
-          <div class="desc">Full searchable collection</div>
+          <div class="title">Dictionary & Slang</div>
+          <div class="desc">Full searchable vocabulary list</div>
         </div>
       </div>
     </div>
 
-    <!-- ============ FLASHCARDS VIEW ============ -->
+    <!-- ============ FLASHCARDS VIEW (QUIZLET FLIP) ============ -->
     <div id="cards-view" class="hidden">
-      <button class="back-btn" onclick="goHome()">← Back Home</button>
-      <div class="card-3d" style="text-align:center;">
-        <div class="card-prompt-label" id="card-prompt">Character Flashcard</div>
-        <div class="hanzi-display" id="card-hanzi">我</div>
-        <button class="audio-btn" onclick="playCurrentCardAudio()">🔊 Play Audio</button>
+      <button class="back-btn" onclick="goHome()">← Back</button>
 
-        <div class="pinyin-display" id="card-pinyin-reveal" style="display:none;">wǒ</div>
-        <div class="meaning-display" id="card-meaning-reveal" style="display:none;">I, me (я)</div>
-
-        <div class="answer-box">
-          <input type="text" class="answer-input" id="card-input" placeholder="" onkeydown="if(event.key==='Enter') checkCardAnswer()">
-          <button class="btn-kawaii" onclick="checkCardAnswer()">Check</button>
+      <div class="flip-container" id="flip-card" onclick="toggleCardFlip()">
+        <div class="flipper">
+          <div class="card-front">
+            <div style="font-size:12px; font-weight:800; color:var(--primary); margin-bottom:12px; text-transform:uppercase;">Character</div>
+            <div class="hanzi-main" id="card-hanzi">我</div>
+            <div class="flip-hint">Click card to flip 🐰</div>
+          </div>
+          <div class="card-back">
+            <div class="pinyin-back" id="card-pinyin">wǒ</div>
+            <div class="meaning-back" id="card-meaning">I, me (я)</div>
+            <div class="cat-badge" id="card-cat">Pronoun</div>
+            <div class="flip-hint">Click card to flip back ☁️</div>
+          </div>
         </div>
-        <div class="feedback-text" id="card-feedback"></div>
       </div>
 
-      <div style="display:flex; gap:12px; justify-content:center;">
+      <div style="display:flex; gap:12px; justify-content:center; align-items:center;">
         <button class="btn-soft" onclick="prevCard()">← Prev</button>
-        <button class="btn-kawaii" onclick="nextCard()">Next →</button>
+        <span id="card-progress" style="font-size:13px; font-weight:800; color:var(--text-sub);">1 / 10</span>
+        <button class="btn-primary" onclick="nextCard()">Next →</button>
       </div>
     </div>
 
     <!-- ============ SENTENCES VIEW ============ -->
     <div id="sentences-view" class="hidden">
-      <button class="back-btn" onclick="goHome()">← Back Home</button>
-      <div class="card-3d">
-        <div class="card-prompt-label">✍️ Advanced Sentence Translation</div>
+      <button class="back-btn" onclick="goHome()">← Back</button>
+      <div style="background:#fff; border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow-soft);">
+        <div style="font-size:12px; font-weight:900; color:var(--primary); text-transform:uppercase; margin-bottom:8px;">Sentence Builder</div>
         <div style="font-size:18px; font-weight:800; color:var(--text-dark);" id="sent-prompt">I love my mom very much.</div>
-        <div style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">Hint: Subject + 很 + Verb + Object</div>
-        <input type="text" class="answer-input" id="sent-input" style="max-width:100%; width:100%; text-align:left; margin-bottom:12px;" placeholder="Type Chinese or pinyin...">
-        <button class="btn-kawaii" onclick="checkSentence()">Check Answer 🌸</button>
-        <div class="feedback-text" id="sent-feedback"></div>
+        <div style="font-size:13px; color:var(--text-sub); margin-bottom:14px;">Hint: Subject + 很 + Verb + Object</div>
+        <input type="text" class="search-input" id="sent-input" placeholder="Type Chinese or pinyin...">
+        <button class="btn-primary" onclick="checkSentence()">Check Answer 🐰</button>
+        <div id="sent-feedback" style="margin-top:12px; font-weight:800; font-size:14px;"></div>
       </div>
     </div>
 
     <!-- ============ TEXTS VIEW ============ -->
     <div id="texts-view" class="hidden">
-      <button class="back-btn" onclick="goHome()">← Back Home</button>
-      <div class="card-3d">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-size:18px; font-weight:900; color:var(--primary);">1. Self Introduction & HSK Study</span>
-          <button class="audio-btn" onclick="playAudioDirect('你好！我是学生。我每天学习中文。')">🔊 Play Audio</button>
-        </div>
-        <div style="font-size:20px; font-weight:800; margin-top:12px; line-height:1.6;">你好！我是学生。我每天学习中文。我的老师很好。</div>
+      <button class="back-btn" onclick="goHome()">← Back</button>
+      <div style="background:#fff; border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow-soft);">
+        <div style="font-size:18px; font-weight:900; color:var(--primary);">1. Self Introduction & HSK Study</div>
+        <div style="font-size:20px; font-weight:800; margin-top:12px; line-height:1.6; color:var(--text-dark);">你好！我是学生。我每天学习中文。我的老师很好。</div>
         <div style="font-size:14px; color:var(--primary); font-weight:700; margin-top:6px;">Nǐ hǎo! Wǒ shì xuéshēng. Wǒ měitiān xuéxí zhōngwén. Wǒ de lǎoshī hěn hǎo.</div>
-        <div style="font-size:13px; color:var(--text-muted); font-style:italic; margin-top:4px;">Привет! Я студент. Я каждый день учу китайский. Мой учитель очень хороший.</div>
+        <div style="font-size:13px; color:var(--text-sub); font-style:italic; margin-top:4px;">Привет! Я студент. Я каждый день учу китайский. Мой учитель очень хороший.</div>
       </div>
     </div>
 
-    <!-- ============ DAILY ARCHIVE VIEW ============ -->
+    <!-- ============ DICTIONARY / ARCHIVE VIEW ============ -->
     <div id="daily-view" class="hidden">
-      <button class="back-btn" onclick="goHome()">← Back Home</button>
-      <input type="text" class="chat-input" style="margin-bottom:16px;" placeholder="Search phrase or meaning..." oninput="filterArchive(this.value)">
+      <button class="back-btn" onclick="goHome()">← Back</button>
+      <input type="text" class="search-input" placeholder="Search phrase or meaning..." oninput="filterArchive(this.value)">
       <div id="archive-list"></div>
     </div>
 
@@ -335,187 +303,55 @@
 </div>
 
 <script>
-/* ============ EXPANDED HSK 1 & 2 VOCABULARY DATABASE ============ */
+/* ============ DATABASE ============ */
 const allWords = [
-  // HSK 1 (Band 1 - Expanded)
-  { hanzi: "我", pinyin: "wǒ", meaning: "I, me (я)", cat: "代词", hsk: 1 },
-  { hanzi: "你", pinyin: "nǐ", meaning: "you (ты)", cat: "代词", hsk: 1 },
-  { hanzi: "他", pinyin: "tā", meaning: "he, him (он)", cat: "代词", hsk: 1 },
-  { hanzi: "她", pinyin: "tā", meaning: "she, her (она)", cat: "代词", hsk: 1 },
-  { hanzi: "它", pinyin: "tā", meaning: "it (оно)", cat: "代词", hsk: 1 },
-  { hanzi: "我们", pinyin: "wǒmen", meaning: "we, us (мы)", cat: "代词", hsk: 1 },
-  { hanzi: "你们", pinyin: "nǐmen", meaning: "you plural (вы)", cat: "代词", hsk: 1 },
-  { hanzi: "他们", pinyin: "tāmen", meaning: "they (они)", cat: "代词", hsk: 1 },
-  { hanzi: "这", pinyin: "zhè", meaning: "this (это)", cat: "代词", hsk: 1 },
-  { hanzi: "那", pinyin: "nà", meaning: "that (то)", cat: "代词", hsk: 1 },
-  { hanzi: "哪", pinyin: "nǎ", meaning: "which (какой)", cat: "代词", hsk: 1 },
-  { hanzi: "谁", pinyin: "shuí", meaning: "who (кто)", cat: "代词", hsk: 1 },
-  { hanzi: "什么", pinyin: "shénme", meaning: "what (что)", cat: "代词", hsk: 1 },
-  { hanzi: "多少", pinyin: "duōshao", meaning: "how much, how many (сколько)", cat: "代词", hsk: 1 },
-  { hanzi: "几", pinyin: "jǐ", meaning: "how many (несколько, сколько)", cat: "代词", hsk: 1 },
-  { hanzi: "怎么", pinyin: "zěnme", meaning: "how (как)", cat: "代词", hsk: 1 },
+  // Pronouns
+  { hanzi: "我", pinyin: "wǒ", meaning: "I, me (я)", cat: "Pronoun", hsk: 1 },
+  { hanzi: "你", pinyin: "nǐ", meaning: "you (ты)", cat: "Pronoun", hsk: 1 },
+  { hanzi: "他", pinyin: "tā", meaning: "he, him (он)", cat: "Pronoun", hsk: 1 },
+  { hanzi: "她", pinyin: "tā", meaning: "she, her (она)", cat: "Pronoun", hsk: 1 },
+  { hanzi: "它", pinyin: "tā", meaning: "it (оно)", cat: "Pronoun", hsk: 1 },
+  { hanzi: "我们", pinyin: "wǒmen", meaning: "we, us (мы)", cat: "Pronoun", hsk: 1 },
+  { hanzi: "你们", pinyin: "nǐmen", meaning: "you plural (вы)", cat: "Pronoun", hsk: 1 },
 
-  // Numbers (HSK 1)
-  { hanzi: "一", pinyin: "yī", meaning: "one (один)", cat: "число", hsk: 1 },
-  { hanzi: "二", pinyin: "èr", meaning: "two (два)", cat: "число", hsk: 1 },
-  { hanzi: "三", pinyin: "sān", meaning: "three (три)", cat: "число", hsk: 1 },
-  { hanzi: "四", pinyin: "sì", meaning: "four (четыре)", cat: "число", hsk: 1 },
-  { hanzi: "五", pinyin: "wǔ", meaning: "five (пять)", cat: "число", hsk: 1 },
-  { hanzi: "六", pinyin: "liù", meaning: "six (шесть)", cat: "число", hsk: 1 },
-  { hanzi: "七", pinyin: "qī", meaning: "seven (семь)", cat: "число", hsk: 1 },
-  { hanzi: "八", pinyin: "bā", meaning: "eight (восемь)", cat: "число", hsk: 1 },
-  { hanzi: "九", pinyin: "jiǔ", meaning: "nine (девять)", cat: "число", hsk: 1 },
-  { hanzi: "十", pinyin: "shí", meaning: "ten (десять)", cat: "число", hsk: 1 },
-  { hanzi: "百", pinyin: "bǎi", meaning: "hundred (сто)", cat: "число", hsk: 1 },
+  // Verbs
+  { hanzi: "是", pinyin: "shì", meaning: "to be (быть)", cat: "Verb", hsk: 1 },
+  { hanzi: "有", pinyin: "yǒu", meaning: "to have (иметь)", cat: "Verb", hsk: 1 },
+  { hanzi: "看", pinyin: "kàn", meaning: "to watch, look (смотреть)", cat: "Verb", hsk: 1 },
+  { hanzi: "听", pinyin: "tīng", meaning: "to listen (слушать)", cat: "Verb", hsk: 1 },
+  { hanzi: "读", pinyin: "dú", meaning: "to read (читать)", cat: "Verb", hsk: 1 },
+  { hanzi: "写", pinyin: "xiě", meaning: "to write (писать)", cat: "Verb", hsk: 1 },
+  { hanzi: "吃", pinyin: "chī", meaning: "to eat (есть)", cat: "Verb", hsk: 1 },
+  { hanzi: "喝", pinyin: "hē", meaning: "to drink (пить)", cat: "Verb", hsk: 1 },
+  { hanzi: "爱", pinyin: "ài", meaning: "to love (любить)", cat: "Verb", hsk: 1 },
+  { hanzi: "喜欢", pinyin: "xǐhuan", meaning: "to like (нравиться)", cat: "Verb", hsk: 1 },
 
-  // Verbs (HSK 1)
-  { hanzi: "是", pinyin: "shì", meaning: "to be (быть)", cat: "глагол", hsk: 1 },
-  { hanzi: "有", pinyin: "yǒu", meaning: "to have (иметь)", cat: "глагол", hsk: 1 },
-  { hanzi: "看", pinyin: "kàn", meaning: "to watch, look (смотреть)", cat: "глагол", hsk: 1 },
-  { hanzi: "听", pinyin: "tīng", meaning: "to listen (слушать)", cat: "глагол", hsk: 1 },
-  { hanzi: "说话", pinyin: "shuōhuà", meaning: "to speak (говорить)", cat: "глагол", hsk: 1 },
-  { hanzi: "读", pinyin: "dú", meaning: "to read (читать)", cat: "глагол", hsk: 1 },
-  { hanzi: "写", pinyin: "xiě", meaning: "to write (писать)", cat: "глагол", hsk: 1 },
-  { hanzi: "看见", pinyin: "kànjiàn", meaning: "to see (видеть)", cat: "глагол", hsk: 1 },
-  { hanzi: "叫", pinyin: "jiào", meaning: "to call, be named (звать)", cat: "глагол", hsk: 1 },
-  { hanzi: "来", pinyin: "lái", meaning: "to come (приходить)", cat: "глагол", hsk: 1 },
-  { hanzi: "去", pinyin: "qù", meaning: "to go (идти)", cat: "глагол", hsk: 1 },
-  { hanzi: "吃", pinyin: "chī", meaning: "to eat (есть)", cat: "глагол", hsk: 1 },
-  { hanzi: "喝", pinyin: "hē", meaning: "to drink (пить)", cat: "глагол", hsk: 1 },
-  { hanzi: "睡", pinyin: "shuì", meaning: "to sleep (спать)", cat: "глагол", hsk: 1 },
-  { hanzi: "做", pinyin: "zuò", meaning: "to do, make (делать)", cat: "глагол", hsk: 1 },
-  { hanzi: "买", pinyin: "mǎi", meaning: "to buy (покупать)", cat: "глагол", hsk: 1 },
-  { hanzi: "卖", pinyin: "mài", meaning: "to sell (продавать)", cat: "глагол", hsk: 1 },
-  { hanzi: "开", pinyin: "kāi", meaning: "to open, drive (открывать, водить)", cat: "глагол", hsk: 1 },
-  { hanzi: "坐", pinyin: "zuò", meaning: "to sit (сидеть)", cat: "глагол", hsk: 1 },
-  { hanzi: "住", pinyin: "zhù", meaning: "to live, reside (жить)", cat: "глагол", hsk: 1 },
-  { hanzi: "学习", pinyin: "xuéxí", meaning: "to study (учиться)", cat: "глагол", hsk: 1 },
-  { hanzi: "工作", pinyin: "gōngzuò", meaning: "to work (работать)", cat: "глагол", hsk: 1 },
-  { hanzi: "爱", pinyin: "ài", meaning: "to love (любить)", cat: "глагол", hsk: 1 },
-  { hanzi: "喜欢", pinyin: "xǐhuan", meaning: "to like (нравиться)", cat: "глагол", hsk: 1 },
-  { hanzi: "想", pinyin: "xiǎng", meaning: "to want, think (хотеть, думать)", cat: "глагол", hsk: 1 },
-  { hanzi: "认识", pinyin: "rènshi", meaning: "to know, meet (знать, знакомиться)", cat: "глагол", hsk: 1 },
+  // Nouns
+  { hanzi: "妈妈", pinyin: "māma", meaning: "mom (мама)", cat: "Noun", hsk: 1 },
+  { hanzi: "爸爸", pinyin: "bàba", meaning: "dad (папа)", cat: "Noun", hsk: 1 },
+  { hanzi: "老师", pinyin: "lǎoshī", meaning: "teacher (учитель)", cat: "Noun", hsk: 1 },
+  { hanzi: "学生", pinyin: "xuésheng", meaning: "student (ученик)", cat: "Noun", hsk: 1 },
+  { hanzi: "中国", pinyin: "Zhōngguó", meaning: "China (Китай)", cat: "Noun", hsk: 1 },
+  { hanzi: "猫", pinyin: "māo", meaning: "cat (кошка)", cat: "Noun", hsk: 1 },
+  { hanzi: "狗", pinyin: "gǒu", meaning: "dog (собака)", cat: "Noun", hsk: 1 },
 
-  // Nouns (HSK 1)
-  { hanzi: "家", pinyin: "jiā", meaning: "home, family (дом, семья)", cat: "сущ", hsk: 1 },
-  { hanzi: "学校", pinyin: "xuéxiào", meaning: "school (школа)", cat: "сущ", hsk: 1 },
-  { hanzi: "饭店", pinyin: "fàndiàn", meaning: "restaurant, hotel (ресторан)", cat: "сущ", hsk: 1 },
-  { hanzi: "商店", pinyin: "shāngdiàn", meaning: "shop, store (магазин)", cat: "сущ", hsk: 1 },
-  { hanzi: "医院", pinyin: "yīyuàn", meaning: "hospital (больница)", cat: "сущ", hsk: 1 },
-  { hanzi: "中国", pinyin: "Zhōngguó", meaning: "China (Китай)", cat: "сущ", hsk: 1 },
-  { hanzi: "北京", pinyin: "Běijīng", meaning: "Beijing (Пекин)", cat: "сущ", hsk: 1 },
-  { hanzi: "上", pinyin: "shàng", meaning: "up, above (на, вверху)", cat: "сущ", hsk: 1 },
-  { hanzi: "下", pinyin: "xià", meaning: "down, below (под, внизу)", cat: "сущ", hsk: 1 },
-  { hanzi: "前面", pinyin: "qiánmiàn", meaning: "front (спереди)", cat: "сущ", hsk: 1 },
-  { hanzi: "后面", pinyin: "hòumiàn", meaning: "back, behind (сзади)", cat: "сущ", hsk: 1 },
-  { hanzi: "今天", pinyin: "jīntiān", meaning: "today (сегодня)", cat: "сущ", hsk: 1 },
-  { hanzi: "明天", pinyin: "míngtiān", meaning: "tomorrow (завтра)", cat: "сущ", hsk: 1 },
-  { hanzi: "昨天", pinyin: "zuótiān", meaning: "yesterday (вчера)", cat: "сущ", hsk: 1 },
-  { hanzi: "上午", pinyin: "shàngwǔ", meaning: "morning (утро)", cat: "сущ", hsk: 1 },
-  { hanzi: "中午", pinyin: "zhōngwǔ", meaning: "noon (полдень)", cat: "сущ", hsk: 1 },
-  { hanzi: "下午", pinyin: "xiàwǔ", meaning: "afternoon (день)", cat: "сущ", hsk: 1 },
-  { hanzi: "年", pinyin: "nián", meaning: "year (год)", cat: "сущ", hsk: 1 },
-  { hanzi: "月", pinyin: "yuè", meaning: "month (месяц)", cat: "сущ", hsk: 1 },
-  { hanzi: "日", pinyin: "rì", meaning: "day, sun (день, солнце)", cat: "сущ", hsk: 1 },
-  { hanzi: "星期", pinyin: "xīngqī", meaning: "week (неделя)", cat: "сущ", hsk: 1 },
-  { hanzi: "点", pinyin: "diǎn", meaning: "o'clock (час)", cat: "сущ", hsk: 1 },
-  { hanzi: "分钟", pinyin: "fēnzhōng", meaning: "minute (минута)", cat: "сущ", hsk: 1 },
-  { hanzi: "爸爸", pinyin: "bàba", meaning: "dad (папа)", cat: "сущ", hsk: 1 },
-  { hanzi: "妈妈", pinyin: "māma", meaning: "mom (мама)", cat: "сущ", hsk: 1 },
-  { hanzi: "儿子", pinyin: "érzi", meaning: "son (сын)", cat: "сущ", hsk: 1 },
-  { hanzi: "女儿", pinyin: "nǚ'ér", meaning: "daughter (дочь)", cat: "сущ", hsk: 1 },
-  { hanzi: "老师", pinyin: "lǎoshī", meaning: "teacher (учитель)", cat: "сущ", hsk: 1 },
-  { hanzi: "学生", pinyin: "xuésheng", meaning: "student (ученик)", cat: "сущ", hsk: 1 },
-  { hanzi: "同学", pinyin: "tóngxué", meaning: "classmate (одноклассник)", cat: "сущ", hsk: 1 },
-  { hanzi: "朋友", pinyin: "péngyou", meaning: "friend (друг)", cat: "сущ", hsk: 1 },
-  { hanzi: "医生", pinyin: "yīshēng", meaning: "doctor (врач)", cat: "сущ", hsk: 1 },
-  { hanzi: "先生", pinyin: "xiānsheng", meaning: "Mr., sir (господин)", cat: "сущ", hsk: 1 },
-  { hanzi: "小姐", pinyin: "xiǎojiě", meaning: "Miss (девушка)", cat: "сущ", hsk: 1 },
-  { hanzi: "衣服", pinyin: "yīfu", meaning: "clothes (одежда)", cat: "сущ", hsk: 1 },
-  { hanzi: "水", pinyin: "shuǐ", meaning: "water (вода)", cat: "сущ", hsk: 1 },
-  { hanzi: "茶", pinyin: "chá", meaning: "tea (чай)", cat: "сущ", hsk: 1 },
-  { hanzi: "菜", pinyin: "cài", meaning: "dish, vegetable (блюдо, овощи)", cat: "сущ", hsk: 1 },
-  { hanzi: "米饭", pinyin: "mǐfàn", meaning: "cooked rice (рис)", cat: "сущ", hsk: 1 },
-  { hanzi: "水果", pinyin: "shuǐguǒ", meaning: "fruit (фрукты)", cat: "сущ", hsk: 1 },
-  { hanzi: "苹果", pinyin: "píngguǒ", meaning: "apple (яблоко)", cat: "сущ", hsk: 1 },
-  { hanzi: "猫", pinyin: "māo", meaning: "cat (кошка)", cat: "сущ", hsk: 1 },
-  { hanzi: "狗", pinyin: "gǒu", meaning: "dog (собака)", cat: "сущ", hsk: 1 },
-  { hanzi: "书", pinyin: "shū", meaning: "book (книга)", cat: "сущ", hsk: 1 },
-  { hanzi: "桌子", pinyin: "zhuōzi", meaning: "table, desk (стол)", cat: "сущ", hsk: 1 },
-  { hanzi: "椅子", pinyin: "yǐzi", meaning: "chair (стул)", cat: "сущ", hsk: 1 },
-  { hanzi: "钱", pinyin: "qián", meaning: "money (деньги)", cat: "сущ", hsk: 1 },
-  { hanzi: "飞机", pinyin: "fēijī", meaning: "airplane (самолет)", cat: "сущ", hsk: 1 },
-  { hanzi: "出租车", pinyin: "chūzūchē", meaning: "taxi (такси)", cat: "сущ", hsk: 1 },
-  { hanzi: "电视", pinyin: "diànshì", meaning: "TV (телевизор)", cat: "сущ", hsk: 1 },
-  { hanzi: "电脑", pinyin: "diànnǎo", meaning: "computer (компьютер)", cat: "сущ", hsk: 1 },
-  { hanzi: "电影", pinyin: "diànyǐng", meaning: "movie (кино)", cat: "сущ", hsk: 1 },
-  { hanzi: "天气", pinyin: "tiānqì", meaning: "weather (погода)", cat: "сущ", hsk: 1 },
-  { hanzi: "字", pinyin: "zì", meaning: "character, word (иероглиф)", cat: "сущ", hsk: 1 },
-  { hanzi: "汉语", pinyin: "Hànyǔ", meaning: "Chinese language (китайский)", cat: "сущ", hsk: 1 },
-
-  // Adjectives & Particles (HSK 1)
-  { hanzi: "好", pinyin: "hǎo", meaning: "good (хороший)", cat: "прил", hsk: 1 },
-  { hanzi: "大", pinyin: "dà", meaning: "big (большой)", cat: "прил", hsk: 1 },
-  { hanzi: "小", pinyin: "xiǎo", meaning: "small (маленький)", cat: "прил", hsk: 1 },
-  { hanzi: "多", pinyin: "duō", meaning: "many, much (много)", cat: "прил", hsk: 1 },
-  { hanzi: "少", pinyin: "shǎo", meaning: "few, little (мало)", cat: "прил", hsk: 1 },
-  { hanzi: "冷", pinyin: "lěng", meaning: "cold (холодный)", cat: "прил", hsk: 1 },
-  { hanzi: "热", pinyin: "rè", meaning: "hot (горячий)", cat: "прил", hsk: 1 },
-  { hanzi: "高兴", pinyin: "gāoxìng", meaning: "happy (радостный)", cat: "прил", hsk: 1 },
-  { hanzi: "漂亮", pinyin: "piàoliang", meaning: "beautiful (красивый)", cat: "прил", hsk: 1 },
-  { hanzi: "不", pinyin: "bù", meaning: "not, no (не, нет)", cat: "частица", hsk: 1 },
-  { hanzi: "没", pinyin: "méi", meaning: "not have (не иметь)", cat: "частица", hsk: 1 },
-  { hanzi: "很", pinyin: "hěn", meaning: "very (очень)", cat: "нареч", hsk: 1 },
-  { hanzi: "太", pinyin: "tài", meaning: "too, excessively (слишком)", cat: "нареч", hsk: 1 },
-  { hanzi: "都", pinyin: "dōu", meaning: "all, both (все, оба)", cat: "нареч", hsk: 1 },
-  { hanzi: "和", pinyin: "hé", meaning: "and (и)", cat: "частица", hsk: 1 },
-  { hanzi: "在", pinyin: "zài", meaning: "at, in, on (в, находиться)", cat: "частица", hsk: 1 },
-  { hanzi: "的", pinyin: "de", meaning: "possessive particle (притяж. частица)", cat: "частица", hsk: 1 },
-  { hanzi: "吗", pinyin: "ma", meaning: "question particle (вопр. частица)", cat: "частица", hsk: 1 },
-  { hanzi: "呢", pinyin: "ne", meaning: "modal particle (а...?)", cat: "частица", hsk: 1 },
-
-  // HSK 2 Sample Words
-  { hanzi: "准备", pinyin: "zhǔnbèi", meaning: "to prepare (готовить)", cat: "глагол", hsk: 2 },
-  { hanzi: "开始", pinyin: "kāishǐ", meaning: "to start, begin (начинать)", cat: "глагол", hsk: 2 },
-  { hanzi: "帮助", pinyin: "bāngzhù", meaning: "to help (помогать)", cat: "глагол", hsk: 2 },
-  { hanzi: "简单", pinyin: "jiǎndān", meaning: "simple, easy (простой)", cat: "прил", hsk: 2 },
-  { hanzi: "忙", pinyin: "máng", meaning: "busy (занят)", cat: "прил", hsk: 2 },
-
-  // Slang & Idioms
-  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад)", cat: "slang", hsk: "slang" },
-  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! (давай!)", cat: "slang", hsk: "slang" },
-  { hanzi: "破防", pinyin: "pò fáng", meaning: "emotionally overwhelmed (пробило на эмоции)", cat: "slang", hsk: "slang" },
-  { hanzi: "yyds", pinyin: "yǒngyuǎn de shén", meaning: "eternal GOAT (навсегда бог)", cat: "slang", hsk: "slang" }
+  // Slang
+  { hanzi: "绝了", pinyin: "jué le", meaning: "insane, unreal (отпад)", cat: "Slang", hsk: "slang" },
+  { hanzi: "加油", pinyin: "jiāyóu", meaning: "go for it! (давай!)", cat: "Slang", hsk: "slang" }
 ];
 
 document.getElementById("total-words-count").textContent = allWords.length;
 
-/* ============ RELIABLE INSTANT AUDIO ENGINE ============ */
-function playAudioDirect(text) {
-  if (!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
-  
-  const msg = new SpeechSynthesisUtterance(text);
-  msg.lang = 'zh-CN';
-  msg.rate = 0.9;
-  window.speechSynthesis.speak(msg);
-}
-
-function playCurrentCardAudio() {
-  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter);
-  if (words[cardIdx]) playAudioDirect(words[cardIdx].hanzi);
-}
-
-/* ============ NAVIGATION & SECTIONS ============ */
-let currentHSKFilter = 1;
+/* ============ STATE & NAVIGATION ============ */
+let currentHSK = 1;
 let cardIdx = 0;
 
 function filterHSK(level) {
-  currentHSKFilter = level;
-  document.querySelectorAll(".hsk-chip").forEach(chip => chip.classList.remove("active"));
+  currentHSK = level;
+  document.querySelectorAll(".hsk-item").forEach(el => el.classList.remove("active"));
   event.currentTarget.classList.add("active");
   cardIdx = 0;
-  openSection("cards");
+  openSection('cards');
 }
 
 function openSection(sec) {
@@ -535,68 +371,79 @@ function goHome() {
   document.getElementById("home-view").classList.remove("hidden");
 }
 
-/* ============ FLASHCARDS ============ */
+/* ============ FLIP CARDS ============ */
+function getFilteredWords() {
+  return allWords.filter(w => currentHSK === 'slang' ? w.hsk === 'slang' : w.hsk === currentHSK);
+}
+
 function renderCard() {
-  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter);
+  const words = getFilteredWords();
+  const container = document.getElementById("flip-card");
+  container.classList.remove("flipped");
+
   if (!words.length) {
-    document.getElementById("card-hanzi").textContent = "🌸";
-    document.getElementById("card-pinyin-reveal").textContent = "More words coming soon";
-    document.getElementById("card-meaning-reveal").textContent = "";
-    document.getElementById("card-pinyin-reveal").style.display = "block";
+    document.getElementById("card-hanzi").textContent = "🐰";
+    document.getElementById("card-pinyin").textContent = "Coming Soon";
+    document.getElementById("card-meaning").textContent = "No words found in this section";
+    document.getElementById("card-cat").textContent = "Info";
+    document.getElementById("card-progress").textContent = "0 / 0";
     return;
   }
-  
+
   if (cardIdx >= words.length) cardIdx = 0;
   const w = words[cardIdx];
 
   document.getElementById("card-hanzi").textContent = w.hanzi;
-  document.getElementById("card-pinyin-reveal").textContent = w.pinyin;
-  document.getElementById("card-meaning-reveal").textContent = w.meaning;
-  document.getElementById("card-pinyin-reveal").style.display = "none";
-  document.getElementById("card-meaning-reveal").style.display = "none";
-  document.getElementById("card-feedback").textContent = "";
-  document.getElementById("card-input").value = "";
-  playAudioDirect(w.hanzi);
+  document.getElementById("card-pinyin").textContent = w.pinyin;
+  document.getElementById("card-meaning").textContent = w.meaning;
+  document.getElementById("card-cat").textContent = w.cat;
+  document.getElementById("card-progress").textContent = `${cardIdx + 1} / ${words.length}`;
 }
 
-function checkCardAnswer() {
-  const val = document.getElementById("card-input").value.toLowerCase().trim();
-  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter);
-  const w = words[cardIdx];
-
-  document.getElementById("card-pinyin-reveal").style.display = "block";
-  document.getElementById("card-meaning-reveal").style.display = "block";
-
-  if (val === w.pinyin.toLowerCase() || w.meaning.toLowerCase().includes(val)) {
-    document.getElementById("card-feedback").textContent = "✅ Correct! 🌸";
-    document.getElementById("card-feedback").className = "feedback-text ok";
-  } else {
-    document.getElementById("card-feedback").textContent = `❌ Answer: ${w.pinyin} (${w.meaning})`;
-    document.getElementById("card-feedback").className = "feedback-text no";
-  }
+function toggleCardFlip() {
+  document.getElementById("flip-card").classList.toggle("flipped");
 }
 
 function nextCard() {
-  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter);
+  const words = getFilteredWords();
   if (words.length) { cardIdx = (cardIdx + 1) % words.length; renderCard(); }
 }
+
 function prevCard() {
-  const words = allWords.filter(w => currentHSKFilter === 'slang' ? w.cat === 'slang' : w.hsk === currentHSKFilter);
+  const words = getFilteredWords();
   if (words.length) { cardIdx = (cardIdx - 1 + words.length) % words.length; renderCard(); }
 }
 
-/* ============ ARCHIVE ============ */
-function renderArchive(filter = "") {
-  const box = document.getElementById("archive-list");
-  const items = allWords.filter(w => w.hanzi.includes(filter) || w.pinyin.includes(filter) || w.meaning.toLowerCase().includes(filter.toLowerCase()));
-  box.innerHTML = items.map(w => `
-    <div class="card-3d" style="padding:16px; margin-bottom:10px;">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-size:26px; font-weight:900;">${w.hanzi}</span>
-        <button class="audio-btn" onclick="playAudioDirect('${w.hanzi}')">🔊 Play</button>
+/* ============ SENTENCES ============ */
+function checkSentence() {
+  const input = document.getElementById("sent-input").value.trim().toLowerCase();
+  const fb = document.getElementById("sent-feedback");
+  if (input.includes("我很爱妈妈") || input.includes("wo hen ai mama")) {
+    fb.textContent = "✅ Correct! 🐰";
+    fb.style.color = "#2e8b57";
+  } else {
+    fb.textContent = "❌ Answer: 我很爱妈妈 (wǒ hěn ài māma)";
+    fb.style.color = "#d93856";
+  }
+}
+
+/* ============ DICTIONARY ARCHIVE ============ */
+function renderArchive(query = "") {
+  const list = document.getElementById("archive-list");
+  const filtered = allWords.filter(w => 
+    w.hanzi.includes(query) || 
+    w.pinyin.toLowerCase().includes(query.toLowerCase()) || 
+    w.meaning.toLowerCase().includes(query.toLowerCase())
+  );
+
+  list.innerHTML = filtered.map(w => `
+    <div style="background:#fff; border-radius:18px; padding:16px; margin-bottom:10px; box-shadow:var(--shadow-soft); display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:24px; font-weight:900; color:var(--text-dark);">${w.hanzi}</div>
+        <div style="font-size:14px; font-weight:800; color:var(--primary);">${w.pinyin}</div>
+        <div style="font-size:13px; color:var(--text-sub);">${w.meaning}</div>
       </div>
-      <div style="color:var(--primary); font-weight:800;">${w.pinyin}</div>
-      <div style="color:var(--text-muted); font-size:14px;">${w.meaning}</div>
+      <span style="background:#e3f2fd; color:var(--primary); font-size:11px; font-weight:800; padding:4px 10px; border-radius:999px;">${w.cat}</span>
     </div>
   `).join("");
 }
@@ -604,11 +451,11 @@ function renderArchive(filter = "") {
 /* ============ GREETING ============ */
 function setGreeting() {
   const h = new Date().getHours();
-  let text = "Good day! Welcome to your study sanctuary 🌸";
-  if (h < 6) text = "Still awake late? Take a gentle study break 🌙";
-  else if (h < 12) text = "Good morning! Ready for fresh HSK practice? ☀️";
-  else if (h < 18) text = "Good afternoon! Keep up the great energy! 🌸";
-  else text = "Good evening! Cozy Chinese review time ✨";
+  let text = "Cozy pastel Chinese learning space 🌸";
+  if (h < 6) text = "Late night study session? Take it easy 🌙";
+  else if (h < 12) text = "Good morning! Ready to learn with Miffy? ☀️";
+  else if (h < 18) text = "Good afternoon! Happy Chinese review time ☁️";
+  else text = "Good evening! Cozy study sanctuary ✨";
   document.getElementById("greet-text").textContent = text;
 }
 setGreeting();
